@@ -1,0 +1,338 @@
+#header {
+	min-height: 108px;
+	position: relative;
+	/*background: #801819 url(./outlook_files/img/nature/shared/nature-header.png) no-repeat 0 0;*/
+	background: #801819 no-repeat 0 0;
+}
+#header h1 {
+	width: 400px;
+	height: 75px;
+}
+
+#header h2 a {
+	display: block;
+	width: 400px;
+	height: 75px;
+}
+#header h3 {
+	position: absolute;
+	left: -9999em;
+}
+
+
+
+#leaderboard {
+	height: 90px;
+	margin: 0 0 10px;
+	background: #5c5a5b;
+	background: rgba(0, 0, 0, 0.3);
+	overflow: visible;
+	position: relative;
+	z-index: 20;
+}
+#leaderboard .ad-203-90 {
+	width: 203px;
+}
+#leaderboard .ad-728x90 {
+	width: 728px;
+	padding: 0 15px;
+	margin: 0;
+	/*background: url(./outlook_files/img/nature/shared/leaderboard.gif) no-repeat 0 0;*/
+	position: relative;
+	z-index: 1;
+}
+#leaderboard .ad-2 {
+	position: absolute;
+	right: 6px; 
+	top: 6px;
+}
+#leaderboard.single-ad .ad {
+	margin: 0 auto
+}
+
+
+
+
+
+#foreword {
+	padding: 10px 0;
+}
+
+#foreword a {
+	color: #eee;
+	text-decoration: none;
+	font-weight: normal;
+}
+#foreword a:hover,
+#foreword a:focus {
+	color: #fff;
+	text-decoration: underline;
+}
+
+#foreword h2 {
+	margin: 0;
+	padding: 5px 10px 5px 0;
+	font-size: 153.9%;
+	font-family: garamond,"times new roman",serif;
+	float: left;
+}
+#foreword ul {
+	position: relative;
+	margin: 0;
+}
+#foreword li {
+	padding: 7px 10px;
+	float: right;
+	/*background: url(./outlook_files/img/nature/shared/divider-dotted.png) no-repeat 0 50%;*/
+}
+#foreword .sitemap {
+	float: left;
+}
+#foreword .login,
+#foreword .account,
+#foreword .welcome {
+	background: none;
+}
+#foreword .register,
+#foreword .logout {
+	padding-right: 0;
+}
+#foreword .welcome {
+	width: 300px;
+	position: absolute;
+	left: 50%;
+	margin: 0 0 0 -150px;
+	text-align: center;
+	color: #fff;
+}
+
+
+
+
+#main-nav {
+	position: relative;
+	margin: 0;
+}
+#main-nav li {
+	float: left;
+	position: relative;
+	left: 6px;
+	padding: 0 0 6px;
+}
+#main-nav a {
+	color: #fff;
+	text-decoration: none;
+	padding: 2px 8px;
+	margin: 0;
+	display: block;
+	position: relative;
+	float: left;
+	border-left: 1px solid #fff;
+}
+#main-nav .first a {
+	border-left: 0;
+}
+#main-nav .active a,
+#main-nav a:hover,
+#main-nav a:focus {
+	color: #fff;
+	color: rgba(255,255,255,0.6);
+}
+.ie6 #main-nav .active span,
+.ie7 #main-nav .active span,
+.ie8 #main-nav .active span,
+.ie6 #main-nav a:hover span,
+.ie7 #main-nav a:hover span,
+.ie8 #main-nav a:hover span,
+.ie6 #main-nav a:focus span,
+.ie7 #main-nav a:focus span,
+.ie8 #main-nav a:focus span {
+	display: inline-block;
+	filter: alpha(opacity=50);
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=50)";
+	cursor: pointer;
+}
+
+
+
+
+#breadcrumbs {
+	background: #ececec;
+}
+#breadcrumbs ul {
+	margin: 0;
+}
+#breadcrumbs li {
+	float: left;
+	position: relative;
+}
+#breadcrumbs a,
+#breadcrumbs span {
+	padding: 3px 8px;
+	margin: 3px 0;
+	display: block;
+	position: relative;
+	border-right: 1px solid #d4d4d4;
+	background-repeat: no-repeat;
+	background-position: 100% 50%;
+	line-height: 16px;
+	font-weight: normal;
+	white-space: nowrap;
+	text-decoration: none;
+}
+#breadcrumbs a:hover,
+#breadcrumbs a:focus {
+	color: #fff;
+	background-color: #801819;
+	border-color: #801819;
+	padding-top: 6px; 
+	padding-bottom: 6px;
+
+}
+#breadcrumbs .sub a:hover,
+#breadcrumbs .sub a:focus {
+	margin: 0 -1px 0 0;
+	padding-right: 9px;
+}
+
+#breadcrumbs .parent,
+#breadcrumbs .current {
+	margin-left: -20px;
+}
+#breadcrumbs .first {
+	margin-left: 0;
+	z-index: 10;
+}
+#breadcrumbs .parent-2 {
+	z-index: 9;
+}
+#breadcrumbs .parent-3 {
+	z-index: 8;
+}
+#breadcrumbs .parent-4 {
+	z-index: 7;
+}
+#breadcrumbs .parent-5 {
+	z-index: 6;
+}
+#breadcrumbs .parent-6 {
+	z-index: 5;
+}
+#breadcrumbs .parent-7 {
+	z-index: 4;
+}
+#breadcrumbs .parent-8 {
+	z-index: 3;
+}
+#breadcrumbs .parent-9 {
+	z-index: 2;
+}
+#breadcrumbs .current {
+	z-index: 1;
+}
+#breadcrumbs .parent a,
+#breadcrumbs .parent span,
+#breadcrumbs .current span {
+	color: #fff;
+	margin: 0;
+	padding: 6px 23px 6px 24px;
+	/*background-image: url(./outlook_files/img/nature/shared/bg-dark-grey-crumb.png);*/
+	border: 0;
+}
+#breadcrumbs .current span {
+	/*background-image: url(./outlook_files/img/nature/shared/bg-med-grey-crumb.png);*/
+}
+		
+#breadcrumbs .parent a:hover,
+#breadcrumbs .parent a:focus {
+	/*background-image: url(./outlook_files/img/nature/shared/bg-red-crumb.png);*/
+	background-color: transparent;
+}
+#breadcrumbs .first a,
+#breadcrumbs .first span {
+	padding-left: 13px;
+}
+
+#breadcrumbs .sub-1 {
+	margin-left: -20px;
+}
+#breadcrumbs .sub-1 a {
+	padding-left: 24px;
+}
+#breadcrumbs .last a {
+	border: 0;
+}
+
+
+#header .search-form {
+	width: 200px;
+	margin: 12px;
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+#header .search-form .txt {
+	display: block;
+	width: 150px;
+	float: left;
+	padding: 2px 3px;
+	border: 1px solid #9e9986;
+	color: #333;
+}
+#header .search-form .txt:focus,
+#header .search-form button:focus,
+#header .search-form button:hover {
+	border-color: #eee;
+	-webkit-box-shadow: 0 0 5px rgba(255,255,255,0.7);
+	-moz-box-shadow: 0 0 5px rgba(255,255,255,0.7);
+	box-shadow: 0 0 5px rgba(255,255,255,0.7);
+}
+#header .search-form button {
+	display: block;
+	float: right;
+	border: 1px solid #9e9986;
+	background-color: #2c2b27;
+	background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#2c2b27), to(#5a534a));
+	background-image: -webkit-linear-gradient(top, #2c2b27, #5a534a);
+	background-image: -moz-linear-gradient(top, #2c2b27, #5a534a);
+	background-image: -ms-linear-gradient(top, #2c2b27, #5a534a);
+	background-image: -o-linear-gradient(top, #2c2b27, #5a534a);
+	background-image: linear-gradient(top, #2c2b27, #5a534a);
+	color: #fff;
+	padding: 1px 7px;
+	overflow: visible;
+	vertical-align: middle;
+}
+#header .search-form a {
+	color: #fff;
+	display: block;
+	float: right;
+	clear: left;
+	margin-top: 6px;
+	font-weight: normal;
+	font-size: 77%;
+	padding-left: 12px;
+	/*background: url(./outlook_files/img/nature/shared/white-arrow-right.png) no-repeat 0 50%;*/
+	white-space: nowrap;
+}
+#header .search-form label {
+	color: #fff;
+	float: left;
+}
+#header .search-form label:after {
+	content: ': ';
+}
+.js-enabled #header .search-form label {
+	display: none;
+}
+.ie6 #header .search-form a,
+.ie7 #header .search-form a {
+	clear: both;
+	margin-left: -5em;
+}
+.ie6 #header .search-form {
+	margin-right: 10px;
+}
+.ie6 #header a {
+	zoom: 1;
+}

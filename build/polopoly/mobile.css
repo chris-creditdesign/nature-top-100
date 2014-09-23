@@ -1,0 +1,470 @@
+/* this file should just be media queries so we don't need to include it for ie < 9 */
+
+@media screen and (max-width: 986px) {
+	#foreword {
+		padding: 0 10px;
+	}
+}
+
+@media screen and (max-width: 768px) {
+	body {
+		width: 100%;
+		overflow-x: hidden;
+	}
+	
+	#main {
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
+	#constrain-content {
+		padding: 20px 0 0 0;
+	}
+	#content,
+	#extranav {
+		float: none;
+		width: 100%;
+		padding: 0;
+		margin: 0 0 20px;
+	}
+	#leaderboard {
+		height: auto;
+	}
+	#leaderboard div.ad {
+		width: 100%;
+		max-width: 728px;
+		padding: 0;
+	}
+	#leaderboard div.ad object,
+	#leaderboard div.ad embed {
+		width: 100%;
+	}
+	
+	#header {
+		min-height: 0;
+		height: auto;
+	}
+	#breadcrumbs {
+		overflow: hidden;
+	}
+	#breadcrumbs ul {
+		width: 1000px;
+	}
+	#main-nav {
+		padding-top: 5px;
+		padding-bottom: 0;
+		background-color: #671015;
+		background: -webkit-gradient(linear, 0 0, 0 30, from(#9d1c24), to(#671015));
+		background: -webkit-linear-gradient(top, #9d1c24, #671015 30px);
+		background: -moz-linear-gradient(top, #9d1c24, #671015 30px);
+		background: -ms-linear-gradient(top, #9d1c24, #671015 30px);
+		background: -o-linear-gradient(top, #9d1c24, #671015 30px);
+		background: linear-gradient(top, #9d1c24, #671015 30px);
+	}
+	#main-nav li a {
+		border-left: solid 1px #671015;
+		border-right: solid 1px #9d1c24;
+	}
+	#main-nav li:last-child a {
+		border-right: 0;
+	}
+	
+	#footer form.search-form {
+		margin: 20px 20px 0 0;
+	}
+	
+	div.popup {
+		max-width: 95% !important;
+	}
+	
+	#footer ul.toggle {
+		clear: left;
+		float: left;
+		margin: 15px 10px 0 20px;
+	}
+	
+	#mob-ms {
+		display: block;
+	}
+}
+
+@media screen and (min-width: 320px) and (max-width: 480px),
+        screen and (-webkit-device-pixel-ratio: 2) and (max-width: 640px) and (orientation: landscape),
+        screen and (-webkit-device-pixel-ratio: 2) and (max-width: 360px) and (orientation: portrait),
+        screen and (-webkit-device-pixel-ratio: 1.5) and (max-width: 640px) and (orientation: landscape),
+        screen and (-o-device-pixel-ratio: 3/2) and (max-width: 640px) and (orientation: landscape) {
+	
+	body {
+		-webkit-text-size-adjust: none;
+		-ms-text-size-adjust: none;
+		background-color: #cbcbcb;
+		background: -webkit-gradient(linear, 0 0, 0 310, from(#202020), to(#cbcbcb));
+		background: -webkit-linear-gradient(top, #202020, #cbcbcb 310px);
+		background: -moz-linear-gradient(top, #202020, #cbcbcb 310px);
+		background: -ms-linear-gradient(top, #202020, #cbcbcb 310px);
+		background: -o-linear-gradient(top, #202020, #cbcbcb 310px);
+		background: linear-gradient(top, #202020, #cbcbcb 310px);
+	}
+	
+	#breadcrumbs,
+	#leaderboard {
+		position: absolute;
+		left: -9999em;
+	}
+	#main {
+		padding: 0;
+	}
+	#constrain-content {
+		padding: 6px;
+	}
+	
+	#foreword {
+		font-size: 93%;
+	}
+	#foreword h2 {
+		font-size: 129%;
+	}
+	#foreword .sitemap,
+	#foreword li.welcome {
+		position: absolute;
+		left: -9999em;
+	}
+	#foreword h2,
+	#foreword li {
+		padding-top: 3px;
+		padding-bottom: 3px;
+	}
+	
+	body #main-nav {
+		display: block;
+		position: relative;
+		float: left;
+		width: 100%;
+		padding: 0 0 10px;
+		margin: 0;
+		background: #fff;
+    }
+	
+	#main-nav li {
+		width: 50%;
+		padding: 0;
+		margin: 0;
+		left: 0; 
+		right: 0;
+	}
+	#main-nav li a {
+		border: 0;
+		float: none;
+		display: block;
+		padding: 6px;
+		margin: 5px 3px 0 6px;
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+		background-color: #671015;
+		background: -webkit-gradient(linear, 0 0, 0 30, from(#9d1c24), to(#671015));
+		background: -webkit-linear-gradient(top, #9d1c24, #671015 30px);
+		background: -moz-linear-gradient(top, #9d1c24, #671015 30px);
+		background: -ms-linear-gradient(top, #9d1c24, #671015 30px);
+		background: -o-linear-gradient(top, #9d1c24, #671015 30px);
+		background: linear-gradient(top, #9d1c24, #671015 30px);
+	}
+	#main-nav li:nth-child(even) a {
+		margin: 5px 6px 0 3px;
+	}
+	#main-nav li.active a {
+		background-color: #9d1c24;
+		background: -webkit-gradient(linear, 0 0, 0 30, from(#671015), to(#9d1c24));
+		background: -webkit-linear-gradient(top, #671015, #9d1c24 30px);
+		background: -moz-linear-gradient(top, #671015, #9d1c24 30px);
+		background: -ms-linear-gradient(top, #671015, #9d1c24 30px);
+		background: -o-linear-gradient(top, #671015, #9d1c24 30px);
+		background: linear-gradient(top, #671015, #9d1c24 30px);
+		opacity: 0.9;
+	}
+	.js-enabled body #main-nav {
+		display: none;
+	}
+	.js-enabled body #main-nav.expanded {
+		display: block;
+	}
+	.js-enabled body #main-nav {
+		width: 150px;
+		background: #fdfcfd;
+		border: 1px solid #c7c8cc;
+		border-top: 0;
+		-webkit-border-radius: 2px 0 2px 2px;
+		-moz-border-radius: 2px 0 2px 2px;
+		border-radius: 2px 0 2px 2px;
+		position: absolute;
+		right: 7px;
+		top: 42px;
+		padding: 0;
+		z-index: 10;
+	}
+	.js-enabled body #main-nav li {
+		float: none;
+		text-align: right;
+		width: 100%;
+		padding: 0;
+		margin: 0;
+	}
+	.js-enabled body #main-nav li a {
+		display: block;
+		background: transparent none;
+		padding: 5px;
+		margin: 0;
+		color: #575e66;
+	}
+	.js-enabled body #main-nav li a:hover,
+	.js-enabled body #main-nav li a:focus {
+		color: #000;
+	}
+	.js-enabled body #main-nav li:nth-child(odd) a {
+		background: #edeff2;
+	}
+	
+	
+	#header {
+		position: relative;
+		padding: 50px 0 0;
+		overflow: visible;
+		background: #86201b url(/polopoly_static/img/nature/news/journal-mobile-header.jpg) no-repeat 0 0;
+		border-bottom: 0;
+		-webkit-box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+		-moz-box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+		box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+	}
+	#header h2,
+	#header h2 a {
+		width: 70%;
+		height: 50px;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+	
+	#constrain form.search-form {
+		position: static;
+		display: block;
+		float: none;
+		width: 100%;
+		background: #ddd;
+		padding: 0;
+		margin: 0;
+		border: 0;
+		border-bottom: 5px solid #fff;
+		border-top: 5px solid #fff;
+	}
+	
+	.toggle-btn {
+		display: block;
+	}
+	.js-enabled #header form.search-form {
+		display: none;
+	}
+	.js-enabled #header form.search-form.expanded {
+		display: block;
+	}
+	
+	#constrain form.search-form a,
+	#constrain form.search-form label {
+		position: absolute;
+		left: -9999em;
+	}
+	#constrain form.search-form fieldset {
+		padding: 6px;
+		height: 29px;
+	}
+	
+	#constrain form.search-form input.txt {
+		width: 80%;
+		height: 23px;
+		padding: 2px;
+		border: 1px solid #c7c8cc;
+		background: #f3f3f3;
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+		font-size: 100%;
+		-webkit-transition: background-color 1s;
+		-moz-transition: background-color 1s;
+		-ms-transition: background-color 1s;
+		-o-transition: background-color 1s;
+		transition: background-color 1s;
+	}
+	#constrain-footer form.search-form input.txt {
+		font-size: 117.7%;
+	}
+	#constrain form.search-form input.txt:focus {
+		background: #fff;
+		border-color: #666;
+		-webkit-box-shadow: none;
+		-moz-box-shadow: none;
+		box-shadow: none;
+	}
+	#constrain form.search-form button {
+		color: #575e66;
+		background-color: #e1e4e9;
+		background: -webkit-gradient(linear, 0 0, 0 100%, from(#fdfcfd), to(#e1e4e9));
+		background: -webkit-linear-gradient(top, #fdfcfd, #e1e4e9);
+		background: -moz-linear-gradient(top, #fdfcfd, #e1e4e9);
+		background: -ms-linear-gradient(top, #fdfcfd, #e1e4e9);
+		background: -o-linear-gradient(top, #fdfcfd, #e1e4e9);
+		background: linear-gradient(top, #fdfcfd, #e1e4e9);
+		vertical-align: middle;
+		border: 1px solid #c7c8cc;
+		float: right;
+		margin: 0;
+		width: 46px;
+		height: 29px;
+		font-size: 85%;
+		font-weight: bold;
+		padding: 3px;
+		-webkit-border-radius: 2px;
+		-moz-border-radius: 2px;
+		border-radius: 2px;
+	}
+	#constrain form.search-form button:first-letter {
+		text-transform: uppercase;
+		background: transparent none;
+	}
+	#constrain form.search-form button:hover {
+		border-color: #666;
+	}
+
+	#footer ul.footer-links {
+		width: auto;
+		float: none;
+		font-size: 114%;
+		font-size: 1;
+		border-bottom: 1px dotted #ccc;
+		border-right: 0;
+		margin: 0 20px;
+	}
+	#footer ul.last {
+		margin: 0 20px 20px
+	}
+	#footer p.copyright {
+		padding: 70px 0 0 0;
+		background-position: 50% 10px;
+	}
+
+	.img-left, 
+	.img-right, 
+	.video-left, 
+	.video-right, 
+	.slideshow-left, 
+	.slideshow-right, 
+	.box-left, 
+	.box-right, 
+	.table-left, 
+	.table-right, 
+	.pullquote-left, 
+	.pullquote-right {
+		float: none;
+		clear: both;
+		margin: 0 auto 20px;
+	}
+	
+	#mob-ms {
+		display: none;
+	}
+	#mob-ss {
+		display: block;
+	}
+
+	.col-section .secondary-heading {
+		padding: 0 5px;
+	}
+	.article-list li.item-group-1,
+	.article-list li.item-group-2 {
+		border-bottom: 1px solid #ececec;
+		padding: 5px;
+	}
+	.article-list li:nth-child(odd) {
+		background: #f6f6f6;
+	}
+	.article-list li.item-group-2:before {
+		content: '';
+		padding: 0;
+	}
+	.primary-heading {
+		font-size: 138.5%;
+		padding: 0 5px;
+	}
+	.primary-heading span {
+		border: 0;
+	}
+	.col-section {
+		margin: 0 0 20px;
+	}
+
+	.featured-articles-box .pagination a,
+	.carousel-nav li a {
+		width: 20px;
+		height: 25px;
+		line-height: 25px;
+	}
+	.featured-articles-box .pagination {
+		top: -35px;
+	}
+	.carousel-nav {
+		top: -8px;
+	}
+	.carousel .secondary-heading {
+		padding-right: 70px;
+	}
+
+	div.featured-articles-box .image-teaser {
+		padding-top: 180px;
+	}
+	.featured-articles-box .image-teaser .media {
+		top: -10px;
+		border: 0;
+		border-bottom: 1px solid #8d8d8d;
+	}
+}
+
+@media screen and (max-width: 902px) and (min-width: 769px), screen and (min-width: 320px) and (max-width: 560px) {
+	.featured-articles-box .image-teaser {
+		padding: 190px 0 0 0;
+	}
+	.featured-articles-box .image-teaser .media {
+		left: 50%;
+		margin-left: -150px;
+	}
+	div.special-feature .teaser {
+		padding: 10px;
+		background-image: none !important;
+	}
+	
+}
+
+@media screen and (max-width: 902px) and (min-width: 769px), screen and (min-width: 320px) and (max-width: 480px) {
+
+	.video-wrapper .video {
+		float: none;
+		margin: 0 auto;
+		width: 100%;
+	}
+	.video-meta-left .video-meta,
+	.video-meta-right .video-meta {
+		float: none;
+		width: 100%;
+	}
+	
+	.elsewhere .slides li {
+		float: none;
+		clear: both;
+		width: 100%;
+	}
+	
+	.cols .col {
+		float: none;
+		width: 100%;
+	}
+	.cols .col .col-section {
+		padding: 0;
+	}
+}

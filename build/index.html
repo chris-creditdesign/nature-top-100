@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Polopoly</title>
+	<script src="http://nature.com/view/scripts/jquery/jquery-1.7.2.min.js" type="text/javascript"></script>
+	<!-- <script src="https://poly-admin1.nature.com/polopoly_static/js/jquery-1.6.4.js" type="text/javascript"></script> -->
+
+	<link rel="stylesheet" type="text/css" href="polopoly/reset.css" />
+	<link rel="stylesheet" type="text/css" href="polopoly/html5.css" />
+	<link rel="stylesheet" type="text/css" href="polopoly/layout.css" />	
+	<link rel="stylesheet" type="text/css" href="polopoly/header.css" />	
+	<link rel="stylesheet" type="text/css" href="polopoly/footer.css" />	
+	<link rel="stylesheet" type="text/css" href="polopoly/main.css" />	
+	<link rel="stylesheet" type="text/css" href="polopoly/news-main.css" />	
+	<link rel="stylesheet" type="text/css" href="polopoly/comments.css" />	
+	<link rel="stylesheet" type="text/css" href="polopoly/mobile.css" />	
+
+
+
+</head>
+
+
+<!--[if lt IE 6]><body class="lt-ie6"><![endif]-->
+<!--[if IE 6]><body class="ie6"><![endif]-->
+<!--[if IE 7]><body class="ie7"><![endif]-->
+<!--[if IE 8]><body class="ie8"><![endif]-->
+<!--[if gt IE 8]><body class="gt-ie8"><![endif]-->
+<!--[if !IE]>--><body><!--<![endif]-->
+
+<div id="constrain">
+
+<div id="main">
+	<div id="constrain-content" class="cleared">
+		<div id="content" class="col">
+			<article>
+				<div id="article">
+					<section>
+						<div class="section">
+							<div class="html-widget img-rigth">
+
+<!-- ========= PASTED POLOPOLY HEADER ABOVE ========= -->
+
+
+
+
+
+
+
+<style scoped>
+.status-message {
+  border: 1px solid #c00;
+  background: #fac7c7;
+  padding: 10px;
+}
+
+.outer-wrapper {
+  width: 100%;
+  min-height: 900px;
+  position: relative;
+  border: 1px solid #c8c7cf;
+}
+.outer-wrapper h2, .outer-wrapper h3, .outer-wrapper p {
+  padding: 10px 10px 0 10px;
+  margin: 0;
+}
+
+</style>
+<div class="outer-wrapper">
+	<div class="chart"></div>
+</div>
+<!--[if gt IE 8]><!-->
+<script type="text/javascript">
+function buildGraphic (topData, margin, width, height, colour, duration) {
+
+	var svg = d3.select(".outer-wrapper .chart").append("svg")
+		.attr("width", width + margin.left + margin.right)
+		.attr("height", height + margin.top + margin.bottom);
+
+	// svg.append("rect")
+	// 	.attr("width", width)
+	// 	.attr("height", height)
+	// 	.attr("fill","none")
+	// 	.attr("stroke-width", 0.5)
+	// 	.attr("x", margin.left)
+	// 	.attr("y", margin.top);
+	
+	/*	Define Y scale range to go from height to 0
+		Do not define the domain yet */
+	var yScale = d3.scale.linear()
+		.range([0 , height])
+		.domain([d3.min(topData, function(d) { return d.cites;}), d3.max(topData, function(d) { return d.cites;})]);
+
+	var xScale = d3.scale.ordinal()
+		.domain(d3.range(topData.length))
+		.rangeRoundBands([0,(width + margin.right)], 0.4);
+
+	console.log(d3.min(topData, function(d) { return d.cites;}));
+
+	var bars = svg.selectAll("rect")
+		.data(topData, function(d, i) {
+			return d.title;
+		});
+
+	/* Enter… */
+	bars.enter()
+		.append("rect")
+		.attr("x", function(d, i){
+			return xScale(i);
+		})
+		.attr("width", function() {
+			return xScale.rangeBand();
+		})
+		.attr("y", 0)
+		.attr("height", function (d) {
+			return yScale(d.cites);
+		} )
+		.attr("opacity",1)
+		.attr("fill", function(d, i){
+			return colour[0];
+		});
+
+
+}
+function buildSVG (margin, width, height) {
+
+}
+function buildDataSet (data) {
+	var dataSet = [];
+
+	var tableRows = jQuery(data).find("tbody tr");
+	var headerRows = jQuery(data).find("thead tr").find('th');
+
+
+
+	for (var i = 0; i < tableRows.length; i++) {
+		var newObject = {};
+
+		newObject.author = tableRows.eq(i).find("td").eq(0).text();
+		newObject.title = tableRows.eq(i).find("td").eq(1).text();
+		newObject.publication = tableRows.eq(i).find("td").eq(2).text();
+		
+		newObject.cites = parseInt(tableRows.eq(i).find("td").eq(3).text(), 10);
+
+		newObject.year = parseInt(tableRows.eq(i).find("td").eq(4).text(), 10);
+		
+		newObject.doi = tableRows.eq(i).find("td").eq(5).text();
+		newObject.discipline = tableRows.eq(i).find("td").eq(6).text();
+
+		dataSet.push(newObject);
+	}
+
+	return dataSet;
+}
+(function() {
+		var init = function($)
+		{
+
+		/*	==================================================================================== */
+		/*	GLOBAL VARIABLES FOR D3 */
+
+		/*  Colours for the bars */
+		var colour = ["#1abc9c","#27ae60","#3498db","#5959b7","#EB6B4B"];
+
+		/*	Margin, Width and height */
+		var margin = {top: 15, right: 20, bottom: 20, left: 90};
+		var width = $('.section').width()  - margin.left - margin.right;
+		var height = 600 - margin.top - margin.bottom;
+		/*	Global variable to control the length of D3 transitons */
+		var duration = 450;
+
+		var topData;
+
+		/*	==================================================================================== */
+		/*	jQuery ready */
+
+			/*	==================================================================================== */
+			/*	Load D3 */
+			/*	All of the D3/svg code is contained within the call back function */
+			/*	Loading D3 into ie6-8 seems to cause a runtime error */
+			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
+
+				$.ajax({
+					url: "data/top-100-edit-table.html",
+					dataType: 'text',
+					success: function (data) {
+						topData = buildDataSet(data);
+					}
+
+				}).done(function () {
+					
+
+					var myGraphic = buildGraphic(topData, margin, width, height, colour, duration);
+
+				}); /* End of ajax call */
+
+			}); /* End of d3js getscript call
+
+		/* End of active code */
+		};
+
+
+	setTimeout(function()
+	{
+	if (typeof jQuery !== 'undefined')
+	{
+		init(jQuery);
+	} else
+	{
+		setTimeout(arguments.callee, 60);
+	}
+	}, 60);
+
+})();
+</script>
+<!--<![endif]-->
+<!-- ========= PASTED POLOPOLY FOOTER BELOW ========= -->
+
+</div>							
+						</div>
+					</section>
+				</div>
+			</article>
+		</div>
+	</div>
+</div>
+</div>
+</body>
+</html>

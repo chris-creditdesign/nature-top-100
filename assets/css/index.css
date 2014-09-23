@@ -1,0 +1,16 @@
+.status-message {
+  border: 1px solid #c00;
+  background: #fac7c7;
+  padding: 10px;
+}
+
+.outer-wrapper {
+  width: 100%;
+  min-height: 900px;
+  position: relative;
+  border: 1px solid #c8c7cf;
+}
+.outer-wrapper h2, .outer-wrapper h3, .outer-wrapper p {
+  padding: 10px 10px 0 10px;
+  margin: 0;
+}
