@@ -1,4 +1,4 @@
-function buildGraphic (topData, margin, width, height, colour, duration, delay) {
+function buildGraphic (topData, discipline, margin, width, height, colour, duration, delay) {
 
 	var svg = d3.select(".outer-wrapper .chart").append("svg")
 		.attr("width", width + margin.left + margin.right)
@@ -49,7 +49,7 @@ function buildGraphic (topData, margin, width, height, colour, duration, delay) 
 				return yScale.rangeBand();
 			})
 			.attr("fill", function(d, i){
-				return getColour(d.discipline, colour);
+				return getColour(d.discipline, colour, discipline);
 			});
 	}
 

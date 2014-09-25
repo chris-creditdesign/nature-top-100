@@ -4,7 +4,7 @@ function buildDataSet (data) {
 	var tableRows = jQuery(data).find("tbody tr");
 	var headerRows = jQuery(data).find("thead tr").find('th');
 
-
+	var discipline = [];
 
 	for (var i = 0; i < tableRows.length; i++) {
 		var newObject = {};
@@ -18,10 +18,20 @@ function buildDataSet (data) {
 		newObject.year = parseInt(tableRows.eq(i).find("td").eq(4).text(), 10);
 		
 		newObject.doi = tableRows.eq(i).find("td").eq(5).text();
-		newObject.discipline = tableRows.eq(i).find("td").eq(6).text();
 
+		my_discipline = tableRows.eq(i).find("td").eq(6).text();
+
+		newObject.discipline = my_discipline;
+
+		if (discipline.indexOf(my_discipline) === -1 ) {
+			discipline.push(my_discipline);
+		}
+		
 		dataSet.push(newObject);
 	}
 
-	return dataSet;
+	return {
+		dataSet: dataSet,
+		discipline: discipline
+	};
 }

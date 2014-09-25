@@ -72,51 +72,13 @@
 </div>
 <!--[if gt IE 8]><!-->
 <script type="text/javascript">
-function getColour (x, colour) {
-	var my_colour = "#000";
+ function createCheckboxes () {
+ 	// console.log("Hello mum!");
+ }
+function getColour (x, colour, discipline) {
+	var colourIndex = discipline.indexOf(x);
 
-	switch (x) {
-		case "Statistics":
-			my_colour = colour[0];
-			break;
-		case "Other":
-			my_colour = colour[1];
-			break;
-		case "Math/Computer Science":
-			my_colour = colour[2];
-			break;
-		case "Experimental, Social and Clinical Psychology":
-			my_colour = colour[3];
-			break;
-		case "Discoveries":
-			my_colour = colour[4];
-			break;
-		case "Crystallography":
-			my_colour = colour[5];
-			break;
-		case "Condensed Matter Physics":
-			my_colour = colour[6];
-			break;
-		case "Biomedical Research and Clinical Medicine":
-			my_colour = colour[7];
-			break;
-		case "bioinformatics close to evolutionary biology":
-			my_colour = colour[8];
-			break;
-		case "bioinformatics":
-			my_colour = colour[9];
-			break;
-		case "biochem techniques":
-			my_colour = colour[10];
-			break;
-		case "Atomic and Molecular Physics":
-			my_colour = colour[11];
-			break;
-		default:
-			my_colour = colour[0];
-	}
-
-	return my_colour;
+	return colour[colourIndex];
 }
 /*	Function to sort papers by citation */
 function comparePaper(a,b) {
@@ -126,7 +88,7 @@ function comparePaper(a,b) {
 		return -1;
 	return 0;
 }
-function buildGraphic (topData, margin, width, height, colour, duration, delay) {
+function buildGraphic (topData, discipline, margin, width, height, colour, duration, delay) {
 
 	var svg = d3.select(".outer-wrapper .chart").append("svg")
 		.attr("width", width + margin.left + margin.right)
@@ -177,7 +139,7 @@ function buildGraphic (topData, margin, width, height, colour, duration, delay) 
 				return yScale.rangeBand();
 			})
 			.attr("fill", function(d, i){
-				return getColour(d.discipline, colour);
+				return getColour(d.discipline, colour, discipline);
 			});
 	}
 
@@ -223,7 +185,7 @@ function buildDataSet (data) {
 	var tableRows = jQuery(data).find("tbody tr");
 	var headerRows = jQuery(data).find("thead tr").find('th');
 
-
+	var discipline = [];
 
 	for (var i = 0; i < tableRows.length; i++) {
 		var newObject = {};
@@ -237,12 +199,22 @@ function buildDataSet (data) {
 		newObject.year = parseInt(tableRows.eq(i).find("td").eq(4).text(), 10);
 		
 		newObject.doi = tableRows.eq(i).find("td").eq(5).text();
-		newObject.discipline = tableRows.eq(i).find("td").eq(6).text();
 
+		my_discipline = tableRows.eq(i).find("td").eq(6).text();
+
+		newObject.discipline = my_discipline;
+
+		if (discipline.indexOf(my_discipline) === -1 ) {
+			discipline.push(my_discipline);
+		}
+		
 		dataSet.push(newObject);
 	}
 
-	return dataSet;
+	return {
+		dataSet: dataSet,
+		discipline: discipline
+	};
 }
 (function() {
 		var init = function($)
@@ -299,12 +271,13 @@ function buildDataSet (data) {
 
 				}).done(function () {
 					
-					myGraphic = buildGraphic(topData, margin, width, height, colour, duration, delay);
-					myGraphic.createBars(topData);
+					createCheckboxes();
+					myGraphic = buildGraphic(topData.dataSet, topData.discipline, margin, width, height, colour, duration, delay);
+					myGraphic.createBars(topData.dataSet);
 
 					myButton.on('click', function () {
-						topData.sort(comparePaper);
-						myGraphic.updateBars(topData);
+						topData.dataSet.sort(comparePaper);
+						myGraphic.updateBars(topData.dataSet);
 					});
 
 				}); /* End of ajax call */

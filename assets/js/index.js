@@ -53,12 +53,13 @@
 
 				}).done(function () {
 					
-					myGraphic = buildGraphic(topData, margin, width, height, colour, duration, delay);
-					myGraphic.createBars(topData);
+					createCheckboxes();
+					myGraphic = buildGraphic(topData.dataSet, topData.discipline, margin, width, height, colour, duration, delay);
+					myGraphic.createBars(topData.dataSet);
 
 					myButton.on('click', function () {
-						topData.sort(comparePaper);
-						myGraphic.updateBars(topData);
+						topData.dataSet.sort(comparePaper);
+						myGraphic.updateBars(topData.dataSet);
 					});
 
 				}); /* End of ajax call */
