@@ -6,10 +6,24 @@
 		/*	GLOBAL VARIABLES FOR D3 */
 
 		/*  Colours for the bars */
-		var colour = ["#1abc9c","#27ae60","#3498db","#5959b7","#EB6B4B"];
+		// var colour = ["#1abc9c","#27ae60","#3498db","#5959b7","#EB6B4B"];
+
+		var colour =	["#ce071d",
+						"#e95f0f",
+						"#85b48b",
+						"#302d2c",
+						"#c2514e",
+						"#e8af4a",
+						"#dfc85c",
+						"#a5b688",
+						"#565279",
+						"#8b0a1f",
+						"#75c4c0",
+						"#858986"];
+
 
 		/*	Margin, Width and height */
-		var margin = {top: 15, right: 20, bottom: 20, left: 90};
+		var margin = {top: 50, right: 20, bottom: 20, left: 20};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var height = 600 - margin.top - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
