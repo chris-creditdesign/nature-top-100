@@ -19,10 +19,65 @@
 </style>
 <div class="outer-wrapper">
 	<div class="chart"></div>
+	<button>My button</button>
 </div>
 <!--[if gt IE 8]><!-->
 <script type="text/javascript">
-function buildGraphic (topData, margin, width, height, colour, duration) {
+function getColour (x, colour) {
+	var my_colour = "#000";
+
+	switch (x) {
+		case "Statistics":
+			my_colour = colour[0];
+			break;
+		case "Other":
+			my_colour = colour[1];
+			break;
+		case "Math/Computer Science":
+			my_colour = colour[2];
+			break;
+		case "Experimental, Social and Clinical Psychology":
+			my_colour = colour[3];
+			break;
+		case "Discoveries":
+			my_colour = colour[4];
+			break;
+		case "Crystallography":
+			my_colour = colour[5];
+			break;
+		case "Condensed Matter Physics":
+			my_colour = colour[6];
+			break;
+		case "Biomedical Research and Clinical Medicine":
+			my_colour = colour[7];
+			break;
+		case "bioinformatics close to evolutionary biology":
+			my_colour = colour[8];
+			break;
+		case "bioinformatics":
+			my_colour = colour[9];
+			break;
+		case "biochem techniques":
+			my_colour = colour[10];
+			break;
+		case "Atomic and Molecular Physics":
+			my_colour = colour[11];
+			break;
+		default:
+			my_colour = colour[0];
+	}
+
+	return my_colour;
+}
+/*	Function to sort papers by citation */
+function comparePaper(a,b) {
+	if (a.cites < b.cites)
+		return 1;
+	if (a.cites > b.cites)
+		return -1;
+	return 0;
+}
+function buildGraphic (topData, margin, width, height, colour, duration, delay) {
 
 	var svg = d3.select(".outer-wrapper .chart").append("svg")
 		.attr("width", width + margin.left + margin.right)
@@ -51,74 +106,62 @@ function buildGraphic (topData, margin, width, height, colour, duration) {
 		.rangeBands([0, height], 0.2, 0);
 
 
-	var bars = barsGroup.selectAll("rect")
-		.data(topData, function(d, i) {
-			return d.title;
-		});
+	var bars = barsGroup.selectAll("rect");
 
-	/* Enter… */
-	bars.enter()
-		.append("rect")
-		.attr("x", function (d) {
-			return (width/2) - (xScale(d.cites) / 2);
-		})
-		.attr("width", function(d) {
-			return xScale(d.cites);
-		})
-		.attr("y", function(d, i){
-			return yScale(i);
-		})
-		.attr("height", function () {
-			return yScale.rangeBand();
-		} )
-		.attr("opacity",1)
-		.attr("fill", function(d, i){
+	function createBars (data) {
+		/* Enter… */
+		bars.data(data, function (d) {
+				return d.title;
+			})
+			.enter()
+			.append("rect")
+			.attr("x", function (d) {
+				return (width/2) - (xScale(d.cites) / 2);
+			})
+			.attr("width", function(d) {
+				return xScale(d.cites);
+			})
+			.attr("y", function(d, i){
+				return yScale(i);
+			})
+			.attr("height", function () {
+				return yScale.rangeBand();
+			})
+			.attr("fill", function(d, i){
+				return getColour(d.discipline, colour);
+			});
+	}
 
-			my_colour = "#000";
+	function updateBars (data) {
+		barsGroup.selectAll("rect").data(data, function (d) {
+				return d.title;
+			})
+			.transition()
+			.duration(duration)
+			.delay(function (d,i) {
+				return i * delay;
+			})
+			.attr("x", function (d) {
+				return (width/2) - (xScale(d.cites) / 2);
+			})
+			.attr("width", function(d) {
+				return xScale(d.cites);
+			})
+			.attr("y", function(d, i){
+				return yScale(i);
+			});
 
-			switch (d.discipline) {
-				case "Statistics":
-					my_colour = colour[0];
-					break;
-				case "Other":
-					my_colour = colour[1];
-					break;
-				case "Math/Computer Science":
-					my_colour = colour[2];
-					break;
-				case "Experimental, Social and Clinical Psychology":
-					my_colour = colour[3];
-					break;
-				case "Discoveries":
-					my_colour = colour[4];
-					break;
-				case "Crystallography":
-					my_colour = colour[5];
-					break;
-				case "Condensed Matter Physics":
-					my_colour = colour[6];
-					break;
-				case "Biomedical Research and Clinical Medicine":
-					my_colour = colour[7];
-					break;
-				case "bioinformatics close to evolutionary biology":
-					my_colour = colour[8];
-					break;
-				case "bioinformatics":
-					my_colour = colour[9];
-					break;
-				case "biochem techniques":
-					my_colour = colour[10];
-					break;
-				case "Atomic and Molecular Physics":
-					my_colour = colour[11];
-					break;
-				default:
-					my_colour = colour[0];
-			}
+	}
+		
+	return {
+		createBars: function (data) {
+			createBars(data);
+		},
+		updateBars: function (data) {
+			updateBars(data);
+		}
 
-			return my_colour;
-		});
+	};
 
 
 }
@@ -182,8 +225,12 @@ function buildDataSet (data) {
 		var height = 600 - margin.top - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
+		var delay = 10;
 
 		var topData;
+		var myGraphic;
+
+		var myButton = $('.outer-wrapper button');
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -203,8 +250,13 @@ function buildDataSet (data) {
 
 				}).done(function () {
 					
+					myGraphic = buildGraphic(topData, margin, width, height, colour, duration, delay);
+					myGraphic.createBars(topData);
 
-					var myGraphic = buildGraphic(topData, margin, width, height, colour, duration);
+					myButton.on('click', function () {
+						topData.sort(comparePaper);
+						myGraphic.updateBars(topData);
+					});
 
 				}); /* End of ajax call */
 

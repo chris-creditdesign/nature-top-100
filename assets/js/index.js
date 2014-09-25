@@ -28,8 +28,12 @@
 		var height = 600 - margin.top - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
+		var delay = 10;
 
 		var topData;
+		var myGraphic;
+
+		var myButton = $('.outer-wrapper button');
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -49,8 +53,13 @@
 
 				}).done(function () {
 					
+					myGraphic = buildGraphic(topData, margin, width, height, colour, duration, delay);
+					myGraphic.createBars(topData);
 
-					var myGraphic = buildGraphic(topData, margin, width, height, colour, duration);
+					myButton.on('click', function () {
+						topData.sort(comparePaper);
+						myGraphic.updateBars(topData);
+					});
 
 				}); /* End of ajax call */
 
