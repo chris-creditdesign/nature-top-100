@@ -68,13 +68,67 @@
 </style>
 <div class="outer-wrapper">
 	<div class="chart"></div>
-	<button>My button</button>
+
+	<form class="choose-option"></form>
+
 </div>
 <!--[if gt IE 8]><!-->
 <script type="text/javascript">
- function createCheckboxes () {
- 	// console.log("Hello mum!");
- }
+function updateArray (ary) {
+	selectedArray = [];
+	selections = [];
+
+	var checkboxes = jQuery('.outer-wrapper form.choose-option input:checked');
+
+	for (var v = 0; v < checkboxes.length; v++) {
+		selections.push(checkboxes.eq(v).parent().text());
+	}
+
+	console.log(selections.length);
+
+	for (var i = 0; i < ary.length; i++) {
+		var thisDiscipline = ary[i].discipline;
+		
+		if (selections.indexOf(thisDiscipline) !== -1) {
+			selectedArray.push(ary[i]);
+		}
+	}
+
+	selectedArray.sort(comparePaper);
+
+	return selectedArray;
+}
+function createCheckboxes (data, colour) {
+
+
+ 	sortedData = [];
+
+ 	for (var i = 0; i < data.length; i++) {
+ 		sortedData.push(data[i]);
+ 	}
+
+ 	sortedData.sort();
+
+	/* Create checkboxes for each discipline */
+	d3.select(".outer-wrapper .choose-option")
+		.append("ul")
+		.selectAll('li')
+	  .data(sortedData)
+		.enter()
+		.append("li")
+		.html(function(d,i) {
+			var name = d;
+			var safeName  = name.toLowerCase().split(' ').join("-");
+
+			var innerHTML = "<label><input type='checkbox' id='" + safeName + "' checked >" + name + "</label>";
+			
+			return innerHTML;
+		})
+		.style("color", function (d,i) {
+			return getColour (d, colour, data);
+		});
+}
+
 function getColour (x, colour, discipline) {
 	var colourIndex = discipline.indexOf(x);
 
@@ -121,17 +175,57 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 
 	function createBars (data) {
 		/* Enter… */
-		bars.data(data, function (d) {
+		// bars.data(data, function (d) {
+		// 		return d.title;
+		// 	})
+		// 	.enter()
+		// 	.append("rect")
+		// 	.attr("x", function (d) {
+		// 		return (width/2) - (xScale(d.cites) / 2);
+		// 	})
+		// 	.attr("width", function(d) {
+		// 		return xScale(d.cites);
+		// 	})
+		// 	.attr("y", function(d, i){
+		// 		return yScale(i);
+		// 	})
+		// 	.attr("height", function () {
+		// 		return yScale.rangeBand();
+		// 	})
+		// 	.attr("fill", function(d, i){
+		// 		return getColour(d.discipline, colour, discipline);
+		// 	});
+	}
+
+	function updateBars (data) {
+
+		/* Update */
+		barsGroup.selectAll("rect").data(data, function (d) {
 				return d.title;
 			})
-			.enter()
-			.append("rect")
+			.transition()
+			.duration(duration)
+			.delay(0)
 			.attr("x", function (d) {
 				return (width/2) - (xScale(d.cites) / 2);
 			})
 			.attr("width", function(d) {
 				return xScale(d.cites);
 			})
+			.attr("y", function(d, i){
+				return yScale(i);
+			});
+
+		/* Enter… */
+		barsGroup.selectAll("rect").data(data, function (d) {
+				return d.title;
+			})
+			.enter()
+			.append("rect")
+			.attr("x", function (d) {
+				return (width/2);
+			})
+			.attr("width", 0)
 			.attr("y", function(d, i){
 				return yScale(i);
 			})
@@ -140,28 +234,29 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			})
 			.attr("fill", function(d, i){
 				return getColour(d.discipline, colour, discipline);
-			});
-	}
-
-	function updateBars (data) {
-		barsGroup.selectAll("rect").data(data, function (d) {
-				return d.title;
 			})
 			.transition()
 			.duration(duration)
-			.delay(function (d,i) {
-				return i * delay;
-			})
-			.attr("x", function (d) {
-				return (width/2) - (xScale(d.cites) / 2);
-			})
+			.delay(delay)
 			.attr("width", function(d) {
 				return xScale(d.cites);
 			})
-			.attr("y", function(d, i){
-				return yScale(i);
+			.attr("x", function (d) {
+				return (width/2) - (xScale(d.cites) / 2);
 			});
 
+
+			
+		barsGroup.selectAll("rect").data(data, function (d) {
+				return d.title;
+			}).exit()
+			.transition()
+			.duration(duration)
+			.attr("x", function (d) {
+				return (width/2);
+			})
+			.attr("width", 0)
+			.remove();
 	}
 		
 	return {
@@ -246,12 +341,11 @@ function buildDataSet (data) {
 		var height = 600 - margin.top - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
-		var delay = 10;
+		var delay = 900;
 
 		var topData;
 		var myGraphic;
-
-		var myButton = $('.outer-wrapper button');
+		var displayArray = [];
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -271,13 +365,21 @@ function buildDataSet (data) {
 
 				}).done(function () {
 					
-					createCheckboxes();
-					myGraphic = buildGraphic(topData.dataSet, topData.discipline, margin, width, height, colour, duration, delay);
-					myGraphic.createBars(topData.dataSet);
+					createCheckboxes(topData.discipline, colour);
 
-					myButton.on('click', function () {
-						topData.dataSet.sort(comparePaper);
-						myGraphic.updateBars(topData.dataSet);
+					var displayArray = updateArray(topData.dataSet);
+
+					myGraphic = buildGraphic(displayArray, topData.discipline, margin, width, height, colour, duration, delay);
+					// myGraphic.createBars(displayArray);
+
+					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
+						/* First remove the existing data from the arrays */
+						while (displayArray.length > 0) {
+							displayArray.shift();
+						}
+
+						displayArray = updateArray(topData.dataSet);
+						myGraphic.updateBars(displayArray);
 					});
 
 				}); /* End of ajax call */

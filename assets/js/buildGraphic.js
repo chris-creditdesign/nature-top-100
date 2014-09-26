@@ -31,17 +31,57 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 
 	function createBars (data) {
 		/* Enter… */
-		bars.data(data, function (d) {
+		// bars.data(data, function (d) {
+		// 		return d.title;
+		// 	})
+		// 	.enter()
+		// 	.append("rect")
+		// 	.attr("x", function (d) {
+		// 		return (width/2) - (xScale(d.cites) / 2);
+		// 	})
+		// 	.attr("width", function(d) {
+		// 		return xScale(d.cites);
+		// 	})
+		// 	.attr("y", function(d, i){
+		// 		return yScale(i);
+		// 	})
+		// 	.attr("height", function () {
+		// 		return yScale.rangeBand();
+		// 	})
+		// 	.attr("fill", function(d, i){
+		// 		return getColour(d.discipline, colour, discipline);
+		// 	});
+	}
+
+	function updateBars (data) {
+
+		/* Update */
+		barsGroup.selectAll("rect").data(data, function (d) {
 				return d.title;
 			})
-			.enter()
-			.append("rect")
+			.transition()
+			.duration(duration)
+			.delay(0)
 			.attr("x", function (d) {
 				return (width/2) - (xScale(d.cites) / 2);
 			})
 			.attr("width", function(d) {
 				return xScale(d.cites);
 			})
+			.attr("y", function(d, i){
+				return yScale(i);
+			});
+
+		/* Enter… */
+		barsGroup.selectAll("rect").data(data, function (d) {
+				return d.title;
+			})
+			.enter()
+			.append("rect")
+			.attr("x", function (d) {
+				return (width/2);
+			})
+			.attr("width", 0)
 			.attr("y", function(d, i){
 				return yScale(i);
 			})
@@ -50,28 +90,29 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			})
 			.attr("fill", function(d, i){
 				return getColour(d.discipline, colour, discipline);
-			});
-	}
-
-	function updateBars (data) {
-		barsGroup.selectAll("rect").data(data, function (d) {
-				return d.title;
 			})
 			.transition()
 			.duration(duration)
-			.delay(function (d,i) {
-				return i * delay;
-			})
-			.attr("x", function (d) {
-				return (width/2) - (xScale(d.cites) / 2);
-			})
+			.delay(delay)
 			.attr("width", function(d) {
 				return xScale(d.cites);
 			})
-			.attr("y", function(d, i){
-				return yScale(i);
+			.attr("x", function (d) {
+				return (width/2) - (xScale(d.cites) / 2);
 			});
 
+
+			
+		barsGroup.selectAll("rect").data(data, function (d) {
+				return d.title;
+			}).exit()
+			.transition()
+			.duration(duration)
+			.attr("x", function (d) {
+				return (width/2);
+			})
+			.attr("width", 0)
+			.remove();
 	}
 		
 	return {

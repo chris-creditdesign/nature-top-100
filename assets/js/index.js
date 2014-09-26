@@ -28,12 +28,11 @@
 		var height = 600 - margin.top - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
-		var delay = 10;
+		var delay = 900;
 
 		var topData;
 		var myGraphic;
-
-		var myButton = $('.outer-wrapper button');
+		var displayArray = [];
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -53,13 +52,21 @@
 
 				}).done(function () {
 					
-					createCheckboxes();
-					myGraphic = buildGraphic(topData.dataSet, topData.discipline, margin, width, height, colour, duration, delay);
-					myGraphic.createBars(topData.dataSet);
+					createCheckboxes(topData.discipline, colour);
 
-					myButton.on('click', function () {
-						topData.dataSet.sort(comparePaper);
-						myGraphic.updateBars(topData.dataSet);
+					var displayArray = updateArray(topData.dataSet);
+
+					myGraphic = buildGraphic(displayArray, topData.discipline, margin, width, height, colour, duration, delay);
+					// myGraphic.createBars(displayArray);
+
+					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
+						/* First remove the existing data from the arrays */
+						while (displayArray.length > 0) {
+							displayArray.shift();
+						}
+
+						displayArray = updateArray(topData.dataSet);
+						myGraphic.updateBars(displayArray);
 					});
 
 				}); /* End of ajax call */
