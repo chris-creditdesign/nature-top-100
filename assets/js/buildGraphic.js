@@ -24,11 +24,14 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 		.domain([d3.min(topData, function(d) { return d.cites;}), d3.max(topData, function(d) { return d.cites;})]);
 
 	var yScale = d3.scale.ordinal()
-		.domain(d3.range(topData.length))
-		.rangeBands([0, height], 0.2, 0);
+		.rangeBands([0, height], 0.2, 0)
+		.domain(d3.range(topData.length));
 
 
 	function updateBars (data, updateDelay) {
+
+		xScale.domain([d3.min(data, function(d) { return d.cites;}), d3.max(data, function(d) { return d.cites;})]);
+		yScale.domain(d3.range(data.length));
 
 		/* Update */
 		barsGroup.selectAll("rect").data(data, function (d) {
@@ -45,6 +48,9 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			})
 			.attr("y", function(d, i){
 				return yScale(i);
+			})
+			.attr("height", function () {
+				return yScale.rangeBand();
 			});
 
 		/* Enter… */

@@ -279,11 +279,14 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 		.domain([d3.min(topData, function(d) { return d.cites;}), d3.max(topData, function(d) { return d.cites;})]);
 
 	var yScale = d3.scale.ordinal()
-		.domain(d3.range(topData.length))
-		.rangeBands([0, height], 0.2, 0);
+		.rangeBands([0, height], 0.2, 0)
+		.domain(d3.range(topData.length));
 
 
 	function updateBars (data, updateDelay) {
+
+		xScale.domain([d3.min(data, function(d) { return d.cites;}), d3.max(data, function(d) { return d.cites;})]);
+		yScale.domain(d3.range(data.length));
 
 		/* Update */
 		barsGroup.selectAll("rect").data(data, function (d) {
@@ -300,6 +303,9 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			})
 			.attr("y", function(d, i){
 				return yScale(i);
+			})
+			.attr("height", function () {
+				return yScale.rangeBand();
 			});
 
 		/* Enter… */
@@ -452,16 +458,14 @@ function buildDataSet (data) {
 				}).done(function () {
 					
 					createCheckboxes(topData.discipline, colour);
-
-					var myData = topData.dataSet;
 					
-					displayArray = updateArray(myData);
+					displayArray = updateArray(topData.dataSet);
 
 					myGraphic = buildGraphic(displayArray, topData.discipline, margin, width, height, colour, duration, delay);
 					myGraphic.updateBars(displayArray, updateDelay);
 
 					$('.outer-wrapper form.choose-order select').on('change', function () {
-						activeRecord = handleChange(myData, displayArray, delay, myGraphic);
+						activeRecord = handleChange(topData.dataSet, displayArray, delay, myGraphic);
 
 						displayArray = activeRecord.activeArray;
 
@@ -469,7 +473,7 @@ function buildDataSet (data) {
 					});
 
 					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
-						activeRecord = handleChange(myData, displayArray, delay, myGraphic);
+						activeRecord = handleChange(topData.dataSet, displayArray, delay, myGraphic);
 
 						displayArray = activeRecord.activeArray;
 

@@ -54,16 +54,14 @@
 				}).done(function () {
 					
 					createCheckboxes(topData.discipline, colour);
-
-					var myData = topData.dataSet;
 					
-					displayArray = updateArray(myData);
+					displayArray = updateArray(topData.dataSet);
 
 					myGraphic = buildGraphic(displayArray, topData.discipline, margin, width, height, colour, duration, delay);
 					myGraphic.updateBars(displayArray, updateDelay);
 
 					$('.outer-wrapper form.choose-order select').on('change', function () {
-						activeRecord = handleChange(myData, displayArray, delay, myGraphic);
+						activeRecord = handleChange(topData.dataSet, displayArray, delay, myGraphic);
 
 						displayArray = activeRecord.activeArray;
 
@@ -71,7 +69,7 @@
 					});
 
 					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
-						activeRecord = handleChange(myData, displayArray, delay, myGraphic);
+						activeRecord = handleChange(topData.dataSet, displayArray, delay, myGraphic);
 
 						displayArray = activeRecord.activeArray;
 
