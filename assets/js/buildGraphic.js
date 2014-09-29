@@ -26,34 +26,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 		.domain(d3.range(topData.length))
 		.rangeBands([0, height], 0.2, 0);
 
-
-	var bars = barsGroup.selectAll("rect");
-
-	function createBars (data) {
-		/* Enter… */
-		// bars.data(data, function (d) {
-		// 		return d.title;
-		// 	})
-		// 	.enter()
-		// 	.append("rect")
-		// 	.attr("x", function (d) {
-		// 		return (width/2) - (xScale(d.cites) / 2);
-		// 	})
-		// 	.attr("width", function(d) {
-		// 		return xScale(d.cites);
-		// 	})
-		// 	.attr("y", function(d, i){
-		// 		return yScale(i);
-		// 	})
-		// 	.attr("height", function () {
-		// 		return yScale.rangeBand();
-		// 	})
-		// 	.attr("fill", function(d, i){
-		// 		return getColour(d.discipline, colour, discipline);
-		// 	});
-	}
-
-	function updateBars (data) {
+	function updateBars (data, updateDelay) {
 
 		/* Update */
 		barsGroup.selectAll("rect").data(data, function (d) {
@@ -61,7 +34,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			})
 			.transition()
 			.duration(duration)
-			.delay(0)
+			.delay(updateDelay)
 			.attr("x", function (d) {
 				return (width/2) - (xScale(d.cites) / 2);
 			})
@@ -101,13 +74,13 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 				return (width/2) - (xScale(d.cites) / 2);
 			});
 
-
-			
+		/* Exit */
 		barsGroup.selectAll("rect").data(data, function (d) {
 				return d.title;
 			}).exit()
 			.transition()
 			.duration(duration)
+			.delay(0)
 			.attr("x", function (d) {
 				return (width/2);
 			})
@@ -116,11 +89,8 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 	}
 		
 	return {
-		createBars: function (data) {
-			createBars(data);
-		},
-		updateBars: function (data) {
-			updateBars(data);
+		updateBars: function (data, updateDelay) {
+			updateBars(data, updateDelay);
 		}
 
 	};

@@ -21,14 +21,14 @@
 						"#75c4c0",
 						"#858986"];
 
-
 		/*	Margin, Width and height */
 		var margin = {top: 50, right: 20, bottom: 20, left: 20};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var height = 600 - margin.top - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
-		var delay = 900;
+		var delay = duration;
+		var updateDelay = 0;
 
 		var topData;
 		var myGraphic;
@@ -60,13 +60,22 @@
 					// myGraphic.createBars(displayArray);
 
 					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
+						var startingLength = displayArray.length;
+
 						/* First remove the existing data from the arrays */
 						while (displayArray.length > 0) {
 							displayArray.shift();
 						}
 
 						displayArray = updateArray(topData.dataSet);
-						myGraphic.updateBars(displayArray);
+
+						if (startingLength > displayArray.length) {
+							updateDelay = 450;
+						} else {
+							updateDelay = 0;
+						}
+
+						myGraphic.updateBars(displayArray, updateDelay);
 					});
 
 				}); /* End of ajax call */

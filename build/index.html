@@ -84,8 +84,6 @@ function updateArray (ary) {
 		selections.push(checkboxes.eq(v).parent().text());
 	}
 
-	console.log(selections.length);
-
 	for (var i = 0; i < ary.length; i++) {
 		var thisDiscipline = ary[i].discipline;
 		
@@ -170,34 +168,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 		.domain(d3.range(topData.length))
 		.rangeBands([0, height], 0.2, 0);
 
-
-	var bars = barsGroup.selectAll("rect");
-
-	function createBars (data) {
-		/* Enter… */
-		// bars.data(data, function (d) {
-		// 		return d.title;
-		// 	})
-		// 	.enter()
-		// 	.append("rect")
-		// 	.attr("x", function (d) {
-		// 		return (width/2) - (xScale(d.cites) / 2);
-		// 	})
-		// 	.attr("width", function(d) {
-		// 		return xScale(d.cites);
-		// 	})
-		// 	.attr("y", function(d, i){
-		// 		return yScale(i);
-		// 	})
-		// 	.attr("height", function () {
-		// 		return yScale.rangeBand();
-		// 	})
-		// 	.attr("fill", function(d, i){
-		// 		return getColour(d.discipline, colour, discipline);
-		// 	});
-	}
-
-	function updateBars (data) {
+	function updateBars (data, updateDelay) {
 
 		/* Update */
 		barsGroup.selectAll("rect").data(data, function (d) {
@@ -205,7 +176,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			})
 			.transition()
 			.duration(duration)
-			.delay(0)
+			.delay(updateDelay)
 			.attr("x", function (d) {
 				return (width/2) - (xScale(d.cites) / 2);
 			})
@@ -245,13 +216,13 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 				return (width/2) - (xScale(d.cites) / 2);
 			});
 
-
-			
+		/* Exit */
 		barsGroup.selectAll("rect").data(data, function (d) {
 				return d.title;
 			}).exit()
 			.transition()
 			.duration(duration)
+			.delay(0)
 			.attr("x", function (d) {
 				return (width/2);
 			})
@@ -260,11 +231,8 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 	}
 		
 	return {
-		createBars: function (data) {
-			createBars(data);
-		},
-		updateBars: function (data) {
-			updateBars(data);
+		updateBars: function (data, updateDelay) {
+			updateBars(data, updateDelay);
 		}
 
 	};
@@ -334,14 +302,14 @@ function buildDataSet (data) {
 						"#75c4c0",
 						"#858986"];
 
-
 		/*	Margin, Width and height */
 		var margin = {top: 50, right: 20, bottom: 20, left: 20};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var height = 600 - margin.top - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
-		var delay = 900;
+		var delay = duration;
+		var updateDelay = 0;
 
 		var topData;
 		var myGraphic;
@@ -373,13 +341,22 @@ function buildDataSet (data) {
 					// myGraphic.createBars(displayArray);
 
 					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
+						var startingLength = displayArray.length;
+
 						/* First remove the existing data from the arrays */
 						while (displayArray.length > 0) {
 							displayArray.shift();
 						}
 
 						displayArray = updateArray(topData.dataSet);
-						myGraphic.updateBars(displayArray);
+
+						if (startingLength > displayArray.length) {
+							updateDelay = 450;
+						} else {
+							updateDelay = 0;
+						}
+
+						myGraphic.updateBars(displayArray, updateDelay);
 					});
 
 				}); /* End of ajax call */

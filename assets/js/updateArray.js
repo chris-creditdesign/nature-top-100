@@ -8,8 +8,6 @@ function updateArray (ary) {
 		selections.push(checkboxes.eq(v).parent().text());
 	}
 
-	console.log(selections.length);
-
 	for (var i = 0; i < ary.length; i++) {
 		var thisDiscipline = ary[i].discipline;
 		
