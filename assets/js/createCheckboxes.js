@@ -20,11 +20,8 @@ function createCheckboxes (data, colour) {
 			var name = d;
 			var safeName  = name.toLowerCase().split(' ').join("-");
 
-			var innerHTML = "<label><input type='checkbox' id='" + safeName + "' checked >" + name + "</label>";
+			var innerHTML = "<label><input type='checkbox' id='" + safeName + "' style='background-color:" + getColour (d, colour, data) + ";' checked >" + name + "</label>";
 			
 			return innerHTML;
-		})
-		.style("color", function (d,i) {
-			return getColour (d, colour, data);
 		});
 }

@@ -64,6 +64,44 @@
   padding: 10px 10px 0 10px;
   margin: 0;
 }
+@media (min-width: 630px) {
+  .outer-wrapper .choose-option {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+  }
+}
+.outer-wrapper ul {
+  overflow: visible;
+  padding-left: 10px;
+}
+.outer-wrapper ul li {
+  list-style: none;
+  padding: 2px 0px;
+}
+.outer-wrapper input[type="checkbox"] {
+  border-radius: 50%;
+  cursor: pointer;
+  display: inline-block;
+  height: 20px;
+  margin-right: 15px;
+  position: relative;
+  width: 20px;
+  -webkit-appearance: none;
+}
+.outer-wrapper input[type="checkbox"]:after {
+  content: "\2713";
+  font-size: 1em;
+  display: inline-block;
+  left: 0.25em;
+  position: relative;
+  top: 0.1em;
+  color: #fff;
+  opacity: 0;
+}
+.outer-wrapper input[type="checkbox"]:checked:after {
+  opacity: 1;
+}
 
 </style>
 <div class="outer-wrapper">
@@ -118,12 +156,9 @@ function createCheckboxes (data, colour) {
 			var name = d;
 			var safeName  = name.toLowerCase().split(' ').join("-");
 
-			var innerHTML = "<label><input type='checkbox' id='" + safeName + "' checked >" + name + "</label>";
+			var innerHTML = "<label><input type='checkbox' id='" + safeName + "' style='background-color:" + getColour (d, colour, data) + ";' checked >" + name + "</label>";
 			
 			return innerHTML;
-		})
-		.style("color", function (d,i) {
-			return getColour (d, colour, data);
 		});
 }
 
@@ -338,7 +373,7 @@ function buildDataSet (data) {
 					var displayArray = updateArray(topData.dataSet);
 
 					myGraphic = buildGraphic(displayArray, topData.discipline, margin, width, height, colour, duration, delay);
-					// myGraphic.createBars(displayArray);
+					myGraphic.updateBars(displayArray, updateDelay);
 
 					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
 						var startingLength = displayArray.length;

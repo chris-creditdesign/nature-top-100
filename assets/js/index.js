@@ -57,7 +57,7 @@
 					var displayArray = updateArray(topData.dataSet);
 
 					myGraphic = buildGraphic(displayArray, topData.discipline, margin, width, height, colour, duration, delay);
-					// myGraphic.createBars(displayArray);
+					myGraphic.updateBars(displayArray, updateDelay);
 
 					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
 						var startingLength = displayArray.length;
