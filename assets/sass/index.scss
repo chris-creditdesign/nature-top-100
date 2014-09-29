@@ -98,5 +98,54 @@ $colour-5: #EB6B4B;
 		opacity: 1;
 	}
 
+	/* infobox
+	----------------------------------*/
+	.tool-tip {
+		position: absolute;
+		padding: 10px;
+		background-color: #333;
+		pointer-events: none;
+		opacity: 0;
+		z-index: 100;
+		p {
+			margin: 0;
+			padding: 0;
+			color: #ECF0F1;
+		} 
+	} // infobox
+
+	.tool-tip:before {
+		content: "";
+		position:absolute;
+		top: -10px;
+		left: 49%;
+		border-right: 0;
+		border-top: 0;
+		border-bottom: 10px solid #333;
+		border-left: 10px solid transparent;
+	}
+
+	.tool-tip.hidden {
+		display: none;
+	}
+
+
 } // outer-wrapper
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

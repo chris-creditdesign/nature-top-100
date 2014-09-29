@@ -14,6 +14,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 		.attr("y", margin.top);
 
 	var barsGroup = svg.append('g')
+						.attr("class","barsGroup")
 						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
 	
 	/*	Define Y scale range to go from height to 0
@@ -25,6 +26,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 	var yScale = d3.scale.ordinal()
 		.domain(d3.range(topData.length))
 		.rangeBands([0, height], 0.2, 0);
+
 
 	function updateBars (data, updateDelay) {
 
@@ -86,8 +88,10 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			})
 			.attr("width", 0)
 			.remove();
+
+		tooltip(width,margin, duration);
 	}
-		
+
 	return {
 		updateBars: function (data, updateDelay) {
 			updateBars(data, updateDelay);

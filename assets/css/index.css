@@ -9,6 +9,8 @@
   min-height: 900px;
   position: relative;
   border: 1px solid #c8c7cf;
+  /* infobox
+  ----------------------------------*/
 }
 .outer-wrapper h2, .outer-wrapper h3, .outer-wrapper p {
   padding: 10px 10px 0 10px;
@@ -51,4 +53,30 @@
 }
 .outer-wrapper input[type="checkbox"]:checked:after {
   opacity: 1;
+}
+.outer-wrapper .tool-tip {
+  position: absolute;
+  padding: 10px;
+  background-color: #333;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 100;
+}
+.outer-wrapper .tool-tip p {
+  margin: 0;
+  padding: 0;
+  color: #ECF0F1;
+}
+.outer-wrapper .tool-tip:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 49%;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 10px solid #333;
+  border-left: 10px solid transparent;
+}
+.outer-wrapper .tool-tip.hidden {
+  display: none;
 }

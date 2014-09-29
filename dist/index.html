@@ -10,6 +10,8 @@
   min-height: 900px;
   position: relative;
   border: 1px solid #c8c7cf;
+  /* infobox
+  ----------------------------------*/
 }
 .outer-wrapper h2, .outer-wrapper h3, .outer-wrapper p {
   padding: 10px 10px 0 10px;
@@ -53,16 +55,84 @@
 .outer-wrapper input[type="checkbox"]:checked:after {
   opacity: 1;
 }
+.outer-wrapper .tool-tip {
+  position: absolute;
+  padding: 10px;
+  background-color: #333;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 100;
+}
+.outer-wrapper .tool-tip p {
+  margin: 0;
+  padding: 0;
+  color: #ECF0F1;
+}
+.outer-wrapper .tool-tip:before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 49%;
+  border-right: 0;
+  border-top: 0;
+  border-bottom: 10px solid #333;
+  border-left: 10px solid transparent;
+}
+.outer-wrapper .tool-tip.hidden {
+  display: none;
+}
 
 </style>
 <div class="outer-wrapper">
-	<div class="chart"></div>
+	<div class="chart">
+		<div class="tool-tip">
+		</div>
+	</div>
 
 	<form class="choose-option"></form>
 
 </div>
 <!--[if gt IE 8]><!-->
 <script type="text/javascript">
+function tooltip (width,margin,duration) {
+	var format = d3.format("0,000");
+
+	d3.select(".outer-wrapper .chart .tool-tip")
+		.style("left", margin.left + "px")
+		.style("width", (width - 20)+ "px");
+
+	d3.select("svg g.barsGroup").selectAll("rect").on("mouseover", function (d,i) {
+		var title = d.title;
+		var author = d.author;
+		var cites = format(d.cites);
+		var year = d.year;
+
+		var y = parseInt(d3.select(this).attr("y"),10);
+
+		d3.select(".outer-wrapper .chart .tool-tip")
+			.html("<p>" + cites + " citations.</p><p>" + title + ".</p><p>" + author + ". " + year + ".</p>")
+			.style("top", (margin.top + 12 + y) + "px")
+			.classed("hidden", false)
+			.transition()
+			.duration(duration/2)
+			.style("opacity", 1);
+
+		d3.select(this).attr("opacity",0.3);
+	})
+	.on("mouseout", function () {
+		d3.select(this).attr("opacity",1);
+
+		d3.select(".outer-wrapper .chart .tool-tip")
+			.transition()
+			.delay(duration/4)
+			.duration(duration/2)
+			.style("opacity", 0)
+			.each("end", function() {
+				d3.select(".outer-wrapper .chart .tool-tip").classed("hidden", true);
+			});
+	});
+
+}
 function updateArray (ary) {
 	selectedArray = [];
 	selections = [];
@@ -142,6 +212,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 		.attr("y", margin.top);
 
 	var barsGroup = svg.append('g')
+						.attr("class","barsGroup")
 						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
 	
 	/*	Define Y scale range to go from height to 0
@@ -153,6 +224,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 	var yScale = d3.scale.ordinal()
 		.domain(d3.range(topData.length))
 		.rangeBands([0, height], 0.2, 0);
+
 
 	function updateBars (data, updateDelay) {
 
@@ -214,8 +286,10 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			})
 			.attr("width", 0)
 			.remove();
+
+		tooltip(width,margin, duration);
 	}
-		
+
 	return {
 		updateBars: function (data, updateDelay) {
 			updateBars(data, updateDelay);
