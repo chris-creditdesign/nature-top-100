@@ -81,6 +81,9 @@
   list-style: none;
   padding: 2px 0px;
 }
+.outer-wrapper select {
+  margin-left: 10px;
+}
 .outer-wrapper input[type="checkbox"] {
   border-radius: 50%;
   cursor: pointer;
@@ -138,6 +141,17 @@
 		</div>
 	</div>
 
+	<h3>Select stacking order:</h3>
+
+	<form class="choose-order">
+		<select name="select-choice" id="select-choice">
+			<option value="cites">By number of citations</option>
+			<option value="year">By year published</option>
+		</select>
+	</form>
+
+	<h3>Select discipline:</h3>
+
 	<form class="choose-option"></form>
 
 </div>
@@ -182,11 +196,32 @@ function tooltip (width,margin,duration) {
 	});
 
 }
+function handleChange (dataSet, activeArray, delay, myGraphic) {
+	var startingLength = activeArray.length;
+
+	/* First remove the existing data from the arrays */
+	while (activeArray.length > 0) {
+		activeArray.shift();
+	}
+
+	activeArray = updateArray(dataSet);
+
+	if (startingLength < activeArray.length) {
+		delay = 0;
+	}
+
+	return {
+		activeArray: activeArray,
+		activeDelay: delay
+	};
+
+}
 function updateArray (ary) {
 	selectedArray = [];
 	selections = [];
 
 	var checkboxes = jQuery('.outer-wrapper form.choose-option input:checked');
+	stackingOrder = jQuery('.outer-wrapper form.choose-order select').val();
 
 	for (var v = 0; v < checkboxes.length; v++) {
 		selections.push(checkboxes.eq(v).parent().text());
@@ -200,7 +235,12 @@ function updateArray (ary) {
 		}
 	}
 
-	selectedArray.sort(comparePaper);
+	if (stackingOrder === "cites") {
+		selectedArray.sort(comparePaper);
+	} else if (stackingOrder === "year") {
+		selectedArray.sort(compareYear);
+	}
+
 
 	return selectedArray;
 }
@@ -242,6 +282,23 @@ function comparePaper(a,b) {
 	if (a.cites < b.cites)
 		return 1;
 	if (a.cites > b.cites)
+		return -1;
+	return 0;
+}
+
+/*	Function to sort papers by year */
+function compareYear(a,b) {
+	if (a.year === b.year) {
+		if (a.cites < b.cites)
+			return 1;
+		if (a.cites > b.cites)
+			return -1;
+		return 0;
+	}
+
+	if (a.year < b.year)
+		return 1;
+	if (a.year > b.year)
 		return -1;
 	return 0;
 }
@@ -419,6 +476,7 @@ function buildDataSet (data) {
 		var duration = 450;
 		var delay = duration;
 		var updateDelay = 0;
+		var activeRecord = {};
 
 		var topData;
 		var myGraphic;
@@ -444,28 +502,27 @@ function buildDataSet (data) {
 					
 					createCheckboxes(topData.discipline, colour);
 
-					var displayArray = updateArray(topData.dataSet);
+					var myData = topData.dataSet;
+					
+					displayArray = updateArray(myData);
 
 					myGraphic = buildGraphic(displayArray, topData.discipline, margin, width, height, colour, duration, delay);
 					myGraphic.updateBars(displayArray, updateDelay);
 
+					$('.outer-wrapper form.choose-order select').on('change', function () {
+						activeRecord = handleChange(myData, displayArray, delay, myGraphic);
+
+						displayArray = activeRecord.activeArray;
+
+						myGraphic.updateBars(displayArray, activeRecord.activeDelay);
+					});
+
 					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
-						var startingLength = displayArray.length;
+						activeRecord = handleChange(myData, displayArray, delay, myGraphic);
 
-						/* First remove the existing data from the arrays */
-						while (displayArray.length > 0) {
-							displayArray.shift();
-						}
+						displayArray = activeRecord.activeArray;
 
-						displayArray = updateArray(topData.dataSet);
-
-						if (startingLength > displayArray.length) {
-							updateDelay = 450;
-						} else {
-							updateDelay = 0;
-						}
-
-						myGraphic.updateBars(displayArray, updateDelay);
+						myGraphic.updateBars(displayArray, activeRecord.activeDelay);
 					});
 
 				}); /* End of ajax call */

@@ -31,6 +31,9 @@
   list-style: none;
   padding: 2px 0px;
 }
+.outer-wrapper select {
+  margin-left: 10px;
+}
 .outer-wrapper input[type="checkbox"] {
   border-radius: 50%;
   cursor: pointer;

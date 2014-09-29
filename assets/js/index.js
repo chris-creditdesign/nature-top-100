@@ -29,6 +29,7 @@
 		var duration = 450;
 		var delay = duration;
 		var updateDelay = 0;
+		var activeRecord = {};
 
 		var topData;
 		var myGraphic;
@@ -54,28 +55,27 @@
 					
 					createCheckboxes(topData.discipline, colour);
 
-					var displayArray = updateArray(topData.dataSet);
+					var myData = topData.dataSet;
+					
+					displayArray = updateArray(myData);
 
 					myGraphic = buildGraphic(displayArray, topData.discipline, margin, width, height, colour, duration, delay);
 					myGraphic.updateBars(displayArray, updateDelay);
 
+					$('.outer-wrapper form.choose-order select').on('change', function () {
+						activeRecord = handleChange(myData, displayArray, delay, myGraphic);
+
+						displayArray = activeRecord.activeArray;
+
+						myGraphic.updateBars(displayArray, activeRecord.activeDelay);
+					});
+
 					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
-						var startingLength = displayArray.length;
+						activeRecord = handleChange(myData, displayArray, delay, myGraphic);
 
-						/* First remove the existing data from the arrays */
-						while (displayArray.length > 0) {
-							displayArray.shift();
-						}
+						displayArray = activeRecord.activeArray;
 
-						displayArray = updateArray(topData.dataSet);
-
-						if (startingLength > displayArray.length) {
-							updateDelay = 450;
-						} else {
-							updateDelay = 0;
-						}
-
-						myGraphic.updateBars(displayArray, updateDelay);
+						myGraphic.updateBars(displayArray, activeRecord.activeDelay);
 					});
 
 				}); /* End of ajax call */
