@@ -32,13 +32,18 @@
 }
 .outer-wrapper ul li {
   list-style: none;
-  padding: 2px 0px;
+  padding: 0px;
+  margin: 4px 0px 8px;
 }
 .outer-wrapper select {
   margin-left: 10px;
 }
+.outer-wrapper label {
+  display: inline-block;
+  width: 80%;
+  cursor: pointer;
+}
 .outer-wrapper input[type="checkbox"] {
-  border-radius: 50%;
   cursor: pointer;
   display: inline-block;
   height: 20px;
@@ -46,15 +51,16 @@
   position: relative;
   width: 20px;
   -webkit-appearance: none;
+  vertical-align: top;
 }
 .outer-wrapper input[type="checkbox"]:after {
-  content: "\2713";
-  font-size: 1em;
+  content: "\2714";
+  font-size: 1.5em;
   display: inline-block;
   left: 0.25em;
   position: relative;
   top: 0.1em;
-  color: #fff;
+  color: #666;
   opacity: 0;
 }
 .outer-wrapper input[type="checkbox"]:checked:after {
@@ -230,11 +236,14 @@ function createCheckboxes (data, colour) {
 	  .data(sortedData)
 		.enter()
 		.append("li")
+		.style("border-left",function (d, i) {
+			return "10px solid " + getColour (d, colour, data);
+		})
 		.html(function(d,i) {
 			var name = d;
 			var safeName  = name.toLowerCase().split(' ').join("-");
 
-			var innerHTML = "<label><input type='checkbox' id='" + safeName + "' style='background-color:" + getColour (d, colour, data) + ";' checked >" + name + "</label>";
+			var innerHTML = "<input type='checkbox' id='" + safeName + "' style='background-color:" + "#fff" + ";' checked ><label for='" + safeName + "'>" + name + "</label>";
 			
 			return innerHTML;
 		});
@@ -485,8 +494,8 @@ function buildDataSet (data) {
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
 
 				$.ajax({
-					// url: "data/top-100-edit-table.html",
-					url: "https://poly-admin1.nature.com/preview/www/2.788/1.15117/7.20172",
+					url: "data/top-100-edit-table.html",
+					// url: "https://poly-admin1.nature.com/preview/www/2.788/1.15117/7.20172",
 					dataType: 'text',
 					success: function (data) {
 						topData = buildDataSet(data);

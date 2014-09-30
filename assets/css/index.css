@@ -31,13 +31,18 @@
 }
 .outer-wrapper ul li {
   list-style: none;
-  padding: 2px 0px;
+  padding: 0px;
+  margin: 4px 0px 8px;
 }
 .outer-wrapper select {
   margin-left: 10px;
 }
+.outer-wrapper label {
+  display: inline-block;
+  width: 80%;
+  cursor: pointer;
+}
 .outer-wrapper input[type="checkbox"] {
-  border-radius: 50%;
   cursor: pointer;
   display: inline-block;
   height: 20px;
@@ -45,15 +50,16 @@
   position: relative;
   width: 20px;
   -webkit-appearance: none;
+  vertical-align: top;
 }
 .outer-wrapper input[type="checkbox"]:after {
-  content: "\2713";
-  font-size: 1em;
+  content: "\2714";
+  font-size: 1.5em;
   display: inline-block;
   left: 0.25em;
   position: relative;
   top: 0.1em;
-  color: #fff;
+  color: #666;
   opacity: 0;
 }
 .outer-wrapper input[type="checkbox"]:checked:after {

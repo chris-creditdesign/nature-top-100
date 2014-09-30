@@ -45,8 +45,8 @@
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
 
 				$.ajax({
-					// url: "data/top-100-edit-table.html",
-					url: "https://poly-admin1.nature.com/preview/www/2.788/1.15117/7.20172",
+					url: "data/top-100-edit-table.html",
+					// url: "https://poly-admin1.nature.com/preview/www/2.788/1.15117/7.20172",
 					dataType: 'text',
 					success: function (data) {
 						topData = buildDataSet(data);

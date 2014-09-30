@@ -16,11 +16,14 @@ function createCheckboxes (data, colour) {
 	  .data(sortedData)
 		.enter()
 		.append("li")
+		.style("border-left",function (d, i) {
+			return "10px solid " + getColour (d, colour, data);
+		})
 		.html(function(d,i) {
 			var name = d;
 			var safeName  = name.toLowerCase().split(' ').join("-");
 
-			var innerHTML = "<label><input type='checkbox' id='" + safeName + "' style='background-color:" + getColour (d, colour, data) + ";' checked >" + name + "</label>";
+			var innerHTML = "<input type='checkbox' id='" + safeName + "' style='background-color:" + "#fff" + ";' checked ><label for='" + safeName + "'>" + name + "</label>";
 			
 			return innerHTML;
 		});
