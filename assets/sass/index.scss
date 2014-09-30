@@ -102,7 +102,7 @@ $colour-5: #EB6B4B;
 		opacity: 1;
 	}
 
-	/* infobox
+	/* tool-tip
 	----------------------------------*/
 	.tool-tip {
 		position: absolute;
@@ -133,6 +133,22 @@ $colour-5: #EB6B4B;
 		display: none;
 	}
 
+	/* SVG axes
+	----------------------------------*/
+	.axis {
+		path, line {
+			fill: none;
+			stroke: #666;
+			shape-rendering: crispEdges;
+		}
+
+		text {
+			font-family: sans-serif;
+			fill: #666;
+			font-size: 13px;
+			shape-rendering: crispEdges;
+		}
+	} // axis 
 
 } // outer-wrapper
 

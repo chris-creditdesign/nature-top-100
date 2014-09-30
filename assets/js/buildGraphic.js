@@ -4,33 +4,45 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.bottom);
 
-	svg.append("rect")
-		.attr("width", width)
-		.attr("height", height)
-		.attr("fill","none")
-		.attr("stroke","skyblue")
-		.attr("stroke-width", 0.25)
-		.attr("x", margin.left)
-		.attr("y", margin.top);
-
 	var barsGroup = svg.append('g')
 						.attr("class","barsGroup")
 						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
 	
-	/*	Define Y scale range to go from height to 0
-		Do not define the domain yet */
+	/*	Scales */
 	var xScale = d3.scale.linear()
 		.range([0 , width])
+		.domain([d3.min(topData, function(d) { return d.cites;}), d3.max(topData, function(d) { return d.cites;})]);
+
+	var halfXScale = d3.scale.linear()
+		.range([0 , (width/2)])
 		.domain([d3.min(topData, function(d) { return d.cites;}), d3.max(topData, function(d) { return d.cites;})]);
 
 	var yScale = d3.scale.ordinal()
 		.rangeBands([0, height], 0.2, 0)
 		.domain(d3.range(topData.length));
 
+	/*	Define X axis */
+	var xAxis = d3.svg.axis()
+		.scale(halfXScale)
+		.tickSize(-height, -height)
+		.ticks(4)
+		.orient("top");
+
+	/*	Prepare the x axis but do not call .call(xAxis) yet */
+	svg.append("g")
+		.attr("class", "x axis")
+		.attr("transform", "translate(" + (margin.left + width/2) + "," + margin.top + ")")
+	  .append("g")
+		.attr("class", "axisLabel")
+	  .append("text")
+	  	.attr("transform", "translate(" + (width/4) + "," + -(margin.top/2) + ")")
+	  	.style("text-anchor", "middle")
+	  	.text("Citations");
 
 	function updateBars (data, updateDelay) {
 
 		xScale.domain([d3.min(data, function(d) { return d.cites;}), d3.max(data, function(d) { return d.cites;})]);
+		halfXScale.domain([d3.min(data, function(d) { return d.cites;}), d3.max(data, function(d) { return d.cites;})]);
 		yScale.domain(d3.range(data.length));
 
 		/* Update */
@@ -95,7 +107,14 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			.attr("width", 0)
 			.remove();
 
+		/* Call the Y axis to adjust it to the new scale */
+		svg.select(".outer-wrapper .chart .x")
+			.transition()
+			.duration(duration)
+			.call(xAxis);
+
 		tooltip(width,margin, duration);
+
 	}
 
 	return {
