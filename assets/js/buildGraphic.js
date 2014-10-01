@@ -7,6 +7,11 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 	var barsGroup = svg.append('g')
 						.attr("class","barsGroup")
 						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
+
+	var hiddenBarsGroup = svg.append('g')
+						.attr("class","hiddenBarsGroup")
+						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
+	
 	
 	/*	Scales */
 	var xScale = d3.scale.linear()
@@ -39,24 +44,18 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 	  	.style("text-anchor", "middle")
 	  	.text("Citations");
 
-	function updateBars (data, updateDelay) {
-
-		xScale.domain([d3.min(data, function(d) { return d.cites;}), d3.max(data, function(d) { return d.cites;})]);
-		halfXScale.domain([d3.min(data, function(d) { return d.cites;}), d3.max(data, function(d) { return d.cites;})]);
-		yScale.domain(d3.range(data.length));
-
-		/* Update */
-		barsGroup.selectAll("rect").data(data, function (d) {
+	function update (grp, data, updateDelay, visible) {
+		grp.selectAll("rect").data(data, function (d) {
 				return d.title;
 			})
 			.transition()
 			.duration(duration)
 			.delay(updateDelay)
 			.attr("x", function (d) {
-				return (width/2) - (xScale(d.cites) / 2);
+				return visible ? (width/2) - (xScale(d.cites) / 2) : 0;
 			})
 			.attr("width", function(d) {
-				return xScale(d.cites);
+				return visible ? xScale(d.cites) : width;
 			})
 			.attr("y", function(d, i){
 				return yScale(i);
@@ -64,15 +63,16 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			.attr("height", function () {
 				return yScale.rangeBand();
 			});
+	}
 
-		/* Enter… */
-		barsGroup.selectAll("rect").data(data, function (d) {
+	function enter (grp, data, visible) {
+		grp.selectAll("rect").data(data, function (d) {
 				return d.title;
 			})
 			.enter()
 			.append("rect")
 			.attr("x", function (d) {
-				return (width/2);
+				return visible ? (width/2) : 0;
 			})
 			.attr("width", 0)
 			.attr("y", function(d, i){
@@ -82,20 +82,24 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 				return yScale.rangeBand();
 			})
 			.attr("fill", function(d, i){
-				return getColour(d.discipline, colour, discipline);
+				return visible ? getColour(d.discipline, colour, discipline): "hotpink";
+			})
+			.attr("opacity", function () {
+				return visible ? 1 : 0;
 			})
 			.transition()
 			.duration(duration)
 			.delay(delay)
 			.attr("width", function(d) {
-				return xScale(d.cites);
+				return visible ? xScale(d.cites) : width;
 			})
 			.attr("x", function (d) {
-				return (width/2) - (xScale(d.cites) / 2);
+				return visible ? (width/2) - (xScale(d.cites) / 2) : 0;
 			});
+	}
 
-		/* Exit */
-		barsGroup.selectAll("rect").data(data, function (d) {
+	function exit (grp, data) {
+		grp.selectAll("rect").data(data, function (d) {
 				return d.title;
 			}).exit()
 			.transition()
@@ -106,6 +110,25 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			})
 			.attr("width", 0)
 			.remove();
+	}
+
+	function updateBars (data, updateDelay) {
+
+		xScale.domain([d3.min(data, function(d) { return d.cites;}), d3.max(data, function(d) { return d.cites;})]);
+		halfXScale.domain([d3.min(data, function(d) { return d.cites;}), d3.max(data, function(d) { return d.cites;})]);
+		yScale.domain(d3.range(data.length));
+
+		/* Update */
+		update(barsGroup, data, updateDelay, true);
+		update(hiddenBarsGroup, data, updateDelay, false);
+
+		/* Enter… */
+		enter(barsGroup, data, true);
+		enter(hiddenBarsGroup, data, false);
+
+		/* Exit */
+		exit(barsGroup, data);
+		exit(hiddenBarsGroup, data);
 
 		/* Call the Y axis to adjust it to the new scale */
 		svg.select(".outer-wrapper .chart .x")

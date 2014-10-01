@@ -5,7 +5,7 @@ function tooltip (width,margin,duration) {
 		.style("left", margin.left + "px")
 		.style("width", (width - 20)+ "px");
 
-	d3.select("svg g.barsGroup").selectAll("rect").on("mouseover", function (d,i) {
+	d3.select("svg g.hiddenBarsGroup").selectAll("rect").on("mouseover", function (d,i) {
 		var title = d.title;
 		var author = d.author;
 		var cites = format(d.cites);
@@ -21,10 +21,10 @@ function tooltip (width,margin,duration) {
 			.duration(duration/2)
 			.style("opacity", 1);
 
-		d3.select(this).attr("opacity",0.3);
+		d3.select(d3.select("svg g.barsGroup").selectAll("rect")[0][i]).attr("opacity",0.3);
 	})
-	.on("mouseout", function () {
-		d3.select(this).attr("opacity",1);
+	.on("mouseout", function (d, i) {
+		d3.select(d3.select("svg g.barsGroup").selectAll("rect")[0][i]).attr("opacity",1);
 
 		d3.select(".outer-wrapper .chart .tool-tip")
 			.transition()
