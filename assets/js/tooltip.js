@@ -10,6 +10,7 @@ function tooltip (width,margin,duration) {
 		var author = d.author;
 		var cites = format(d.cites);
 		var year = d.year;
+		var thisIndex = i;
 
 		var y = parseInt(d3.select(this).attr("y"),10);
 
@@ -21,10 +22,10 @@ function tooltip (width,margin,duration) {
 			.duration(duration/2)
 			.style("opacity", 1);
 
-		d3.select(d3.select("svg g.barsGroup").selectAll("rect")[0][i]).attr("opacity",0.3);
+		d3.select(this).attr("opacity",0.4);
 	})
 	.on("mouseout", function (d, i) {
-		d3.select(d3.select("svg g.barsGroup").selectAll("rect")[0][i]).attr("opacity",1);
+		d3.select(this).attr("opacity", 0);
 
 		d3.select(".outer-wrapper .chart .tool-tip")
 			.transition()

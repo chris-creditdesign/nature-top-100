@@ -88,6 +88,7 @@
 						displayArray = activeRecord.activeArray;
 
 						myGraphic.updateBars(displayArray, activeRecord.activeDelay);
+
 					});
 
 				}); /* End of ajax call */

@@ -136,7 +136,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			.duration(duration)
 			.call(xAxis);
 
-		tooltip(width,margin, duration);
+		tooltip(width, margin, duration);
 
 	}
 
