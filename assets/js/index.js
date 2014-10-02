@@ -82,7 +82,17 @@
 						myGraphic.updateBars(displayArray, activeRecord.activeDelay);
 					});
 
-					d3.selectAll('.outer-wrapper form.choose-option input').on('change', function () {
+					$('.outer-wrapper form.choose-option input').change(function () {
+
+						var thisProp; 
+
+						if ($(this).parent().text() === "All") {
+
+							thisProp = $(this).prop("checked");
+
+							$('.outer-wrapper form.choose-option input').prop("checked", thisProp);	
+						}
+
 						activeRecord = handleChange(topData.dataSet, displayArray, delay, myGraphic);
 
 						displayArray = activeRecord.activeArray;

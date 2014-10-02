@@ -1,7 +1,6 @@
 function createCheckboxes (data, colour) {
 
-
- 	sortedData = [];
+ 	sortedData = ["All"];
 
  	for (var i = 0; i < data.length; i++) {
  		sortedData.push(data[i]);
@@ -17,7 +16,7 @@ function createCheckboxes (data, colour) {
 		.enter()
 		.append("li")
 		.style("border-left",function (d, i) {
-			return "10px solid " + getColour (d, colour, data);
+			return d === "All" ? "10px solid #fff" : "10px solid " + getColour (d, colour, data);
 		})
 		.html(function(d,i) {
 			var name = d;
