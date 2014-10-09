@@ -18,17 +18,13 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 		.range([0 , width])
 		.domain([0, d3.max(topData, function(d) { return d.cites;})]);
 
-	var halfXScale = d3.scale.linear()
-		.range([0 , (width/2)])
-		.domain([0, d3.max(topData, function(d) { return d.cites;})]);
-
 	var yScale = d3.scale.ordinal()
 		.rangeBands([0, height], 0.2, 0)
 		.domain(d3.range(topData.length));
 
 	/*	Define X axis */
 	var xAxis = d3.svg.axis()
-		.scale(halfXScale)
+		.scale(xScale)
 		.tickSize(-height, -height)
 		.ticks(4)
 		.orient("top");
@@ -36,7 +32,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 	/*	Prepare the x axis but do not call .call(xAxis) yet */
 	svg.append("g")
 		.attr("class", "x axis")
-		.attr("transform", "translate(" + (margin.left + width/2) + "," + margin.top + ")")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 	  .append("g")
 		.attr("class", "axisLabel")
 	  .append("text")
@@ -52,7 +48,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			.duration(duration)
 			.delay(updateDelay)
 			.attr("x", function (d) {
-				return visible ? (width/2) - (xScale(d.cites) / 2) : 0;
+				return 0;
 			})
 			.attr("width", function(d) {
 				return visible ? xScale(d.cites) : width;
@@ -72,7 +68,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			.enter()
 			.append("rect")
 			.attr("x", function (d) {
-				return visible ? (width/2) : 0;
+				return 0;
 			})
 			.attr("width", 0)
 			.attr("y", function(d, i){
@@ -94,7 +90,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 				return visible ? xScale(d.cites) : width;
 			})
 			.attr("x", function (d) {
-				return visible ? (width/2) - (xScale(d.cites) / 2) : 0;
+				return 0;
 			});
 	}
 
@@ -115,7 +111,6 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 	function updateBars (data, updateDelay) {
 
 		xScale.domain([0, d3.max(data, function(d) { return d.cites;})]);
-		halfXScale.domain([0, d3.max(data, function(d) { return d.cites;})]);
 		yScale.domain(d3.range(data.length));
 
 		/* Update */
@@ -136,7 +131,7 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			.duration(duration)
 			.call(xAxis);
 
-		tooltip(width, margin, duration);
+		// tooltip(width, margin, duration);
 
 	}
 
