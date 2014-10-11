@@ -656,7 +656,7 @@ var data = [
     "doi": 10001,
     "prizes": "None",
     "discipline": "Bioinformatics",
-    "notes": "BLAST again �",
+    "notes": "BLAST again  ",
     "lifeCycle": {
       "1997": 13,
       "1998": 421,
