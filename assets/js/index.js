@@ -35,9 +35,10 @@
 						"#42210b"];
 
 		/*	Margin, Width and height */
-		var margin = {top: 50, right: 20, bottom: 20, left: 20};
+		var margin = {top: 20, right: 20, bottom: 20, left: 80, mid: 20};
 		var width = $('.section').width()  - margin.left - margin.right;
-		var height = 600 - margin.top - margin.bottom;
+		var miniHeight = 60;
+		var height = 400 - margin.top - margin.mid - miniHeight - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
 		var delay = duration;
@@ -47,6 +48,8 @@
 		var topData;
 		var myGraphic;
 		var displayArray = [];
+		var disciplineArray = [];
+
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -57,51 +60,12 @@
 			/*	Loading D3 into ie6-8 seems to cause a runtime error */
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
 
-				$.ajax({
-					url: "data/top-100-edit-table.html",
-					// url: "https://poly-admin1.nature.com/preview/www/2.788/1.15117/7.20172",
-					dataType: 'text',
-					success: function (data) {
-						topData = buildDataSet(data);
-					}
+				displayArray = data.sort(comparePaper);
+				disciplineArray = buildDataSet(data);
 
-				}).done(function () {
-					
-					createCheckboxes(topData.discipline, colour);
-					
-					displayArray = updateArray(topData.dataSet);
+				myGraphic = buildGraphic(displayArray, disciplineArray, margin, width, height, miniHeight, colour, duration, delay);
+				myGraphic.updateBars(displayArray, updateDelay);
 
-					myGraphic = buildGraphic(displayArray, topData.discipline, margin, width, height, colour, duration, delay);
-					myGraphic.updateBars(displayArray, updateDelay);
-
-					$('.outer-wrapper form.choose-order select').change(function () {
-						activeRecord = handleChange(topData.dataSet, displayArray, delay, myGraphic);
-
-						displayArray = activeRecord.activeArray;
-
-						myGraphic.updateBars(displayArray, activeRecord.activeDelay);
-					});
-
-					$('.outer-wrapper form.choose-option input').change(function () {
-
-						var thisProp; 
-
-						if ($(this).parent().text() === "All") {
-
-							thisProp = $(this).prop("checked");
-
-							$('.outer-wrapper form.choose-option input').prop("checked", thisProp);	
-						}
-
-						activeRecord = handleChange(topData.dataSet, displayArray, delay, myGraphic);
-
-						displayArray = activeRecord.activeArray;
-
-						myGraphic.updateBars(displayArray, activeRecord.activeDelay);
-
-					});
-
-				}); /* End of ajax call */
 
 			}); /* End of d3js getscript call
 

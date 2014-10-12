@@ -1,96 +1,118 @@
-function buildGraphic (topData, discipline, margin, width, height, colour, duration, delay) {
+function buildGraphic (topData, discipline, margin, width, height, miniHeight, colour, duration, delay) {
 
 	var svg = d3.select(".outer-wrapper .chart").append("svg")
 		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.bottom);
+		.attr("height", height + margin.top + margin.mid + miniHeight + margin.bottom);
 
 	var barsGroup = svg.append('g')
 						.attr("class","barsGroup")
 						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
-	var hiddenBarsGroup = svg.append('g')
-						.attr("class","hiddenBarsGroup")
-						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
-	
-	
-	/*	Scales */
-	var xScale = d3.scale.linear()
-		.range([0 , width])
-		.domain([0, d3.max(topData, function(d) { return d.cites;})]);
+	var miniGroup = svg.append('g')
+						.attr("class","miniGroup")
+						.attr("transform","translate(" + margin.left + "," + (margin.top + height + margin.mid) + ")")
+					  .append("rect")
+					  	.attr("stroke", "#0000FF")
+					  	.attr("stroke-width","0.2px")
+					  	.attr("fill","none")
+					  	.attr("width",width)
+					  	.attr("height", miniHeight);
 
-	var yScale = d3.scale.ordinal()
-		.rangeBands([0, height], 0.2, 0)
+	var axisRange = d3.range(topData.length);
+
+	axisRange.shift();
+
+	axisRange.push((axisRange[axisRange.length - 1] + 1));
+
+	/*	Scales */
+	var yScale = d3.scale.linear()
+		.range([height, 0])
+		.domain([0, d3.max(topData, function(d) { 
+			return d.lifeCycle.Total;
+		})]);
+
+	var xScale = d3.scale.ordinal()
+		.rangeBands([width, 0], 0.4, 0)
 		.domain(d3.range(topData.length));
 
-	/*	Define X axis */
-	var xAxis = d3.svg.axis()
-		.scale(xScale)
-		.tickSize(-height, -height)
-		.ticks(4)
-		.orient("top");
+	var xScaleAxis = d3.scale.ordinal()
+		.rangeBands([width, 0], 0.4, 0)
+		.domain(axisRange);
 
-	/*	Prepare the x axis but do not call .call(xAxis) yet */
+	/*	Define y axis */
+	var yAxis = d3.svg.axis()
+		.scale(yScale)
+		.tickSize(-width, -width)
+		.ticks(4)
+		.orient("left");
+
+	/* Define y axis */
+	var xAxis = d3.svg.axis()
+		.scale(xScaleAxis)
+		.tickSize(3,0)
+		.tickValues([1,10,20,30,40,50,60,70,80,90,100])
+		.orient("bottom");
+
+	/*	Prepare the y axis but do not call .call(xAxis) yet */
 	svg.append("g")
-		.attr("class", "x axis")
+		.attr("class", "y axis")
 		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 	  .append("g")
 		.attr("class", "axisLabel")
 	  .append("text")
-	  	.attr("transform", "translate(" + (width/4) + "," + -(margin.top/2) + ")")
-	  	.style("text-anchor", "middle")
-	  	.text("Citations");
+		.attr("transform", "translate(" + -(margin.left * 0.8) + "," + (height/2) + "), rotate(-90)")
+		.style("text-anchor", "middle")
+		.text("Citations");
 
-	function update (grp, data, updateDelay, visible) {
+	/* Prepare the x axis */
+	svg.append("g")
+		.attr("class","x axis")
+		.attr("transform", "translate(" + margin.left + "," + (margin.top + height) + ")" );
+
+	function update (grp, data, updateDelay) {
 		grp.selectAll("rect").data(data, function (d) {
 				return d.title;
 			})
 			.transition()
 			.duration(duration)
 			.delay(updateDelay)
-			.attr("x", function (d) {
+			.attr("x", function (d, i) {
+				return xScale(i);
+			})
+			.attr("width", function (d) {
+				return xScale.rangeBand();
+			})
+			.attr("y", function (d){
 				return 0;
 			})
-			.attr("width", function(d) {
-				return visible ? xScale(d.cites) : width;
-			})
-			.attr("y", function(d, i){
-				return yScale(i);
-			})
-			.attr("height", function () {
-				return yScale.rangeBand();
+			.attr("height", function (d) {
+				return 0;
 			});
 	}
 
-	function enter (grp, data, visible) {
+	function enter (grp, data) {
 		grp.selectAll("rect").data(data, function (d) {
 				return d.title;
 			})
 			.enter()
 			.append("rect")
-			.attr("x", function (d) {
-				return 0;
+			.attr("x", function (d, i) {
+				return xScale(i);
 			})
-			.attr("width", 0)
-			.attr("y", function(d, i){
-				return yScale(i);
+			.attr("width", function(d) {
+				return xScale.rangeBand();
 			})
-			.attr("height", function () {
-				return yScale.rangeBand();
+			.attr("y", function (d){
+				return yScale(d.lifeCycle.Total)  ;
 			})
-			.attr("fill", function(d, i){
-				return visible ? getColour(d.discipline, colour, discipline): "hotpink";
+			.attr("height", function (d) {
+				return height - yScale(d.lifeCycle.Total);
+			})
+			.attr("fill", function (d, i){
+				return getColour(d.discipline, colour, discipline);
 			})
 			.attr("opacity", function () {
-				return visible ? 1 : 0;
-			})
-			.transition()
-			.duration(duration)
-			.delay(delay)
-			.attr("width", function(d) {
-				return visible ? xScale(d.cites) : width;
-			})
-			.attr("x", function (d) {
-				return 0;
+				return 1;
 			});
 	}
 
@@ -102,34 +124,40 @@ function buildGraphic (topData, discipline, margin, width, height, colour, durat
 			.duration(duration)
 			.delay(0)
 			.attr("x", function (d) {
-				return (width/2);
+				return 0;
 			})
-			.attr("width", 0)
+			.attr("height", 0)
 			.remove();
 	}
 
 	function updateBars (data, updateDelay) {
 
-		xScale.domain([0, d3.max(data, function(d) { return d.cites;})]);
-		yScale.domain(d3.range(data.length));
+		xScale.domain(d3.range(data.length));
+		yScale.domain([0, d3.max(data, function(d) { return d.lifeCycle.Total;})]);
 
 		/* Update */
-		update(barsGroup, data, updateDelay, true);
-		update(hiddenBarsGroup, data, updateDelay, false);
+		update(barsGroup, data, updateDelay);
 
 		/* Enter… */
-		enter(barsGroup, data, true);
-		enter(hiddenBarsGroup, data, false);
+		enter(barsGroup, data);
 
 		/* Exit */
 		exit(barsGroup, data);
-		exit(hiddenBarsGroup, data);
 
 		/* Call the Y axis to adjust it to the new scale */
+		svg.select(".outer-wrapper .chart .y")
+			.transition()
+			.duration(duration)
+			.call(yAxis);
+
 		svg.select(".outer-wrapper .chart .x")
 			.transition()
 			.duration(duration)
 			.call(xAxis);
+
+		barsGroup.selectAll("rect").on("mouseover", function (d,i) {
+			console.log("i is: " + (i + 1));
+		});
 
 		// tooltip(width, margin, duration);
 
