@@ -42,7 +42,6 @@
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
 		var delay = duration;
-		var updateDelay = 0;
 		var activeRecord = {};
 
 		var topData;
@@ -64,7 +63,7 @@
 				disciplineArray = buildDataSet(data);
 
 				myGraphic = buildGraphic(displayArray, disciplineArray, margin, width, height, miniHeight, colour, duration, delay);
-				myGraphic.updateBars(displayArray, updateDelay);
+				myGraphic.updateBars(displayArray);
 
 
 			}); /* End of d3js getscript call

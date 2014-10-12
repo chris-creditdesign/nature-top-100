@@ -1,30 +1,39 @@
 function buildGraphic (topData, discipline, margin, width, height, miniHeight, colour, duration, delay) {
 
+	var selected;
+	
 	var svg = d3.select(".outer-wrapper .chart").append("svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.mid + miniHeight + margin.bottom);
 
+	svg.append("defs").append("clipPath")
+		.attr("id", "clip")
+		.append("rect")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("width", width)
+		.attr("height" , height);
+
 	var barsGroup = svg.append('g')
 						.attr("class","barsGroup")
-						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
+						.attr("transform","translate(" + margin.left + "," + margin.top + ")")
+						.attr("clip-path", "url(#clip)");
 
 	var miniGroup = svg.append('g')
 						.attr("class","miniGroup")
-						.attr("transform","translate(" + margin.left + "," + (margin.top + height + margin.mid) + ")")
-					  .append("rect")
-					  	.attr("stroke", "#0000FF")
-					  	.attr("stroke-width","0.2px")
-					  	.attr("fill","none")
-					  	.attr("width",width)
-					  	.attr("height", miniHeight);
+						.attr("transform","translate(" + margin.left + "," + (margin.top + height + margin.mid) + ")");
 
+	var brushGroup = svg.append('g')
+						.attr("class","brushGroup")
+						.attr("transform","translate(" + margin.left + "," + (margin.top + height + margin.mid) + ")");
+
+	/*	Scales */
 	var axisRange = d3.range(topData.length);
 
 	axisRange.shift();
 
 	axisRange.push((axisRange[axisRange.length - 1] + 1));
 
-	/*	Scales */
 	var yScale = d3.scale.linear()
 		.range([height, 0])
 		.domain([0, d3.max(topData, function(d) { 
@@ -32,6 +41,10 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		})]);
 
 	var xScale = d3.scale.ordinal()
+		.rangeBands([width, 0], 0.4, 0)
+		.domain(d3.range(topData.length));
+
+	var xScaleBrush = d3.scale.ordinal()
 		.rangeBands([width, 0], 0.4, 0)
 		.domain(d3.range(topData.length));
 
@@ -53,6 +66,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		.tickValues([1,10,20,30,40,50,60,70,80,90,100])
 		.orient("bottom");
 
+
 	/*	Prepare the y axis but do not call .call(xAxis) yet */
 	svg.append("g")
 		.attr("class", "y axis")
@@ -67,15 +81,52 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 	/* Prepare the x axis */
 	svg.append("g")
 		.attr("class","x axis")
-		.attr("transform", "translate(" + margin.left + "," + (margin.top + height) + ")" );
+		.attr("transform", "translate(" + margin.left + "," + (margin.top + height + margin.mid + miniHeight) + ")" )
+		.call(xAxis);
 
-	function update (grp, data, updateDelay) {
+	/* brush */
+	var brush = d3.svg.brush()
+					.x(xScaleBrush)
+					.extent([0, width])
+					.on("brush", display);
+
+	brushGroup.append("g")
+		.attr("class", "brush")
+		.call(brush)
+		.selectAll("rect")
+		.attr("opacity", 0.5)
+		.attr("height", miniHeight);
+
+	function display () {
+		
+		selected =  xScaleBrush.domain()
+								.filter(function(d){
+									return (brush.extent()[0] <= xScaleBrush(d)) && (xScaleBrush(d) <= brush.extent()[1]);
+								});
+
+		var start;
+		var end;
+
+		/* Keep a minimum amount of bars on there to avoid any jank */
+		if (selected.length > 2 ) {
+			start = selected[0];
+			end = selected[selected.length - 1];
+		} else {
+			start = 0;
+			end = topData.length;
+		}
+
+		var updatedData = topData.slice(start, end);
+		console.log(updatedData);
+
+		updateBars(updatedData);
+
+	}
+
+	function update (grp, data, main) {
 		grp.selectAll("rect").data(data, function (d) {
 				return d.title;
 			})
-			.transition()
-			.duration(duration)
-			.delay(updateDelay)
 			.attr("x", function (d, i) {
 				return xScale(i);
 			})
@@ -83,14 +134,14 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 				return xScale.rangeBand();
 			})
 			.attr("y", function (d){
-				return 0;
+				return main ? yScale(d.lifeCycle.Total) : 0;
 			})
 			.attr("height", function (d) {
-				return 0;
+				return main ? height - yScale(d.lifeCycle.Total) : miniHeight;
 			});
 	}
 
-	function enter (grp, data) {
+	function enter (grp, data, main) {
 		grp.selectAll("rect").data(data, function (d) {
 				return d.title;
 			})
@@ -103,10 +154,10 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 				return xScale.rangeBand();
 			})
 			.attr("y", function (d){
-				return yScale(d.lifeCycle.Total)  ;
+				return main ? yScale(d.lifeCycle.Total) : 0;
 			})
 			.attr("height", function (d) {
-				return height - yScale(d.lifeCycle.Total);
+				return main ? height - yScale(d.lifeCycle.Total) : miniHeight;
 			})
 			.attr("fill", function (d, i){
 				return getColour(d.discipline, colour, discipline);
@@ -120,26 +171,21 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		grp.selectAll("rect").data(data, function (d) {
 				return d.title;
 			}).exit()
-			.transition()
-			.duration(duration)
-			.delay(0)
-			.attr("x", function (d) {
-				return 0;
-			})
-			.attr("height", 0)
 			.remove();
 	}
+	
+	enter(miniGroup, data, false);
 
-	function updateBars (data, updateDelay) {
+	function updateBars (data) {
 
 		xScale.domain(d3.range(data.length));
 		yScale.domain([0, d3.max(data, function(d) { return d.lifeCycle.Total;})]);
 
 		/* Update */
-		update(barsGroup, data, updateDelay);
+		update(barsGroup, data, true);
 
 		/* Enter… */
-		enter(barsGroup, data);
+		enter(barsGroup, data, true);
 
 		/* Exit */
 		exit(barsGroup, data);
@@ -147,13 +193,8 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		/* Call the Y axis to adjust it to the new scale */
 		svg.select(".outer-wrapper .chart .y")
 			.transition()
-			.duration(duration)
+			.duration(10)
 			.call(yAxis);
-
-		svg.select(".outer-wrapper .chart .x")
-			.transition()
-			.duration(duration)
-			.call(xAxis);
 
 		barsGroup.selectAll("rect").on("mouseover", function (d,i) {
 			console.log("i is: " + (i + 1));
@@ -164,8 +205,8 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 	}
 
 	return {
-		updateBars: function (data, updateDelay) {
-			updateBars(data, updateDelay);
+		updateBars: function (data) {
+			updateBars(data);
 		}
 
 	};
