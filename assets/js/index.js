@@ -35,7 +35,7 @@
 						"#42210b"];
 
 		/*	Margin, Width and height */
-		var margin = {top: 20, right: 20, bottom: 20, left: 80, mid: 20};
+		var margin = {top: 20, right: 20, bottom: 40, left: 80, mid: 20};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var miniHeight = 60;
 		var height = 400 - margin.top - margin.mid - miniHeight - margin.bottom;

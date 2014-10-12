@@ -1,7 +1,7 @@
 function buildGraphic (topData, discipline, margin, width, height, miniHeight, colour, duration, delay) {
 
 	var selected;
-	
+
 	var svg = d3.select(".outer-wrapper .chart").append("svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.mid + miniHeight + margin.bottom);
@@ -82,7 +82,13 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 	svg.append("g")
 		.attr("class","x axis")
 		.attr("transform", "translate(" + margin.left + "," + (margin.top + height + margin.mid + miniHeight) + ")" )
-		.call(xAxis);
+		.call(xAxis)
+	  .append("g")
+		.attr("class", "axisLabel")
+	  .append("text")
+		.attr("transform", "translate(" + (width/2) + "," + (margin.bottom*0.8) + ")")
+		.style("text-anchor", "middle") 
+		.text("Ranking");
 
 	/* brush */
 	var brush = d3.svg.brush()
@@ -117,7 +123,6 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		}
 
 		var updatedData = topData.slice(start, end);
-		console.log(updatedData);
 
 		updateBars(updatedData);
 
