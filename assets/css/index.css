@@ -11,6 +11,8 @@
   border: 1px solid #c8c7cf;
   /* tool-tip
   ----------------------------------*/
+  /* tool-tip
+  ----------------------------------*/
   /* SVG axes
   ----------------------------------*/
 }
@@ -65,6 +67,16 @@
 }
 .outer-wrapper input[type="checkbox"]:checked:after {
   opacity: 1;
+}
+.outer-wrapper .info-box {
+  background-color: #ececec;
+  margin: 0 20px 0 80px;
+}
+.outer-wrapper .info-box p {
+  padding: 0 10px;
+}
+.outer-wrapper .info-box p .cites {
+  font-weight: bold;
 }
 .outer-wrapper .tool-tip {
   position: absolute;

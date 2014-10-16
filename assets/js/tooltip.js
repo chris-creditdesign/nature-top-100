@@ -1,5 +1,5 @@
 function tooltip (width,margin,duration) {
-	var format = d3.format("0,000");
+	
 
 	d3.select(".outer-wrapper .chart .tool-tip")
 		.style("left", margin.left + "px")

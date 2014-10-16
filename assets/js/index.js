@@ -48,7 +48,7 @@
 		var myGraphic;
 		var displayArray = [];
 		var disciplineArray = [];
-
+		var displayIndex = 0;
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -59,11 +59,15 @@
 			/*	Loading D3 into ie6-8 seems to cause a runtime error */
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
 
+				var format = d3.format("0,000");
+
 				displayArray = data.sort(comparePaper);
 				disciplineArray = buildDataSet(data);
 
 				myGraphic = buildGraphic(displayArray, disciplineArray, margin, width, height, miniHeight, colour, duration, delay);
 				myGraphic.updateBars(displayArray);
+
+				populateInfoBox(displayArray, displayIndex, format);
 
 
 			}); /* End of d3js getscript call
