@@ -1,8 +1,8 @@
 /*	Function to sort papers by citation */
 function comparePaper(a,b) {
-	if (a.lifeCycle.Total < b.lifeCycle.Total)
+	if (a.total < b.total)
 		return 1;
-	if (a.lifeCycle.Total > b.lifeCycle.Total)
+	if (a.total > b.total)
 		return -1;
 	return 0;
 }

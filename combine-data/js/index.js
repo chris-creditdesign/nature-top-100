@@ -1,12 +1,22 @@
 for (var i = 0; i < top100.length; i++) {
-  top100[i].lifeCycle = {};
+  top100[i].lifeCycle = [];
     for (var y = 0; y < combined.length; y++) {
         if ( top100[i].lead_author === combined[y].lead_author ){
-          var thisKey = combined[y].year;
-          top100[i].lifeCycle[thisKey] = combined[y].cites;
+          
+          if (combined[y].year === "Total") {
+            top100[i].total = combined[y].cites;
+          } else {
+          
+            var myObject = {};
+            myObject.year = combined[y].year;
+            myObject.cites = combined[y].cites;
+          
+            top100[i].lifeCycle.push(myObject);
+            
+          }
         };
     }  
-}  
+}
 
 // In order to print the final array of objects to the console.
 console.table(JSON.stringify(top100));

@@ -37,7 +37,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 	var yScale = d3.scale.linear()
 		.range([height, 0])
 		.domain([0, d3.max(topData, function(d) { 
-			return d.lifeCycle.Total;
+			return d.total;
 		})]);
 
 	var xScale = d3.scale.ordinal()
@@ -139,10 +139,10 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 				return xScale.rangeBand();
 			})
 			.attr("y", function (d){
-				return main ? yScale(d.lifeCycle.Total) : 0;
+				return main ? yScale(d.total) : 0;
 			})
 			.attr("height", function (d) {
-				return main ? height - yScale(d.lifeCycle.Total) : miniHeight;
+				return main ? height - yScale(d.total) : miniHeight;
 			});
 	}
 
@@ -159,10 +159,10 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 				return xScale.rangeBand();
 			})
 			.attr("y", function (d){
-				return main ? yScale(d.lifeCycle.Total) : 0;
+				return main ? yScale(d.total) : 0;
 			})
 			.attr("height", function (d) {
-				return main ? height - yScale(d.lifeCycle.Total) : miniHeight;
+				return main ? height - yScale(d.total) : miniHeight;
 			})
 			.attr("fill", function (d, i){
 				return getColour(d.discipline, colour, discipline);
@@ -184,7 +184,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 	function updateBars (data) {
 
 		xScale.domain(d3.range(data.length));
-		yScale.domain([0, d3.max(data, function(d) { return d.lifeCycle.Total;})]);
+		yScale.domain([0, d3.max(data, function(d) { return d.total;})]);
 
 		/* Update */
 		update(barsGroup, data, true);
@@ -203,9 +203,10 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 
 		barsGroup.selectAll("rect").on("mouseover", function (d,i) {
 			console.log("i is: " + (i + 1));
+			console.log(d);
 		});
 
-		// tooltip(width, margin, duration);
+		// tooltip(width, margin, format);
 
 	}
 

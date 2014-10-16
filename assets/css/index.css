@@ -78,6 +78,9 @@
 .outer-wrapper .info-box p .cites {
   font-weight: bold;
 }
+.outer-wrapper .info-box svg {
+  margin: 10px 0;
+}
 .outer-wrapper .tool-tip {
   position: absolute;
   padding: 10px;
