@@ -128,6 +128,12 @@ $colour-5: #EB6B4B;
 		svg {
 			margin: 10px 0;
 		}
+
+		.line {
+			fill: none;
+			stroke: steelblue;
+			stroke-width: 1.5px;
+		}
 	}
 
 	/* tool-tip

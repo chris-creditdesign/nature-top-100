@@ -82,6 +82,11 @@
 .outer-wrapper .info-box svg {
   margin: 10px 0;
 }
+.outer-wrapper .info-box .line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
 .outer-wrapper .tool-tip {
   position: absolute;
   padding: 10px;
@@ -161,20 +166,64 @@
 <script type="text/javascript">
 function buildLifeCycle (data, index, margin, width, height, colour) {
 
+	var parseDate = d3.time.format("%Y").parse;
+
 	var lifeCycleData = data[index].lifeCycle;
+
+	for (var i = 0; i < lifeCycleData.length; i++) {
+	  lifeCycleData[i].date = parseDate(lifeCycleData[i].year);
+	}  
+
+	var displayArray = lifeCycleData.sort(compareYear);
+
+	var x = d3.time.scale()
+		.range([0, width])
+		.domain(d3.extent(displayArray, function(d) { return d.date; }));
+
+	var y = d3.scale.linear()
+		.range([height, 0])
+		.domain(d3.extent(displayArray, function(d) { return d.cites; }));
+
+	var xAxis = d3.svg.axis()
+		.scale(x)
+		.orient("bottom");
+
+	var yAxis = d3.svg.axis()
+		.scale(y)
+		.ticks(5)
+		.orient("left");
+
+	var line = d3.svg.line()
+		.x(function(d) { return x(d.date); })
+		.y(function(d) { return y(d.cites); });
 
 	
 	var svg = d3.select(".outer-wrapper .info-box .life-cycle").append("svg")
-		.attr("width", width)
-		.attr("height", height);
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-	svg.append("rect")
-		.attr("x", 0)
-		.attr("y", 0)
-		.attr("width", width)
-		.attr("height", height)
-		.attr("fill", "none")
-		.attr("stroke","hotpink");
+	svg.append("g")
+	    .attr("class", "x axis")
+	    .attr("transform", "translate(0," + height + ")")
+	    .call(xAxis);
+
+	svg.append("g")
+	    .attr("class", "y axis")
+	    .call(yAxis)
+	  .append("text")
+	    .attr("transform", "translate(" + -(margin.left * 0.8) + "," + (height/2) + "), rotate(-90)")
+	    .attr("y", 6)
+	    .attr("dy", ".71em")
+	    .style("text-anchor", "middle")
+	    .text("Citations");
+
+	svg.append("path")
+	    .datum(displayArray)
+	    .attr("class", "line")
+	    .attr("d", line);
+
 
 }
 function populateInfoBox (data, index, format) {
@@ -16016,19 +16065,11 @@ function comparePaper(a,b) {
 	return 0;
 }
 
-/*	Function to sort papers by year */
+/*	Function to sort citations by year */
 function compareYear(a,b) {
-	if (a.year === b.year) {
-		if (a.cites < b.cites)
-			return 1;
-		if (a.cites > b.cites)
-			return -1;
-		return 0;
-	}
-
-	if (a.year < b.year)
+	if (a.date < b.date)
 		return 1;
-	if (a.year > b.year)
+	if (a.date > b.date)
 		return -1;
 	return 0;
 }
@@ -16313,7 +16354,8 @@ function buildDataSet (data) {
 		var lifeCycleMargin = {top: 20, right: 20, bottom: 40, left: 80};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var miniHeight = 60;
-		var lifeCycleHeight = 200;
+		var lifeCycleHeight = 100;
+		var lifeCycleWidth = width - lifeCycleMargin.left - lifeCycleMargin.right;
 		var height = 400 - margin.top - margin.mid - miniHeight - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
@@ -16344,7 +16386,7 @@ function buildDataSet (data) {
 				myGraphic.updateBars(displayArray);
 
 				populateInfoBox(displayArray, displayIndex, format);
-				buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, width, lifeCycleHeight, colour);
+				buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, lifeCycleWidth, lifeCycleHeight, colour);
 
 
 			}); /* End of d3js getscript call

@@ -81,6 +81,11 @@
 .outer-wrapper .info-box svg {
   margin: 10px 0;
 }
+.outer-wrapper .info-box .line {
+  fill: none;
+  stroke: steelblue;
+  stroke-width: 1.5px;
+}
 .outer-wrapper .tool-tip {
   position: absolute;
   padding: 10px;

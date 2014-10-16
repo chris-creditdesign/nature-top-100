@@ -7,19 +7,11 @@ function comparePaper(a,b) {
 	return 0;
 }
 
-/*	Function to sort papers by year */
+/*	Function to sort citations by year */
 function compareYear(a,b) {
-	if (a.year === b.year) {
-		if (a.cites < b.cites)
-			return 1;
-		if (a.cites > b.cites)
-			return -1;
-		return 0;
-	}
-
-	if (a.year < b.year)
+	if (a.date < b.date)
 		return 1;
-	if (a.year > b.year)
+	if (a.date > b.date)
 		return -1;
 	return 0;
 }

@@ -39,7 +39,8 @@
 		var lifeCycleMargin = {top: 20, right: 20, bottom: 40, left: 80};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var miniHeight = 60;
-		var lifeCycleHeight = 200;
+		var lifeCycleHeight = 100;
+		var lifeCycleWidth = width - lifeCycleMargin.left - lifeCycleMargin.right;
 		var height = 400 - margin.top - margin.mid - miniHeight - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
@@ -70,7 +71,7 @@
 				myGraphic.updateBars(displayArray);
 
 				populateInfoBox(displayArray, displayIndex, format);
-				buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, width, lifeCycleHeight, colour);
+				buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, lifeCycleWidth, lifeCycleHeight, colour);
 
 
 			}); /* End of d3js getscript call
