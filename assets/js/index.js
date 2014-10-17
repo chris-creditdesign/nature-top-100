@@ -36,7 +36,7 @@
 
 		/*	Margin, Width and height */
 		var margin = {top: 20, right: 20, bottom: 40, left: 80, mid: 20};
-		var lifeCycleMargin = {top: 20, right: 20, bottom: 40, left: 80};
+		var lifeCycleMargin = {top: 20, right: 20, bottom: 20, left: 80};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var miniHeight = 60;
 		var lifeCycleHeight = 100;
@@ -49,6 +49,8 @@
 
 		var topData;
 		var myGraphic;
+		var myLifeCycleGraphic;
+		var myInfoBox;
 		var displayArray = [];
 		var disciplineArray = [];
 		var displayIndex = 0;
@@ -70,8 +72,23 @@
 				myGraphic = buildGraphic(displayArray, disciplineArray, margin, width, height, miniHeight, colour, duration, delay);
 				myGraphic.updateBars(displayArray);
 
-				populateInfoBox(displayArray, displayIndex, format);
-				buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, lifeCycleWidth, lifeCycleHeight, colour);
+				myInfoBox = populateInfoBox(displayArray, displayIndex, format);
+				myLifeCycleGraphic = buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, lifeCycleWidth, lifeCycleHeight, colour);
+
+				function upDateInfoBox (idx) {
+					myLifeCycleGraphic.updateLine(idx);
+					myInfoBox.updateText(idx);
+				}
+
+				$('button.widget-button').on("click", function () {
+					if ($(this).hasClass('lower') && (displayIndex < 99)) {
+						displayIndex++;
+						upDateInfoBox(displayIndex); 
+					} else if ($(this).hasClass('higher') && (displayIndex > 0)) {
+						displayIndex--;
+						upDateInfoBox(displayIndex);
+					}
+				});
 
 
 			}); /* End of d3js getscript call

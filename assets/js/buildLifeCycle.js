@@ -2,13 +2,17 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 
 	var parseDate = d3.time.format("%Y").parse;
 
-	var lifeCycleData = data[index].lifeCycle;
+	function prepareData (index) {
+		var lifeCycleData = data[index].lifeCycle;
 
-	for (var i = 0; i < lifeCycleData.length; i++) {
-	  lifeCycleData[i].date = parseDate(lifeCycleData[i].year);
-	}  
+		for (var i = 0; i < lifeCycleData.length; i++) {
+		  lifeCycleData[i].date = parseDate(lifeCycleData[i].year);
+		}  
 
-	var displayArray = lifeCycleData.sort(compareYear);
+		return lifeCycleData.sort(compareYear);
+	}
+
+	var displayArray = prepareData(index);
 
 	var x = d3.time.scale()
 		.range([0, width])
@@ -16,10 +20,12 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 
 	var y = d3.scale.linear()
 		.range([height, 0])
-		.domain(d3.extent(displayArray, function(d) { return d.cites; }));
+		.domain([0,11063]);
+		// .domain(d3.extent(displayArray, function(d) { return d.cites; }));
 
 	var xAxis = d3.svg.axis()
 		.scale(x)
+		.ticks(5)
 		.orient("bottom");
 
 	var yAxis = d3.svg.axis()
@@ -32,7 +38,7 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 		.y(function(d) { return y(d.cites); });
 
 	
-	var svg = d3.select(".outer-wrapper .info-box .life-cycle").append("svg")
+	var svg = d3.select(".outer-wrapper .info-box .life-cycle-chart").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
@@ -47,9 +53,9 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 	    .attr("class", "y axis")
 	    .call(yAxis)
 	  .append("text")
-	    .attr("transform", "translate(" + -(margin.left * 0.8) + "," + (height/2) + "), rotate(-90)")
+	    .attr("transform", "translate(" + -(margin.left * 0.9) + "," + (height/2) + "), rotate(-90)")
 	    .attr("y", 6)
-	    .attr("dy", ".71em")
+	    .attr("dy", ".5em")
 	    .style("text-anchor", "middle")
 	    .text("Citations");
 
@@ -57,6 +63,40 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 	    .datum(displayArray)
 	    .attr("class", "line")
 	    .attr("d", line);
+
+	function updateLine(data) {
+	
+
+		var displayArray = prepareData(data);
+
+		console.log(displayArray.length);
+
+		x.domain(d3.extent(displayArray, function(d) { return d.date; }));
+		// y.domain(d3.extent(displayArray, function(d) { return d.cites; }));
+
+		/* Call the Y axis to adjust it to the new scale */
+		svg.select(".outer-wrapper .life-cycle-chart .y")
+			.transition()
+			.duration(150)
+			.call(yAxis);
+
+		svg.select(".outer-wrapper .life-cycle-chart .x")
+			.transition()
+			.duration(150)
+			.call(xAxis);
+
+
+		svg.selectAll(".outer-wrapper .life-cycle-chart path.line")
+			.data([displayArray])
+			.attr("d", line);
+	}
+
+	return {
+		updateLine: function (index) {
+			updateLine(index);
+		}
+
+	};
 
 
 }

@@ -1,9 +1,24 @@
 function populateInfoBox (data, index, format) {
-	jQuery(".title").text(data[index].title);
-	jQuery(".authors").text(data[index].authors);
-	jQuery(".journal").text(data[index].journal);
-	jQuery(".pub-year").text(data[index].pub_year);
-	jQuery(".discipline").text(data[index].discipline);
-	jQuery(".cites").text(format(data[index].total));
-	jQuery(".doi").text(data[index].doi);
+	var myData = data;
+	var myFormat = format;
+
+
+	function updateText (index) {
+		jQuery(".title").text(myData[index].title);
+		jQuery(".authors").text(myData[index].authors);
+		jQuery(".journal").text(myData[index].journal);
+		jQuery(".pub-year").text(myData[index].pub_year);
+		jQuery(".discipline").text(myData[index].discipline);
+		jQuery(".cites").text(myFormat(myData[index].total));
+		jQuery(".doi").text(myData[index].doi);
+	}
+
+	updateText(index);
+
+	return {
+		updateText: function (index) {
+			updateText(index);
+		}
+
+	};
 }

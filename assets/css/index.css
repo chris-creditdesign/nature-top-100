@@ -9,7 +9,7 @@
   min-height: 900px;
   position: relative;
   border: 1px solid #c8c7cf;
-  /* tool-tip
+  /* Lifecycle chart
   ----------------------------------*/
   /* tool-tip
   ----------------------------------*/
@@ -72,6 +72,21 @@
   background-color: #ececec;
   margin: 0 20px 0 80px;
 }
+.outer-wrapper .info-box .life-cycle {
+  padding: 0 0 10px 0;
+}
+.outer-wrapper .info-box button {
+  padding: 5px;
+  margin: 5px 0 0 5px;
+  background: #ccc;
+  border: 1px solid #999;
+}
+.outer-wrapper .info-box button:hover {
+  background: #aaa;
+}
+.outer-wrapper .info-box h2 {
+  padding: 0 10px;
+}
 .outer-wrapper .info-box p {
   padding: 0 10px;
 }
@@ -79,7 +94,7 @@
   font-weight: bold;
 }
 .outer-wrapper .info-box svg {
-  margin: 10px 0;
+  margin: 10px 0 0;
 }
 .outer-wrapper .info-box .line {
   fill: none;

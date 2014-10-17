@@ -10,7 +10,7 @@
   min-height: 900px;
   position: relative;
   border: 1px solid #c8c7cf;
-  /* tool-tip
+  /* Lifecycle chart
   ----------------------------------*/
   /* tool-tip
   ----------------------------------*/
@@ -73,6 +73,21 @@
   background-color: #ececec;
   margin: 0 20px 0 80px;
 }
+.outer-wrapper .info-box .life-cycle {
+  padding: 0 0 10px 0;
+}
+.outer-wrapper .info-box button {
+  padding: 5px;
+  margin: 5px 0 0 5px;
+  background: #ccc;
+  border: 1px solid #999;
+}
+.outer-wrapper .info-box button:hover {
+  background: #aaa;
+}
+.outer-wrapper .info-box h2 {
+  padding: 0 10px;
+}
 .outer-wrapper .info-box p {
   padding: 0 10px;
 }
@@ -80,7 +95,7 @@
   font-weight: bold;
 }
 .outer-wrapper .info-box svg {
-  margin: 10px 0;
+  margin: 10px 0 0;
 }
 .outer-wrapper .info-box .line {
   fill: none;
@@ -136,17 +151,22 @@
 		</div>
 	</div>
 
-	<div class="info-box">
-		<h2 class="title">Title</h2>
-		<p class="authors">Authors</p>
-		<p><span class="journal"></span>, <span class="pub-year"></span></p>
-		<p><span class="cites"></span> citations</p>
-		<p>DOI: <span class="doi"></span></p>
 
+	<div class="info-box">
+		<button class="widget-button lower">Lower</button>
+		<button class="widget-button higher">Higher</button>
+
+		<div class="life-cycle-chart"></div>
+		
 		<div class="life-cycle">
-			
+			<h2 class="title">Title</h2>
+			<p class="authors">Authors</p>
+			<p><span class="journal"></span>, <span class="pub-year"></span></p>
+			<p><span class="cites"></span> citations</p>
+			<p>DOI: <span class="doi"></span></p>
 		</div>
 	</div>
+
 
 <!-- 	<h3>Select discipline:</h3>
 
@@ -168,13 +188,17 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 
 	var parseDate = d3.time.format("%Y").parse;
 
-	var lifeCycleData = data[index].lifeCycle;
+	function prepareData (index) {
+		var lifeCycleData = data[index].lifeCycle;
 
-	for (var i = 0; i < lifeCycleData.length; i++) {
-	  lifeCycleData[i].date = parseDate(lifeCycleData[i].year);
-	}  
+		for (var i = 0; i < lifeCycleData.length; i++) {
+		  lifeCycleData[i].date = parseDate(lifeCycleData[i].year);
+		}  
 
-	var displayArray = lifeCycleData.sort(compareYear);
+		return lifeCycleData.sort(compareYear);
+	}
+
+	var displayArray = prepareData(index);
 
 	var x = d3.time.scale()
 		.range([0, width])
@@ -182,10 +206,12 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 
 	var y = d3.scale.linear()
 		.range([height, 0])
-		.domain(d3.extent(displayArray, function(d) { return d.cites; }));
+		.domain([0,11063]);
+		// .domain(d3.extent(displayArray, function(d) { return d.cites; }));
 
 	var xAxis = d3.svg.axis()
 		.scale(x)
+		.ticks(5)
 		.orient("bottom");
 
 	var yAxis = d3.svg.axis()
@@ -198,7 +224,7 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 		.y(function(d) { return y(d.cites); });
 
 	
-	var svg = d3.select(".outer-wrapper .info-box .life-cycle").append("svg")
+	var svg = d3.select(".outer-wrapper .info-box .life-cycle-chart").append("svg")
 	    .attr("width", width + margin.left + margin.right)
 	    .attr("height", height + margin.top + margin.bottom)
 	  .append("g")
@@ -213,9 +239,9 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 	    .attr("class", "y axis")
 	    .call(yAxis)
 	  .append("text")
-	    .attr("transform", "translate(" + -(margin.left * 0.8) + "," + (height/2) + "), rotate(-90)")
+	    .attr("transform", "translate(" + -(margin.left * 0.9) + "," + (height/2) + "), rotate(-90)")
 	    .attr("y", 6)
-	    .attr("dy", ".71em")
+	    .attr("dy", ".5em")
 	    .style("text-anchor", "middle")
 	    .text("Citations");
 
@@ -224,16 +250,65 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 	    .attr("class", "line")
 	    .attr("d", line);
 
+	function updateLine(data) {
+	
+
+		var displayArray = prepareData(data);
+
+		console.log(displayArray.length);
+
+		x.domain(d3.extent(displayArray, function(d) { return d.date; }));
+		// y.domain(d3.extent(displayArray, function(d) { return d.cites; }));
+
+		/* Call the Y axis to adjust it to the new scale */
+		svg.select(".outer-wrapper .life-cycle-chart .y")
+			.transition()
+			.duration(150)
+			.call(yAxis);
+
+		svg.select(".outer-wrapper .life-cycle-chart .x")
+			.transition()
+			.duration(150)
+			.call(xAxis);
+
+
+		svg.selectAll(".outer-wrapper .life-cycle-chart path.line")
+			.data([displayArray])
+			.attr("d", line);
+	}
+
+	return {
+		updateLine: function (index) {
+			updateLine(index);
+		}
+
+	};
+
 
 }
 function populateInfoBox (data, index, format) {
-	jQuery(".title").text(data[index].title);
-	jQuery(".authors").text(data[index].authors);
-	jQuery(".journal").text(data[index].journal);
-	jQuery(".pub-year").text(data[index].pub_year);
-	jQuery(".discipline").text(data[index].discipline);
-	jQuery(".cites").text(format(data[index].total));
-	jQuery(".doi").text(data[index].doi);
+	var myData = data;
+	var myFormat = format;
+
+
+	function updateText (index) {
+		jQuery(".title").text(myData[index].title);
+		jQuery(".authors").text(myData[index].authors);
+		jQuery(".journal").text(myData[index].journal);
+		jQuery(".pub-year").text(myData[index].pub_year);
+		jQuery(".discipline").text(myData[index].discipline);
+		jQuery(".cites").text(myFormat(myData[index].total));
+		jQuery(".doi").text(myData[index].doi);
+	}
+
+	updateText(index);
+
+	return {
+		updateText: function (index) {
+			updateText(index);
+		}
+
+	};
 }
 var data = [
   {
@@ -16351,7 +16426,7 @@ function buildDataSet (data) {
 
 		/*	Margin, Width and height */
 		var margin = {top: 20, right: 20, bottom: 40, left: 80, mid: 20};
-		var lifeCycleMargin = {top: 20, right: 20, bottom: 40, left: 80};
+		var lifeCycleMargin = {top: 20, right: 20, bottom: 20, left: 80};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var miniHeight = 60;
 		var lifeCycleHeight = 100;
@@ -16364,6 +16439,8 @@ function buildDataSet (data) {
 
 		var topData;
 		var myGraphic;
+		var myLifeCycleGraphic;
+		var myInfoBox;
 		var displayArray = [];
 		var disciplineArray = [];
 		var displayIndex = 0;
@@ -16385,8 +16462,23 @@ function buildDataSet (data) {
 				myGraphic = buildGraphic(displayArray, disciplineArray, margin, width, height, miniHeight, colour, duration, delay);
 				myGraphic.updateBars(displayArray);
 
-				populateInfoBox(displayArray, displayIndex, format);
-				buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, lifeCycleWidth, lifeCycleHeight, colour);
+				myInfoBox = populateInfoBox(displayArray, displayIndex, format);
+				myLifeCycleGraphic = buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, lifeCycleWidth, lifeCycleHeight, colour);
+
+				function upDateInfoBox (idx) {
+					myLifeCycleGraphic.updateLine(idx);
+					myInfoBox.updateText(idx);
+				}
+
+				$('button.widget-button').on("click", function () {
+					if ($(this).hasClass('lower') && (displayIndex < 99)) {
+						displayIndex++;
+						upDateInfoBox(displayIndex); 
+					} else if ($(this).hasClass('higher') && (displayIndex > 0)) {
+						displayIndex--;
+						upDateInfoBox(displayIndex);
+					}
+				});
 
 
 			}); /* End of d3js getscript call

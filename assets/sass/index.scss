@@ -110,13 +110,32 @@ $colour-5: #EB6B4B;
 		opacity: 1;
 	}
 
-	/* tool-tip
+	/* Lifecycle chart
 	----------------------------------*/
 	.info-box {
 		background-color: #ececec;
 		margin: 0 20px 0 80px; 
 		// color: #ECF0F1;
+		
+		.life-cycle {
+			padding: 0 0 10px 0;
+		}
 
+		button {
+			padding: 5px;
+			margin: 5px 0 0 5px;
+			background: #ccc;
+			border: 1px solid #999;
+		}
+
+		button:hover {
+			background: #aaa;
+		}
+
+		h2 {
+			padding: 0 10px;
+		}
+	
 		p {
 			padding: 0 10px;
 
@@ -126,7 +145,7 @@ $colour-5: #EB6B4B;
 		}
 
 		svg {
-			margin: 10px 0;
+			margin: 10px 0 0;
 		}
 
 		.line {
