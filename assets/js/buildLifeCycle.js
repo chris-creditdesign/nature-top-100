@@ -69,16 +69,14 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 
 		var displayArray = prepareData(data);
 
-		console.log(displayArray.length);
-
 		x.domain(d3.extent(displayArray, function(d) { return d.date; }));
 		// y.domain(d3.extent(displayArray, function(d) { return d.cites; }));
 
 		/* Call the Y axis to adjust it to the new scale */
-		svg.select(".outer-wrapper .life-cycle-chart .y")
-			.transition()
-			.duration(150)
-			.call(yAxis);
+		// svg.select(".outer-wrapper .life-cycle-chart .y")
+		// 	.transition()
+		// 	.duration(150)
+		// 	.call(yAxis);
 
 		svg.select(".outer-wrapper .life-cycle-chart .x")
 			.transition()
