@@ -107,7 +107,8 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 	var brush = d3.svg.brush()
 					.x(xScaleBrush)
 					.extent([0, width])
-					.on("brush", display);
+					.on("brush", display)
+					.on("brushend", brushend);
 
 	brushGroup.append("g")
 		.attr("class", "brush")
@@ -152,22 +153,20 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 									return (brush.extent()[0] <= xScaleBrush(d)) && (xScaleBrush(d) <= brush.extent()[1]);
 								});
 
-		var start;
-		var end;
-
-		/* Keep a minimum amount of bars on there to avoid any jank */
-		if (selected.length > 2 ) {
-			start = selected[0];
-			end = selected[selected.length - 1] + 1;
-		} else {
-			start = 0;
-			end = topData.length;
-		}
+		var start = selected[0];
+		var	end = selected[selected.length - 1] + 1;
 
 		var updatedData = topData.slice(start, end);
 
 		updateBars(updatedData);
 
+	}
+
+	function brushend() {
+		if (brush.extent()[0] === brush.extent()[1]) {
+			d3.select(this).call(brush.extent([0,width]));
+			display();
+		}
 	}
 
 	function update (grp, data, main) {
@@ -221,7 +220,6 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		.attr("y2", function(d) {
 			return tenOrOne(d.rank) ? 3 : 0;
 		});
-
 	}
 
 
