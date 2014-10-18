@@ -16198,6 +16198,7 @@ function compareYear(a,b) {
 function buildGraphic (topData, discipline, margin, width, height, miniHeight, colour, duration, delay) {
 
 	var selected;
+	var handleWidth = 15;
 
 	function tenOrOne(num) {
 		if (((num % 10) === 0) || num === 1) {
@@ -16264,7 +16265,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 	/*	Define y axis */
 	var yAxis = d3.svg.axis()
 		.scale(yScale)
-		.tickSize(-width, -width)
+		.tickSize(-width, 0)
 		.ticks(4)
 		.orient("left");
 
@@ -16309,8 +16310,37 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		.attr("class", "brush")
 		.call(brush)
 		.selectAll("rect")
-		.attr("opacity", 0.5)
+		.attr("fill","none")
+		.attr("height", miniHeight );
+
+	var brushHandleGroup = brushGroup.selectAll(".resize").append("g") 
+		.attr("transform", function(d, i) {
+			return  i ? "translate(" + -(handleWidth) + ",0)" : "translate(0,0)";   
+		});
+
+	brushHandleGroup.append("rect")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("fill", "#aaa")
+		.attr("width", handleWidth)
 		.attr("height", miniHeight);
+
+	brushHandleGroup.append("line")
+		.attr("x1", (handleWidth * 0.65))
+		.attr("y1", (miniHeight * 0.35))
+		.attr("x2", (handleWidth * 0.65))
+		.attr("y2", (miniHeight * 0.65))
+		.attr("stroke", "#555")
+		.attr("stroke-width", 2);
+
+	brushHandleGroup.append("line")
+		.attr("x1", (handleWidth * 0.35))
+		.attr("y1", (miniHeight * 0.35))
+		.attr("x2", (handleWidth * 0.35))
+		.attr("y2", (miniHeight * 0.65))
+		.attr("stroke", "#555")
+		.attr("stroke-width", 2);
+
 
 	function display () {
 		
@@ -16353,6 +16383,15 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			.attr("height", function (d) {
 				return main ? height - yScale(d.total) : miniHeight;
 			});
+	}
+
+	function updateMiniBars(data) {
+		miniGroup.selectAll("rect").data(data, function (d) {
+			return d.title;
+		})
+		.attr("fill", function (d, i){
+			return getColour(d.discipline, colour, discipline);
+		});
 	}
 
 	function updateNumbers (data) {
@@ -16449,6 +16488,14 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			.remove();
 	}
 
+	function exitMiniBars(data) {
+		miniGroup.selectAll("rect").data(data, function (d) {
+			return d.title;
+		}).exit()
+		.attr("fill", "#ececec");
+	}
+
+
 	function exitNumbers (data) {
 		numbersGroup.selectAll("text").data(data, function (d) {
 			return d.title;
@@ -16470,6 +16517,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 
 		/* Update */
 		update(barsGroup, data, true);
+		updateMiniBars(data);
 		updateNumbers(data);
 
 		/* Enter… */
@@ -16478,6 +16526,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 
 		/* Exit */
 		exit(barsGroup, data);
+		exitMiniBars(data);
 		exitNumbers(data);
 
 		/* Call the Y axis to adjust it to the new scale */
@@ -16559,7 +16608,7 @@ function buildDataSet (data) {
 						"#42210b"];
 
 		/*	Margin, Width and height */
-		var margin = {top: 20, right: 20, bottom: 40, left: 80, mid: 20};
+		var margin = {top: 20, right: 40, bottom: 40, left: 80, mid: 20};
 		var lifeCycleMargin = {top: 20, right: 20, bottom: 20, left: 80};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var miniHeight = 60;
