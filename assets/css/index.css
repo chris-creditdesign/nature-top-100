@@ -127,12 +127,12 @@
 .outer-wrapper .tool-tip.hidden {
   display: none;
 }
-.outer-wrapper .axis path, .outer-wrapper .axis line {
+.outer-wrapper .axis path, .outer-wrapper .axis line, .outer-wrapper .numbersGroup path, .outer-wrapper .numbersGroup line {
   fill: none;
   stroke: #666;
   shape-rendering: crispEdges;
 }
-.outer-wrapper .axis text {
+.outer-wrapper .axis text, .outer-wrapper .numbersGroup text {
   font-family: sans-serif;
   fill: #666;
   font-size: 13px;

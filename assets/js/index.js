@@ -67,6 +67,11 @@
 				var format = d3.format("0,000");
 
 				displayArray = data.sort(comparePaper);
+
+				for (var i = 0; i < displayArray.length; i++) {
+					displayArray[i].rank = (i + 1);
+				}
+
 				disciplineArray = buildDataSet(data);
 
 				myGraphic = buildGraphic(displayArray, disciplineArray, margin, width, height, miniHeight, colour, duration, delay);

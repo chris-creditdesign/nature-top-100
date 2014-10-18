@@ -2,6 +2,14 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 
 	var selected;
 
+	function tenOrOne(num) {
+		if (((num % 10) === 0) || num === 1) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	var svg = d3.select(".outer-wrapper .chart").append("svg")
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.mid + miniHeight + margin.bottom);
@@ -18,6 +26,10 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 						.attr("class","barsGroup")
 						.attr("transform","translate(" + margin.left + "," + margin.top + ")")
 						.attr("clip-path", "url(#clip)");
+
+	var numbersGroup = svg.append('g')
+						.attr("class","numbersGroup")
+						.attr("transform","translate(" + margin.left + "," + (margin.top + height) + ")");
 
 	var miniGroup = svg.append('g')
 						.attr("class","miniGroup")
@@ -116,7 +128,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		/* Keep a minimum amount of bars on there to avoid any jank */
 		if (selected.length > 2 ) {
 			start = selected[0];
-			end = selected[selected.length - 1];
+			end = selected[selected.length - 1] + 1;
 		} else {
 			start = 0;
 			end = topData.length;
@@ -146,6 +158,34 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			});
 	}
 
+	function updateNumbers (data) {
+		numbersGroup.selectAll("text").data(data, function (d){
+			return d.title;
+		})
+		.attr("x", function (d,i){
+			return xScale(i) + (xScale.rangeBand() / 2);
+		})
+		.text(function (d) {
+			return tenOrOne(d.rank) ? d.rank : "";
+		});
+
+		numbersGroup.selectAll("line").data(data,function(d) {
+			return d.title;
+		})
+		.attr("x1", function (d, i) {
+			return xScale(i) + (xScale.rangeBand() / 2) ;
+		})
+		.attr("y1", 0)
+		.attr("x2", function (d, i) {
+			return xScale(i) + (xScale.rangeBand() / 2) ;
+		})
+		.attr("y2", function(d) {
+			return tenOrOne(d.rank) ? 3 : 0;
+		});
+
+	}
+
+
 	function enter (grp, data, main) {
 		grp.selectAll("rect").data(data, function (d) {
 				return d.title;
@@ -172,11 +212,56 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			});
 	}
 
+	function enterNumbers (data) {
+		numbersGroup.selectAll("text").data(data, function (d) {
+			return d.title;
+		})
+		.enter()
+		.append("text")
+		.attr("x", function (d, i) {
+			return xScale(i) + (xScale.rangeBand() / 2) ;
+		})
+		.attr("y", 5)
+		.attr("dy", ".8em")
+		.style("text-anchor", "middle")
+		.text(function (d) {
+			return tenOrOne(d.rank) ? d.rank : "";
+		});
+
+		numbersGroup.selectAll("line").data(data,function(d) {
+			return d.title;
+		})
+		.enter()
+		.append("line")
+		.attr("x1", function (d, i) {
+			return xScale(i) + (xScale.rangeBand() / 2) ;
+		})
+		.attr("y1", 0)
+		.attr("x2", function (d, i) {
+			return xScale(i) + (xScale.rangeBand() / 2) ;
+		})
+		.attr("y2", function(d) {
+			return tenOrOne(d.rank) ? 3 : 0;
+		});
+	}
+
 	function exit (grp, data) {
 		grp.selectAll("rect").data(data, function (d) {
 				return d.title;
 			}).exit()
 			.remove();
+	}
+
+	function exitNumbers (data) {
+		numbersGroup.selectAll("text").data(data, function (d) {
+			return d.title;
+		}).exit()
+		.remove();
+
+		numbersGroup.selectAll("line").data(data, function (d) {
+			return d.title;
+		}).exit()
+		.remove();
 	}
 	
 	enter(miniGroup, data, false);
@@ -188,12 +273,15 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 
 		/* Update */
 		update(barsGroup, data, true);
+		updateNumbers(data);
 
 		/* Enter… */
 		enter(barsGroup, data, true);
+		enterNumbers(data);
 
 		/* Exit */
 		exit(barsGroup, data);
+		exitNumbers(data);
 
 		/* Call the Y axis to adjust it to the new scale */
 		svg.select(".outer-wrapper .chart .y")
@@ -201,10 +289,9 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			.duration(10)
 			.call(yAxis);
 
-		barsGroup.selectAll("rect").on("mouseover", function (d,i) {
-			console.log("i is: " + (i + 1));
-			console.log(d);
-		});
+		// barsGroup.selectAll("rect").on("mouseover", function (d,i) {
+		// 	console.log("rank is: " + d.rank);
+		// });
 
 		// tooltip(width, margin, format);
 
