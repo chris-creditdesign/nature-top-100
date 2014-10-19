@@ -20,7 +20,7 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 
 	var y = d3.scale.linear()
 		.range([height, 0])
-		.domain([0,11063]);
+		.domain([0,12000]);
 		// .domain(d3.extent(displayArray, function(d) { return d.cites; }));
 
 	var xAxis = d3.svg.axis()
@@ -31,6 +31,7 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 	var yAxis = d3.svg.axis()
 		.scale(y)
 		.ticks(5)
+		.tickSize(-width, 0)
 		.orient("left");
 
 	var line = d3.svg.line()
@@ -45,6 +46,15 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	svg.append("g")
+		.attr("class","white-box")
+	  .append("rect")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("width", width)
+		.attr("height", height)
+		.attr("fill","#FFF");
+
+	svg.append("g")
 	    .attr("class", "x axis")
 	    .attr("transform", "translate(0," + height + ")")
 	    .call(xAxis);
@@ -57,7 +67,7 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 	    .attr("y", 6)
 	    .attr("dy", ".5em")
 	    .style("text-anchor", "middle")
-	    .text("Citations");
+	    .text("Citations per year");
 
 	svg.append("path")
 	    .datum(displayArray)

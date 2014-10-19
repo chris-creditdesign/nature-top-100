@@ -36,7 +36,7 @@
 
 		/*	Margin, Width and height */
 		var margin = {top: 40, right: 40, bottom: 40, left: 80, mid: 40};
-		var lifeCycleMargin = {top: 20, right: 20, bottom: 20, left: 80};
+		var lifeCycleMargin = {top: 10, right: 20, bottom: 20, left: 70};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var miniHeight = 60;
 		var lifeCycleHeight = 100;

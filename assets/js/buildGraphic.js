@@ -81,7 +81,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 	  .append("text")
 		.attr("transform", "translate(" + -(margin.left * 0.8) + "," + (height/2) + "), rotate(-90)")
 		.style("text-anchor", "middle")
-		.text("Citations");
+		.text("Total citations");
 
 	/* Prepare the x axis */
 	svg.append("g")

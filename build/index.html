@@ -152,7 +152,7 @@
   font-weight: bold;
 }
 .outer-wrapper .info-box .life-cycle-chart {
-  margin: 0 0 10px;
+  margin: 10px 0 10px;
 }
 .outer-wrapper .info-box .line {
   fill: none;
@@ -268,7 +268,7 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 
 	var y = d3.scale.linear()
 		.range([height, 0])
-		.domain([0,11063]);
+		.domain([0,12000]);
 		// .domain(d3.extent(displayArray, function(d) { return d.cites; }));
 
 	var xAxis = d3.svg.axis()
@@ -279,6 +279,7 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 	var yAxis = d3.svg.axis()
 		.scale(y)
 		.ticks(5)
+		.tickSize(-width, 0)
 		.orient("left");
 
 	var line = d3.svg.line()
@@ -293,6 +294,15 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 	svg.append("g")
+		.attr("class","white-box")
+	  .append("rect")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("width", width)
+		.attr("height", height)
+		.attr("fill","#FFF");
+
+	svg.append("g")
 	    .attr("class", "x axis")
 	    .attr("transform", "translate(0," + height + ")")
 	    .call(xAxis);
@@ -305,7 +315,7 @@ function buildLifeCycle (data, index, margin, width, height, colour) {
 	    .attr("y", 6)
 	    .attr("dy", ".5em")
 	    .style("text-anchor", "middle")
-	    .text("Citations");
+	    .text("Citations per year");
 
 	svg.append("path")
 	    .datum(displayArray)
@@ -16291,7 +16301,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 	  .append("text")
 		.attr("transform", "translate(" + -(margin.left * 0.8) + "," + (height/2) + "), rotate(-90)")
 		.style("text-anchor", "middle")
-		.text("Citations");
+		.text("Total citations");
 
 	/* Prepare the x axis */
 	svg.append("g")
@@ -16679,7 +16689,7 @@ function buildDataSet (data) {
 
 		/*	Margin, Width and height */
 		var margin = {top: 40, right: 40, bottom: 40, left: 80, mid: 40};
-		var lifeCycleMargin = {top: 20, right: 20, bottom: 20, left: 80};
+		var lifeCycleMargin = {top: 10, right: 20, bottom: 20, left: 70};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var miniHeight = 60;
 		var lifeCycleHeight = 100;

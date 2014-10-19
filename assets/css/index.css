@@ -102,7 +102,7 @@
   font-weight: bold;
 }
 .outer-wrapper .info-box .life-cycle-chart {
-  margin: 0 0 10px;
+  margin: 10px 0 10px;
 }
 .outer-wrapper .info-box .line {
   fill: none;
