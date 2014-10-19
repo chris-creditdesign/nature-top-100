@@ -35,7 +35,7 @@
 						"#42210b"];
 
 		/*	Margin, Width and height */
-		var margin = {top: 20, right: 40, bottom: 40, left: 80, mid: 20};
+		var margin = {top: 40, right: 40, bottom: 40, left: 80, mid: 40};
 		var lifeCycleMargin = {top: 20, right: 20, bottom: 20, left: 80};
 		var width = $('.section').width()  - margin.left - margin.right;
 		var miniHeight = 60;
@@ -53,7 +53,7 @@
 		var myInfoBox;
 		var displayArray = [];
 		var disciplineArray = [];
-		var displayIndex = 0;
+		var displayIndex = 1;
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -74,8 +74,8 @@
 
 				disciplineArray = buildDataSet(data);
 
-				myGraphic = buildGraphic(displayArray, disciplineArray, margin, width, height, miniHeight, colour, duration, delay);
-				myGraphic.updateBars(displayArray);
+				myGraphic = buildGraphic(displayArray, disciplineArray, margin, width, height, miniHeight, colour, duration, delay, displayIndex);
+				myGraphic.updateBars(displayArray, displayIndex);
 
 				myInfoBox = populateInfoBox(displayArray, displayIndex, format);
 				myLifeCycleGraphic = buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, lifeCycleWidth, lifeCycleHeight, colour);
@@ -88,10 +88,12 @@
 				$('button.widget-button').on("click", function () {
 					if ($(this).hasClass('lower') && (displayIndex < 99)) {
 						displayIndex++;
-						upDateInfoBox(displayIndex); 
+						upDateInfoBox(displayIndex);
+						myGraphic.upDatePointer(displayIndex);
 					} else if ($(this).hasClass('higher') && (displayIndex > 0)) {
 						displayIndex--;
 						upDateInfoBox(displayIndex);
+						myGraphic.upDatePointer(displayIndex);
 					}
 				});
 

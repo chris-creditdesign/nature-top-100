@@ -1,7 +1,8 @@
-function buildGraphic (topData, discipline, margin, width, height, miniHeight, colour, duration, delay) {
+function buildGraphic (topData, discipline, margin, width, height, miniHeight, colour, duration, delay, displayIndex) {
 
 	var selected;
 	var handleWidth = 15;
+	var rankIndex = displayIndex;
 
 	function tenOrOne(num) {
 		if (((num % 10) === 0) || num === 1) {
@@ -15,18 +16,9 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		.attr("width", width + margin.left + margin.right)
 		.attr("height", height + margin.top + margin.mid + miniHeight + margin.bottom);
 
-	svg.append("defs").append("clipPath")
-		.attr("id", "clip")
-		.append("rect")
-		.attr("x", 0)
-		.attr("y", 0)
-		.attr("width", width)
-		.attr("height" , height);
-
 	var barsGroup = svg.append('g')
 						.attr("class","barsGroup")
-						.attr("transform","translate(" + margin.left + "," + margin.top + ")")
-						.attr("clip-path", "url(#clip)");
+						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
 
 	var numbersGroup = svg.append('g')
 						.attr("class","numbersGroup")
@@ -169,8 +161,9 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		}
 	}
 
-	function update (grp, data, main) {
-		grp.selectAll("rect").data(data, function (d) {
+	function updateBarsGroup (data) {
+
+		barsGroup.selectAll("rect").data(data, function (d) {
 				return d.title;
 			})
 			.attr("x", function (d, i) {
@@ -180,11 +173,30 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 				return xScale.rangeBand();
 			})
 			.attr("y", function (d){
-				return main ? yScale(d.total) : 0;
+				return yScale(d.total);
 			})
 			.attr("height", function (d) {
-				return main ? height - yScale(d.total) : miniHeight;
+				return height - yScale(d.total);
 			});
+
+		barsGroup.selectAll("path").data(data, function (d) {
+				return d.title;
+			})
+			.attr("class", function(d) {
+				return "rank" + d.rank;
+			})
+			.attr("transform", function(d,i) {
+				/* Catch an error if trying to translate 0 paths */
+				var horizTranslate;
+				if (xScale(i) === undefined) {
+					horizTranslate = 0;
+				} else {
+					horizTranslate = (xScale(i) + (xScale.rangeBand()/2));
+				}
+				return "translate(" + horizTranslate + "," + (yScale(d.total) -7) + "), scale(0.8)"; 
+			})
+			.attr("opacity", 0);
+
 	}
 
 	function updateMiniBars(data) {
@@ -247,6 +259,19 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			.attr("opacity", function () {
 				return 1;
 			});
+
+		grp.selectAll("path")
+			.data(data)
+			.enter().append("path")
+			.attr("d", d3.svg.symbol().type("diamond"))
+			.attr("class", function(d) {
+				return "rank" + d.rank;
+			})
+			.attr("transform", function(d,i) {
+				var verticalTranslate = main ? yScale(d.total) -7 : -7;
+				return "translate(" + (xScale(i) + (xScale.rangeBand()/2)) + "," + verticalTranslate + "), scale(0.8)"; 
+			})
+			.attr("opacity", 0);
 	}
 
 	function enterNumbers (data) {
@@ -282,8 +307,13 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		});
 	}
 
-	function exit (grp, data) {
-		grp.selectAll("rect").data(data, function (d) {
+	function exitBarsGroup (data) {
+		barsGroup.selectAll("rect").data(data, function (d) {
+				return d.title;
+			}).exit()
+			.remove();
+
+		barsGroup.selectAll("path").data(data, function (d) {
 				return d.title;
 			}).exit()
 			.remove();
@@ -308,16 +338,35 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		}).exit()
 		.remove();
 	}
+
+	function upDatePointer (displayIndex) {
+
+			rankIndex = displayIndex;
+
+			barsGroup.selectAll("path")
+				.attr("opacity", 0);
+
+			barsGroup.select("path.rank" + rankIndex)
+				.attr("opacity", 1);
+
+			miniGroup.selectAll("path")
+				.attr("opacity", 0);
+
+			miniGroup.select("path.rank" + rankIndex)
+				.attr("opacity", 1);
+	}
 	
 	enter(miniGroup, data, false);
 
 	function updateBars (data) {
 
+		console.log(displayIndex);
+
 		xScale.domain(d3.range(data.length));
 		yScale.domain([0, d3.max(data, function(d) { return d.total;})]);
 
 		/* Update */
-		update(barsGroup, data, true);
+		updateBarsGroup(data);
 		updateMiniBars(data);
 		updateNumbers(data);
 
@@ -326,7 +375,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		enterNumbers(data);
 
 		/* Exit */
-		exit(barsGroup, data);
+		exitBarsGroup(data);
 		exitMiniBars(data);
 		exitNumbers(data);
 
@@ -336,9 +385,12 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			.duration(10)
 			.call(yAxis);
 
-		// barsGroup.selectAll("rect").on("mouseover", function (d,i) {
-		// 	console.log("rank is: " + d.rank);
-		// });
+		upDatePointer(rankIndex);
+
+		barsGroup.selectAll("rect").on("mouseover", function (d,i) {
+			console.log("rank is: " + d.rank);
+		});
+
 
 		// tooltip(width, margin, format);
 
@@ -347,6 +399,10 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 	return {
 		updateBars: function (data) {
 			updateBars(data);
+		},
+
+		upDatePointer: function (displayIndex) {
+			upDatePointer(displayIndex);
 		}
 
 	};
