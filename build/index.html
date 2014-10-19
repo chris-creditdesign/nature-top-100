@@ -16404,7 +16404,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 				} else {
 					horizTranslate = (xScale(i) + (xScale.rangeBand()/2));
 				}
-				return "translate(" + horizTranslate + "," + (yScale(d.total) -7) + "), scale(0.8)"; 
+				return "translate(" + horizTranslate + "," + (yScale(d.total) -7) + "), scale(0.9)"; 
 			})
 			.attr("opacity", 0);
 
@@ -16481,7 +16481,8 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			.attr("fill","#444")
 			.attr("transform", function(d,i) {
 				var verticalTranslate = main ? yScale(d.total) -7 : -7;
-				return "translate(" + (xScale(i) + (xScale.rangeBand()/2)) + "," + verticalTranslate + "), scale(0.8)"; 
+				var scale = main ? "0.9" : "0.8";
+				return "translate(" + (xScale(i) + (xScale.rangeBand()/2)) + "," + verticalTranslate + "), scale(" + scale + ")"; 
 			})
 			.attr("opacity", 0);
 	}
