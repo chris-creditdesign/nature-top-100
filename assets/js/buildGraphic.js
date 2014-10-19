@@ -388,8 +388,10 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 
 		upDatePointer(rankIndex);
 
-		barsGroup.selectAll("rect").on("mouseover", function (d,i) {
-			console.log("rank is: " + d.rank);
+		barsGroup.selectAll("rect").on("click", function (d,i) {
+			displayIndex = d.rank -1;
+
+			pubsub.publish("newIndexChosen", displayIndex);
 		});
 
 

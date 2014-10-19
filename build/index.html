@@ -164,13 +164,15 @@
   font-size: 13px;
   shape-rendering: crispEdges;
 }
+.outer-wrapper .chart rect {
+  cursor: pointer;
+}
 
 </style>
-<!-- <h2>Top 100 cited papers of all time</h2>
-<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id nobis exercitationem quam reprehenderit similique nulla aliquam!</p> -->
-
 <div class="outer-wrapper">
-	
+	<h2>Top 100 cited papers of all time</h2>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id nobis exercitationem quam reprehenderit similique nulla aliquam!</p>
+
 	<div class="chart">
 		<div class="tool-tip">
 		</div>
@@ -205,6 +207,86 @@
 </div>
 <!--[if gt IE 8]><!-->
 <script type="text/javascript">
+var pubsub = {};
+
+(function (myObject) {
+	
+	/*	Storage for topics that can be broadcast or listened to */
+	var topics = {};
+
+	/*	A topic identifyer */
+	var subUid = -1;
+
+	/*	Publish or broadcast events of interest
+		with a specific topic name and arguments
+		such as the data to pass along */
+	myObject.publish = function ( topic, args ) {
+		
+		if ( !topics[topic] ) {
+			return false;
+		}
+
+		var subscribers = topics[topic];
+		var len = subscribers ? subscribers.length : 0;
+
+		while (len--) {
+			subscribers[len].func( topic, args );
+		}	
+
+		return this;
+	};
+
+	/*	Subscribe to events of interest with a specific topic name and a 
+		callback function, to be executed with the topic/event is observed */
+	myObject.subscribe = function ( topic, func ) {
+		
+		if ( !topics[topic] ) {
+			topics[topic] = [];
+		}
+
+		var token = ( ++subUid ).toString();
+		topics[topic].push({
+			token: token,
+			func: func
+		});
+		return token;
+	};
+
+}( pubsub ));
+/*	Referenced from: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript */
+
+var myGraphic;
+var myLifeCycleGraphic;
+var myInfoBox;
+var myButtons;
+var displayIndex = 0;
+
+function indexChosen  ( topic, index ) {
+	console.log(index);
+
+	displayIndex = index;
+
+	myGraphic.upDatePointer(index);
+	myLifeCycleGraphic.updateLine(index);
+	myInfoBox.updateText(index);
+	upDateButtons(index);
+}
+
+/*	Create subscriptions to the newDataAvailable, scrollingTimeline
+			and timelineClicked topics */
+var dataSubscriber = pubsub.subscribe( "newIndexChosen", indexChosen );
+
+function upDateButtons (index) {
+	$('button.widget-button').removeClass("active");
+
+	if ( index < 99 ) {
+		$('button.widget-button.lower').addClass("active");
+	}
+
+	if ( index > 0 ) {
+		$('button.widget-button.higher').addClass("active");
+	}
+}
 function buildLifeCycle (data, index, margin, width, height, colour) {
 
 	var parseDate = d3.time.format("%Y").parse;
@@ -16126,13 +16208,20 @@ function updateArray (ary) {
 	return selectedArray;
 }
 function createKey (data, colour) {
-	data.sort();
+	
+	var sortedData = [];
+
+	for (var i = 0; i < data.length; i++) {
+		sortedData.push(data[i]);
+	}
+
+	sortedData.sort();
 
 	/* Create checkboxes for each discipline */
 	d3.select(".outer-wrapper .choose-option")
 		.append("ul")
 		.selectAll('li')
-	  .data(data)
+	  .data(sortedData)
 		.enter()
 		.append("li")
 		.style("border-left",function (d, i) {
@@ -16554,8 +16643,10 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 
 		upDatePointer(rankIndex);
 
-		barsGroup.selectAll("rect").on("mouseover", function (d,i) {
-			console.log("rank is: " + d.rank);
+		barsGroup.selectAll("rect").on("click", function (d,i) {
+			displayIndex = d.rank -1;
+
+			pubsub.publish("newIndexChosen", displayIndex);
 		});
 
 
@@ -16645,12 +16736,8 @@ function buildDataSet (data) {
 		var activeRecord = {};
 
 		var topData;
-		var myGraphic;
-		var myLifeCycleGraphic;
-		var myInfoBox;
 		var displayArray = [];
 		var disciplineArray = [];
-		var displayIndex = 0;
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -16662,23 +16749,6 @@ function buildDataSet (data) {
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
 
 				var format = d3.format("0,000");
-
-				function upDateInfoBox (idx) {
-					myLifeCycleGraphic.updateLine(idx);
-					myInfoBox.updateText(idx);
-				}
-
-				function upDateButtons (idx) {
-					$('button.widget-button').removeClass("active");
-
-					if ( displayIndex < 99 ) {
-						$('button.widget-button.lower').addClass("active");
-					}
-
-					if ( displayIndex > 0 ) {
-						$('button.widget-button.higher').addClass("active");
-					}
-				}
 
 				displayArray = data.sort(comparePaper);
 
@@ -16701,14 +16771,12 @@ function buildDataSet (data) {
 				$('button.widget-button').on("click", function () {
 					if ($(this).hasClass('lower') && (displayIndex < 99)) {
 						displayIndex++;
-						upDateInfoBox(displayIndex);
-						myGraphic.upDatePointer(displayIndex);
 					} else if ($(this).hasClass('higher') && (displayIndex > 0)) {
-						displayIndex--;
-						upDateInfoBox(displayIndex);
-						myGraphic.upDatePointer(displayIndex);
+						displayIndex--;	
 					}
-					upDateButtons(displayIndex);
+					// upDateButtons(displayIndex);
+
+					pubsub.publish("newIndexChosen", displayIndex);
 				});
 
 

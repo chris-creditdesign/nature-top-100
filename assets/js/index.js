@@ -48,12 +48,8 @@
 		var activeRecord = {};
 
 		var topData;
-		var myGraphic;
-		var myLifeCycleGraphic;
-		var myInfoBox;
 		var displayArray = [];
 		var disciplineArray = [];
-		var displayIndex = 0;
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -65,23 +61,6 @@
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
 
 				var format = d3.format("0,000");
-
-				function upDateInfoBox (idx) {
-					myLifeCycleGraphic.updateLine(idx);
-					myInfoBox.updateText(idx);
-				}
-
-				function upDateButtons (idx) {
-					$('button.widget-button').removeClass("active");
-
-					if ( displayIndex < 99 ) {
-						$('button.widget-button.lower').addClass("active");
-					}
-
-					if ( displayIndex > 0 ) {
-						$('button.widget-button.higher').addClass("active");
-					}
-				}
 
 				displayArray = data.sort(comparePaper);
 
@@ -104,14 +83,12 @@
 				$('button.widget-button').on("click", function () {
 					if ($(this).hasClass('lower') && (displayIndex < 99)) {
 						displayIndex++;
-						upDateInfoBox(displayIndex);
-						myGraphic.upDatePointer(displayIndex);
 					} else if ($(this).hasClass('higher') && (displayIndex > 0)) {
-						displayIndex--;
-						upDateInfoBox(displayIndex);
-						myGraphic.upDatePointer(displayIndex);
+						displayIndex--;	
 					}
-					upDateButtons(displayIndex);
+					// upDateButtons(displayIndex);
+
+					pubsub.publish("newIndexChosen", displayIndex);
 				});
 
 

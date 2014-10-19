@@ -114,3 +114,6 @@
   font-size: 13px;
   shape-rendering: crispEdges;
 }
+.outer-wrapper .chart rect {
+  cursor: pointer;
+}
