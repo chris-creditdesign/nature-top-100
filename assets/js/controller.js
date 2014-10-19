@@ -5,8 +5,6 @@ var myButtons;
 var displayIndex = 0;
 
 function indexChosen  ( topic, index ) {
-	console.log(index);
-
 	displayIndex = index;
 
 	myGraphic.upDatePointer(index);

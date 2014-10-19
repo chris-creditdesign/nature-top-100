@@ -262,8 +262,6 @@ var myButtons;
 var displayIndex = 0;
 
 function indexChosen  ( topic, index ) {
-	console.log(index);
-
 	displayIndex = index;
 
 	myGraphic.upDatePointer(index);
@@ -403,7 +401,7 @@ function populateInfoBox (data, index, format) {
 
 
 	function updateText (index) {
-		jQuery(".title").text(myData[index].title);
+		jQuery(".title").text(myData[index].rank + ". " + myData[index].title);
 		jQuery(".authors").text(myData[index].authors);
 		jQuery(".journal").text(myData[index].journal);
 		jQuery(".pub-year").text(myData[index].pub_year);

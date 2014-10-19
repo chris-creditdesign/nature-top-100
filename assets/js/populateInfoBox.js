@@ -4,7 +4,7 @@ function populateInfoBox (data, index, format) {
 
 
 	function updateText (index) {
-		jQuery(".title").text(myData[index].title);
+		jQuery(".title").text(myData[index].rank + ". " + myData[index].title);
 		jQuery(".authors").text(myData[index].authors);
 		jQuery(".journal").text(myData[index].journal);
 		jQuery(".pub-year").text(myData[index].pub_year);
