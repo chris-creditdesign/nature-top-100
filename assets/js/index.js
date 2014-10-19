@@ -40,7 +40,7 @@
 		var width = $('.section').width()  - margin.left - margin.right;
 		var miniHeight = 60;
 		var lifeCycleHeight = 100;
-		var lifeCycleWidth = width - lifeCycleMargin.left - lifeCycleMargin.right;
+		var lifeCycleWidth = $('.info-box').width() - lifeCycleMargin.left - lifeCycleMargin.right;
 		var height = 400 - margin.top - margin.mid - miniHeight - margin.bottom;
 		/*	Global variable to control the length of D3 transitons */
 		var duration = 450;
