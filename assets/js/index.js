@@ -53,7 +53,7 @@
 		var myInfoBox;
 		var displayArray = [];
 		var disciplineArray = [];
-		var displayIndex = 1;
+		var displayIndex = 98;
 
 		/*	==================================================================================== */
 		/*	jQuery ready */

@@ -346,13 +346,13 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			barsGroup.selectAll("path")
 				.attr("opacity", 0);
 
-			barsGroup.select("path.rank" + rankIndex)
+			barsGroup.select("path.rank" + (rankIndex + 1))
 				.attr("opacity", 1);
 
 			miniGroup.selectAll("path")
 				.attr("opacity", 0);
 
-			miniGroup.select("path.rank" + rankIndex)
+			miniGroup.select("path.rank" + (rankIndex + 1))
 				.attr("opacity", 1);
 	}
 	
