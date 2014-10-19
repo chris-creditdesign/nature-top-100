@@ -115,26 +115,38 @@ $colour-5: #EB6B4B;
 	.info-box {
 		background-color: #ececec;
 		margin: 0 20px 0 80px; 
-		// color: #ECF0F1;
 		
 		.life-cycle {
-			padding: 0 0 10px 0;
+
 		}
 
-		button {
-			padding: 5px;
-			margin: 5px 0 0 5px;
-			background: #ccc;
-			border: 1px solid #999;
+		.info-box-controls {
+			padding: 10px 0 0 10px;
+					
+			button {
+				padding: 0.1em 0.3em;
+				background-color: #ececec;
+				border: 1px solid #999;
+				display: inline-block;
+				vertical-align: top;
+				font-size: 2em;
+				color: #666;
+				border-radius: 5px;
+				cursor: auto;
+				pointer-events: none;
+			}
+
+			.active {
+				background: #ccc;
+				cursor: pointer;
+				pointer-events: auto;
+			}
+
+			.active:hover {
+				background: #aaa;
+			}
 		}
 
-		button:hover {
-			background: #aaa;
-		}
-
-		h2 {
-			padding: 0 10px;
-		}
 	
 		p {
 			padding: 0 10px;
@@ -144,8 +156,8 @@ $colour-5: #EB6B4B;
 			}
 		}
 
-		svg {
-			margin: 10px 0 0;
+		.life-cycle-chart {
+			margin: 0 0 10px;
 		}
 
 		.line {

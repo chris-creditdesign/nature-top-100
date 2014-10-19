@@ -53,7 +53,7 @@
 		var myInfoBox;
 		var displayArray = [];
 		var disciplineArray = [];
-		var displayIndex = 98;
+		var displayIndex = 0;
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -65,6 +65,18 @@
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
 
 				var format = d3.format("0,000");
+
+				function upDateButtons (idx) {
+					$('button.widget-button').removeClass("active");
+
+					if ( displayIndex < 99 ) {
+						$('button.widget-button.lower').addClass("active");
+					}
+
+					if ( displayIndex > 0 ) {
+						$('button.widget-button.higher').addClass("active");
+					}
+				}
 
 				displayArray = data.sort(comparePaper);
 
@@ -85,6 +97,8 @@
 					myInfoBox.updateText(idx);
 				}
 
+				upDateButtons(displayIndex);
+
 				$('button.widget-button').on("click", function () {
 					if ($(this).hasClass('lower') && (displayIndex < 99)) {
 						displayIndex++;
@@ -95,6 +109,7 @@
 						upDateInfoBox(displayIndex);
 						myGraphic.upDatePointer(displayIndex);
 					}
+					upDateButtons(displayIndex);
 				});
 
 

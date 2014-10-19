@@ -72,20 +72,28 @@
   background-color: #ececec;
   margin: 0 20px 0 80px;
 }
-.outer-wrapper .info-box .life-cycle {
-  padding: 0 0 10px 0;
+.outer-wrapper .info-box .info-box-controls {
+  padding: 10px 0 0 10px;
 }
-.outer-wrapper .info-box button {
-  padding: 5px;
-  margin: 5px 0 0 5px;
-  background: #ccc;
+.outer-wrapper .info-box .info-box-controls button {
+  padding: 0.1em 0.3em;
+  background-color: #ececec;
   border: 1px solid #999;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 2em;
+  color: #666;
+  border-radius: 5px;
+  cursor: auto;
+  pointer-events: none;
 }
-.outer-wrapper .info-box button:hover {
+.outer-wrapper .info-box .info-box-controls .active {
+  background: #ccc;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.outer-wrapper .info-box .info-box-controls .active:hover {
   background: #aaa;
-}
-.outer-wrapper .info-box h2 {
-  padding: 0 10px;
 }
 .outer-wrapper .info-box p {
   padding: 0 10px;
@@ -93,8 +101,8 @@
 .outer-wrapper .info-box p .cites {
   font-weight: bold;
 }
-.outer-wrapper .info-box svg {
-  margin: 10px 0 0;
+.outer-wrapper .info-box .life-cycle-chart {
+  margin: 0 0 10px;
 }
 .outer-wrapper .info-box .line {
   fill: none;

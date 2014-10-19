@@ -185,6 +185,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			.attr("class", function(d) {
 				return "rank" + d.rank;
 			})
+			.attr("fill","#444")
 			.attr("transform", function(d,i) {
 				/* Catch an error if trying to translate 0 paths */
 				var horizTranslate;
@@ -267,6 +268,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			.attr("class", function(d) {
 				return "rank" + d.rank;
 			})
+			.attr("fill","#444")
 			.attr("transform", function(d,i) {
 				var verticalTranslate = main ? yScale(d.total) -7 : -7;
 				return "translate(" + (xScale(i) + (xScale.rangeBand()/2)) + "," + verticalTranslate + "), scale(0.8)"; 

@@ -122,20 +122,28 @@
   background-color: #ececec;
   margin: 0 20px 0 80px;
 }
-.outer-wrapper .info-box .life-cycle {
-  padding: 0 0 10px 0;
+.outer-wrapper .info-box .info-box-controls {
+  padding: 10px 0 0 10px;
 }
-.outer-wrapper .info-box button {
-  padding: 5px;
-  margin: 5px 0 0 5px;
-  background: #ccc;
+.outer-wrapper .info-box .info-box-controls button {
+  padding: 0.1em 0.3em;
+  background-color: #ececec;
   border: 1px solid #999;
+  display: inline-block;
+  vertical-align: top;
+  font-size: 2em;
+  color: #666;
+  border-radius: 5px;
+  cursor: auto;
+  pointer-events: none;
 }
-.outer-wrapper .info-box button:hover {
+.outer-wrapper .info-box .info-box-controls .active {
+  background: #ccc;
+  cursor: pointer;
+  pointer-events: auto;
+}
+.outer-wrapper .info-box .info-box-controls .active:hover {
   background: #aaa;
-}
-.outer-wrapper .info-box h2 {
-  padding: 0 10px;
 }
 .outer-wrapper .info-box p {
   padding: 0 10px;
@@ -143,8 +151,8 @@
 .outer-wrapper .info-box p .cites {
   font-weight: bold;
 }
-.outer-wrapper .info-box svg {
-  margin: 10px 0 0;
+.outer-wrapper .info-box .life-cycle-chart {
+  margin: 0 0 10px;
 }
 .outer-wrapper .info-box .line {
   fill: none;
@@ -202,10 +210,13 @@
 
 
 	<div class="info-box">
-		<button class="widget-button lower">Lower</button>
-		<button class="widget-button higher">Higher</button>
-
-		<div class="life-cycle-chart"></div>
+		<div class="info-box-controls">
+			<button class="widget-button lower">&#60;</button>
+			<svg x="0px" y="0px" width="30px" height="40px">
+      			<path d="M15,3 L25,20 15,37 5,20Z" fill="#444"></path>
+			</svg>
+			<button class="widget-button higher">&#62;</button>
+		</div>
 		
 		<div class="life-cycle">
 			<h2 class="title">Title</h2>
@@ -214,6 +225,8 @@
 			<p><span class="cites"></span> citations</p>
 			<p>DOI: <span class="doi"></span></p>
 		</div>
+		
+		<div class="life-cycle-chart"></div>
 	</div>
 
 
@@ -16382,6 +16395,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			.attr("class", function(d) {
 				return "rank" + d.rank;
 			})
+			.attr("fill","#444")
 			.attr("transform", function(d,i) {
 				/* Catch an error if trying to translate 0 paths */
 				var horizTranslate;
@@ -16464,6 +16478,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			.attr("class", function(d) {
 				return "rank" + d.rank;
 			})
+			.attr("fill","#444")
 			.attr("transform", function(d,i) {
 				var verticalTranslate = main ? yScale(d.total) -7 : -7;
 				return "translate(" + (xScale(i) + (xScale.rangeBand()/2)) + "," + verticalTranslate + "), scale(0.8)"; 
@@ -16543,13 +16558,13 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			barsGroup.selectAll("path")
 				.attr("opacity", 0);
 
-			barsGroup.select("path.rank" + rankIndex)
+			barsGroup.select("path.rank" + (rankIndex + 1))
 				.attr("opacity", 1);
 
 			miniGroup.selectAll("path")
 				.attr("opacity", 0);
 
-			miniGroup.select("path.rank" + rankIndex)
+			miniGroup.select("path.rank" + (rankIndex + 1))
 				.attr("opacity", 1);
 	}
 	
@@ -16680,7 +16695,7 @@ function buildDataSet (data) {
 		var myInfoBox;
 		var displayArray = [];
 		var disciplineArray = [];
-		var displayIndex = 1;
+		var displayIndex = 0;
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -16692,6 +16707,18 @@ function buildDataSet (data) {
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
 
 				var format = d3.format("0,000");
+
+				function upDateButtons (idx) {
+					$('button.widget-button').removeClass("active");
+
+					if ( displayIndex < 99 ) {
+						$('button.widget-button.lower').addClass("active");
+					}
+
+					if ( displayIndex > 0 ) {
+						$('button.widget-button.higher').addClass("active");
+					}
+				}
 
 				displayArray = data.sort(comparePaper);
 
@@ -16712,6 +16739,8 @@ function buildDataSet (data) {
 					myInfoBox.updateText(idx);
 				}
 
+				upDateButtons(displayIndex);
+
 				$('button.widget-button').on("click", function () {
 					if ($(this).hasClass('lower') && (displayIndex < 99)) {
 						displayIndex++;
@@ -16722,6 +16751,7 @@ function buildDataSet (data) {
 						upDateInfoBox(displayIndex);
 						myGraphic.upDatePointer(displayIndex);
 					}
+					upDateButtons(displayIndex);
 				});
 
 
