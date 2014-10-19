@@ -66,6 +66,11 @@
 
 				var format = d3.format("0,000");
 
+				function upDateInfoBox (idx) {
+					myLifeCycleGraphic.updateLine(idx);
+					myInfoBox.updateText(idx);
+				}
+
 				function upDateButtons (idx) {
 					$('button.widget-button').removeClass("active");
 
@@ -92,12 +97,9 @@
 				myInfoBox = populateInfoBox(displayArray, displayIndex, format);
 				myLifeCycleGraphic = buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, lifeCycleWidth, lifeCycleHeight, colour);
 
-				function upDateInfoBox (idx) {
-					myLifeCycleGraphic.updateLine(idx);
-					myInfoBox.updateText(idx);
-				}
-
 				upDateButtons(displayIndex);
+
+				createKey(disciplineArray, colour);
 
 				$('button.widget-button').on("click", function () {
 					if ($(this).hasClass('lower') && (displayIndex < 99)) {

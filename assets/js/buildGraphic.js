@@ -363,8 +363,6 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 
 	function updateBars (data) {
 
-		console.log(displayIndex);
-
 		xScale.domain(d3.range(data.length));
 		yScale.domain([0, d3.max(data, function(d) { return d.total;})]);
 

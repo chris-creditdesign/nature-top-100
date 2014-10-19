@@ -68,47 +68,10 @@ $colour-5: #EB6B4B;
 			padding-left: 10px;
 			li {
 				list-style: none;
-				padding: 0px;
+				padding: 0 0 0 10px;
 				margin: 4px 0px 8px;
 			}
 		}
-
-	select {
-		margin-left: 10px;
-		margin-bottom: 10px;
-	}
-
-	label {
-		display: inline-block;
-		width: 80%;
-		cursor: pointer;
-	}
-
-	input[type="checkbox"] {
-		cursor: pointer;
-		display: inline-block;
-		height: 20px;
-		margin-right: 15px;
-		position: relative;
-		width: 20px;
-		-webkit-appearance: none;
-		vertical-align: top;
-	}
-
-	input[type="checkbox"]:after {
-		content: "\2714";
-		font-size: 1.5em;
-		display: inline-block;
-		left: 0.25em;
-		position: relative;
-		top: 0.1em;
-		color: #666;
-		opacity: 0;
-	}
-
-	input[type="checkbox"]:checked:after {
-		opacity: 1;
-	}
 
 	/* Lifecycle chart
 	----------------------------------*/

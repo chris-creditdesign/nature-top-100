@@ -34,40 +34,8 @@
 }
 .outer-wrapper ul li {
   list-style: none;
-  padding: 0px;
+  padding: 0 0 0 10px;
   margin: 4px 0px 8px;
-}
-.outer-wrapper select {
-  margin-left: 10px;
-  margin-bottom: 10px;
-}
-.outer-wrapper label {
-  display: inline-block;
-  width: 80%;
-  cursor: pointer;
-}
-.outer-wrapper input[type="checkbox"] {
-  cursor: pointer;
-  display: inline-block;
-  height: 20px;
-  margin-right: 15px;
-  position: relative;
-  width: 20px;
-  -webkit-appearance: none;
-  vertical-align: top;
-}
-.outer-wrapper input[type="checkbox"]:after {
-  content: "\2714";
-  font-size: 1.5em;
-  display: inline-block;
-  left: 0.25em;
-  position: relative;
-  top: 0.1em;
-  color: #666;
-  opacity: 0;
-}
-.outer-wrapper input[type="checkbox"]:checked:after {
-  opacity: 1;
 }
 .outer-wrapper .info-box {
   background-color: #ececec;
@@ -181,18 +149,9 @@
 	</div>
 
 
-<!-- 	<h3>Select discipline:</h3>
+	<h3>Discipline colour</h3>
 
-	<form class="choose-option"></form>
-
-	<h3>Select stacking order:</h3>
-
-	<form class="choose-order">
-		<select name="select-choice" id="select-choice">
-			<option value="cites">By number of citations</option>
-			<option value="year">By year published</option>
-		</select>
-	</form> -->
+	<div class="choose-option"></div>
 
 </div>
 <!--[if gt IE 8]><!-->
@@ -16117,36 +16076,23 @@ function updateArray (ary) {
 
 	return selectedArray;
 }
-function createCheckboxes (data, colour) {
-
- 	sortedData = ["All"];
-
- 	for (var i = 0; i < data.length; i++) {
- 		sortedData.push(data[i]);
- 	}
-
- 	sortedData.sort();
+function createKey (data, colour) {
+	data.sort();
 
 	/* Create checkboxes for each discipline */
 	d3.select(".outer-wrapper .choose-option")
 		.append("ul")
 		.selectAll('li')
-	  .data(sortedData)
+	  .data(data)
 		.enter()
 		.append("li")
 		.style("border-left",function (d, i) {
-			return d === "All" ? "10px solid #fff" : "10px solid " + getColour (d, colour, data);
+			return "20px solid " + getColour (d, colour, data);
 		})
-		.html(function(d,i) {
-			var name = d;
-			var safeName  = name.toLowerCase().split(' ').join("-");
-
-			var innerHTML = "<input type='checkbox' id='" + safeName + "' style='background-color:" + "#fff" + ";' checked><label for='" + safeName + "'>" + name + "</label>";
-			
-			return innerHTML;
+		.html(function(d,i) {			
+			return d;
 		});
 }
-
 function getColour (x, colour, discipline) {
 	var colourIndex = discipline.indexOf(x);
 
@@ -16534,8 +16480,6 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 
 	function updateBars (data) {
 
-		console.log(displayIndex);
-
 		xScale.domain(d3.range(data.length));
 		yScale.domain([0, d3.max(data, function(d) { return d.total;})]);
 
@@ -16670,6 +16614,11 @@ function buildDataSet (data) {
 
 				var format = d3.format("0,000");
 
+				function upDateInfoBox (idx) {
+					myLifeCycleGraphic.updateLine(idx);
+					myInfoBox.updateText(idx);
+				}
+
 				function upDateButtons (idx) {
 					$('button.widget-button').removeClass("active");
 
@@ -16696,12 +16645,9 @@ function buildDataSet (data) {
 				myInfoBox = populateInfoBox(displayArray, displayIndex, format);
 				myLifeCycleGraphic = buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, lifeCycleWidth, lifeCycleHeight, colour);
 
-				function upDateInfoBox (idx) {
-					myLifeCycleGraphic.updateLine(idx);
-					myInfoBox.updateText(idx);
-				}
-
 				upDateButtons(displayIndex);
+
+				createKey(disciplineArray, colour);
 
 				$('button.widget-button').on("click", function () {
 					if ($(this).hasClass('lower') && (displayIndex < 99)) {
