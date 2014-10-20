@@ -9,12 +9,6 @@
   min-height: 900px;
   position: relative;
   border: 1px solid #c8c7cf;
-  /* Lifecycle chart
-  ----------------------------------*/
-  /* tool-tip
-  ----------------------------------*/
-  /* SVG axes
-  ----------------------------------*/
 }
 .outer-wrapper h2, .outer-wrapper h3, .outer-wrapper p {
   padding: 10px 10px 0 10px;
