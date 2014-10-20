@@ -138,8 +138,7 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 		.attr("stroke-width", 2);
 
 
-	function display () {
-		
+	function display () {		
 		selected =  xScaleBrush.domain()
 								.filter(function(d){
 									return (brush.extent()[0] <= xScaleBrush(d)) && (xScaleBrush(d) <= brush.extent()[1]);
@@ -262,7 +261,9 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			});
 
 		grp.selectAll("path")
-			.data(data)
+			.data(data, function (d) {
+				return d.title;
+			})
 			.enter().append("path")
 			.attr("d", d3.svg.symbol().type("diamond"))
 			.attr("class", function(d) {
