@@ -17,14 +17,3 @@ function indexChosen  ( topic, index ) {
 			and timelineClicked topics */
 var dataSubscriber = pubsub.subscribe( "newIndexChosen", indexChosen );
 
-function upDateButtons (index) {
-	$('button.widget-button').removeClass("active");
-
-	if ( index < 99 ) {
-		$('button.widget-button.lower').addClass("active");
-	}
-
-	if ( index > 0 ) {
-		$('button.widget-button.higher').addClass("active");
-	}
-}

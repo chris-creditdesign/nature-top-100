@@ -80,7 +80,7 @@
 
 				createKey(disciplineArray, colour);
 
-				$('button.widget-button').on("click", function () {
+				$('button.widget-button').click(function () {
 					if ($(this).hasClass('lower') && (displayIndex < 99)) {
 						displayIndex++;
 					} else if ($(this).hasClass('higher') && (displayIndex > 0)) {

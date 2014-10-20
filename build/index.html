@@ -59,12 +59,6 @@
   min-height: 900px;
   position: relative;
   border: 1px solid #c8c7cf;
-  /* Lifecycle chart
-  ----------------------------------*/
-  /* tool-tip
-  ----------------------------------*/
-  /* SVG axes
-  ----------------------------------*/
 }
 .outer-wrapper h2, .outer-wrapper h3, .outer-wrapper p {
   padding: 10px 10px 0 10px;
@@ -207,218 +201,6 @@
 </div>
 <!--[if gt IE 8]><!-->
 <script type="text/javascript">
-var pubsub = {};
-
-(function (myObject) {
-	
-	/*	Storage for topics that can be broadcast or listened to */
-	var topics = {};
-
-	/*	A topic identifyer */
-	var subUid = -1;
-
-	/*	Publish or broadcast events of interest
-		with a specific topic name and arguments
-		such as the data to pass along */
-	myObject.publish = function ( topic, args ) {
-		
-		if ( !topics[topic] ) {
-			return false;
-		}
-
-		var subscribers = topics[topic];
-		var len = subscribers ? subscribers.length : 0;
-
-		while (len--) {
-			subscribers[len].func( topic, args );
-		}	
-
-		return this;
-	};
-
-	/*	Subscribe to events of interest with a specific topic name and a 
-		callback function, to be executed with the topic/event is observed */
-	myObject.subscribe = function ( topic, func ) {
-		
-		if ( !topics[topic] ) {
-			topics[topic] = [];
-		}
-
-		var token = ( ++subUid ).toString();
-		topics[topic].push({
-			token: token,
-			func: func
-		});
-		return token;
-	};
-
-}( pubsub ));
-/*	Referenced from: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript */
-
-var myGraphic;
-var myLifeCycleGraphic;
-var myInfoBox;
-var myButtons;
-var displayIndex = 0;
-
-function indexChosen  ( topic, index ) {
-	displayIndex = index;
-
-	myGraphic.upDatePointer(index);
-	myLifeCycleGraphic.updateLine(index);
-	myInfoBox.updateText(index);
-	upDateButtons(index);
-}
-
-/*	Create subscriptions to the newDataAvailable, scrollingTimeline
-			and timelineClicked topics */
-var dataSubscriber = pubsub.subscribe( "newIndexChosen", indexChosen );
-
-function upDateButtons (index) {
-	$('button.widget-button').removeClass("active");
-
-	if ( index < 99 ) {
-		$('button.widget-button.lower').addClass("active");
-	}
-
-	if ( index > 0 ) {
-		$('button.widget-button.higher').addClass("active");
-	}
-}
-function buildLifeCycle (data, index, margin, width, height, colour) {
-
-	var parseDate = d3.time.format("%Y").parse;
-
-	function prepareData (index) {
-		var lifeCycleData = data[index].lifeCycle;
-
-		for (var i = 0; i < lifeCycleData.length; i++) {
-		  lifeCycleData[i].date = parseDate(lifeCycleData[i].year);
-		}  
-
-		return lifeCycleData.sort(compareYear);
-	}
-
-	var displayArray = prepareData(index);
-
-	var x = d3.time.scale()
-		.range([0, width])
-		.domain(d3.extent(displayArray, function(d) { return d.date; }));
-
-	var y = d3.scale.linear()
-		.range([height, 0])
-		.domain([0,12000]);
-		// .domain(d3.extent(displayArray, function(d) { return d.cites; }));
-
-	var xAxis = d3.svg.axis()
-		.scale(x)
-		.ticks(5)
-		.orient("bottom");
-
-	var yAxis = d3.svg.axis()
-		.scale(y)
-		.ticks(5)
-		.tickSize(-width, 0)
-		.orient("left");
-
-	var line = d3.svg.line()
-		.x(function(d) { return x(d.date); })
-		.y(function(d) { return y(d.cites); });
-
-	
-	var svg = d3.select(".outer-wrapper .info-box .life-cycle-chart").append("svg")
-	    .attr("width", width + margin.left + margin.right)
-	    .attr("height", height + margin.top + margin.bottom)
-	  .append("g")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-	svg.append("g")
-		.attr("class","white-box")
-	  .append("rect")
-		.attr("x", 0)
-		.attr("y", 0)
-		.attr("width", width)
-		.attr("height", height)
-		.attr("fill","#FFF");
-
-	svg.append("g")
-	    .attr("class", "x axis")
-	    .attr("transform", "translate(0," + height + ")")
-	    .call(xAxis);
-
-	svg.append("g")
-	    .attr("class", "y axis")
-	    .call(yAxis)
-	  .append("text")
-	    .attr("transform", "translate(" + -(margin.left * 0.9) + "," + (height/2) + "), rotate(-90)")
-	    .attr("y", 6)
-	    .attr("dy", ".5em")
-	    .style("text-anchor", "middle")
-	    .text("Citations per year");
-
-	svg.append("path")
-	    .datum(displayArray)
-	    .attr("class", "line")
-	    .attr("d", line);
-
-	function updateLine(data) {
-	
-
-		var displayArray = prepareData(data);
-
-		x.domain(d3.extent(displayArray, function(d) { return d.date; }));
-		// y.domain(d3.extent(displayArray, function(d) { return d.cites; }));
-
-		/* Call the Y axis to adjust it to the new scale */
-		// svg.select(".outer-wrapper .life-cycle-chart .y")
-		// 	.transition()
-		// 	.duration(150)
-		// 	.call(yAxis);
-
-		svg.select(".outer-wrapper .life-cycle-chart .x")
-			.transition()
-			.duration(150)
-			.call(xAxis);
-
-
-		svg.selectAll(".outer-wrapper .life-cycle-chart path.line")
-			.data([displayArray])
-			.attr("d", line);
-	}
-
-	return {
-		updateLine: function (index) {
-			updateLine(index);
-		}
-
-	};
-
-
-}
-function populateInfoBox (data, index, format) {
-	var myData = data;
-	var myFormat = format;
-
-
-	function updateText (index) {
-		jQuery(".title").text(myData[index].rank + ". " + myData[index].title);
-		jQuery(".authors").text(myData[index].authors);
-		jQuery(".journal").text(myData[index].journal);
-		jQuery(".pub-year").text(myData[index].pub_year);
-		jQuery(".discipline").text(myData[index].discipline);
-		jQuery(".cites").text(myFormat(myData[index].total));
-		jQuery(".doi").text(myData[index].doi);
-	}
-
-	updateText(index);
-
-	return {
-		updateText: function (index) {
-			updateText(index);
-		}
-
-	};
-}
 var data = [
   {
     "lead_author": "Lowry_1951",
@@ -16117,45 +15899,218 @@ var data = [
     "total": 12257
   }
 ];
-function tooltip (width,margin,duration) {
+var pubsub = {};
+
+(function (myObject) {
+	
+	/*	Storage for topics that can be broadcast or listened to */
+	var topics = {};
+
+	/*	A topic identifyer */
+	var subUid = -1;
+
+	/*	Publish or broadcast events of interest
+		with a specific topic name and arguments
+		such as the data to pass along */
+	myObject.publish = function ( topic, args ) {
+		
+		if ( !topics[topic] ) {
+			return false;
+		}
+
+		var subscribers = topics[topic];
+		var len = subscribers ? subscribers.length : 0;
+
+		while (len--) {
+			subscribers[len].func( topic, args );
+		}	
+
+		return this;
+	};
+
+	/*	Subscribe to events of interest with a specific topic name and a 
+		callback function, to be executed with the topic/event is observed */
+	myObject.subscribe = function ( topic, func ) {
+		
+		if ( !topics[topic] ) {
+			topics[topic] = [];
+		}
+
+		var token = ( ++subUid ).toString();
+		topics[topic].push({
+			token: token,
+			func: func
+		});
+		return token;
+	};
+
+}( pubsub ));
+/*	Referenced from: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript */
+
+var myGraphic;
+var myLifeCycleGraphic;
+var myInfoBox;
+var myButtons;
+var displayIndex = 0;
+
+function indexChosen  ( topic, index ) {
+	displayIndex = index;
+
+	myGraphic.upDatePointer(index);
+	myLifeCycleGraphic.updateLine(index);
+	myInfoBox.updateText(index);
+	upDateButtons(index);
+}
+
+/*	Create subscriptions to the newDataAvailable, scrollingTimeline
+			and timelineClicked topics */
+var dataSubscriber = pubsub.subscribe( "newIndexChosen", indexChosen );
+
+
+function upDateButtons (index) {
+	jQuery('button.widget-button').removeClass("active");
+
+	if ( index < 99 ) {
+		jQuery('button.widget-button.lower').addClass("active");
+	}
+
+	if ( index > 0 ) {
+		jQuery('button.widget-button.higher').addClass("active");
+	}
+}
+function buildLifeCycle (data, index, margin, width, height, colour) {
+
+	var parseDate = d3.time.format("%Y").parse;
+
+	function prepareData (index) {
+		var lifeCycleData = data[index].lifeCycle;
+
+		for (var i = 0; i < lifeCycleData.length; i++) {
+		  lifeCycleData[i].date = parseDate(lifeCycleData[i].year);
+		}  
+
+		return lifeCycleData.sort(compareYear);
+	}
+
+	var displayArray = prepareData(index);
+
+	var x = d3.time.scale()
+		.range([0, width])
+		.domain(d3.extent(displayArray, function(d) { return d.date; }));
+
+	var y = d3.scale.linear()
+		.range([height, 0])
+		.domain([0,12000]);
+		// .domain(d3.extent(displayArray, function(d) { return d.cites; }));
+
+	var xAxis = d3.svg.axis()
+		.scale(x)
+		.ticks(5)
+		.orient("bottom");
+
+	var yAxis = d3.svg.axis()
+		.scale(y)
+		.ticks(5)
+		.tickSize(-width, 0)
+		.orient("left");
+
+	var line = d3.svg.line()
+		.x(function(d) { return x(d.date); })
+		.y(function(d) { return y(d.cites); });
+
+	
+	var svg = d3.select(".outer-wrapper .info-box .life-cycle-chart").append("svg")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+	svg.append("g")
+		.attr("class","white-box")
+	  .append("rect")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("width", width)
+		.attr("height", height)
+		.attr("fill","#FFF");
+
+	svg.append("g")
+	    .attr("class", "x axis")
+	    .attr("transform", "translate(0," + height + ")")
+	    .call(xAxis);
+
+	svg.append("g")
+	    .attr("class", "y axis")
+	    .call(yAxis)
+	  .append("text")
+	    .attr("transform", "translate(" + -(margin.left * 0.9) + "," + (height/2) + "), rotate(-90)")
+	    .attr("y", 6)
+	    .attr("dy", ".5em")
+	    .style("text-anchor", "middle")
+	    .text("Citations per year");
+
+	svg.append("path")
+	    .datum(displayArray)
+	    .attr("class", "line")
+	    .attr("d", line);
+
+	function updateLine(data) {
 	
 
-	d3.select(".outer-wrapper .chart .tool-tip")
-		.style("left", margin.left + "px")
-		.style("width", (width - 20)+ "px");
+		var displayArray = prepareData(data);
 
-	d3.select("svg g.hiddenBarsGroup").selectAll("rect").on("mouseover", function (d,i) {
-		var title = d.title;
-		var author = d.author;
-		var cites = format(d.cites);
-		var year = d.year;
-		var thisIndex = i;
+		x.domain(d3.extent(displayArray, function(d) { return d.date; }));
+		// y.domain(d3.extent(displayArray, function(d) { return d.cites; }));
 
-		var y = parseInt(d3.select(this).attr("y"),10);
+		/* Call the Y axis to adjust it to the new scale */
+		// svg.select(".outer-wrapper .life-cycle-chart .y")
+		// 	.transition()
+		// 	.duration(150)
+		// 	.call(yAxis);
 
-		d3.select(".outer-wrapper .chart .tool-tip")
-			.html("<p>" + cites + " citations.</p><p>" + title + ".</p><p>" + author + ". " + year + ".</p>")
-			.style("top", (margin.top + 12 + y) + "px")
-			.classed("hidden", false)
+		svg.select(".outer-wrapper .life-cycle-chart .x")
 			.transition()
-			.duration(duration/2)
-			.style("opacity", 1);
+			.duration(150)
+			.call(xAxis);
 
-		d3.select(this).attr("opacity",0.4);
-	})
-	.on("mouseout", function (d, i) {
-		d3.select(this).attr("opacity", 0);
 
-		d3.select(".outer-wrapper .chart .tool-tip")
-			.transition()
-			.delay(duration/4)
-			.duration(duration/2)
-			.style("opacity", 0)
-			.each("end", function() {
-				d3.select(".outer-wrapper .chart .tool-tip").classed("hidden", true);
-			});
-	});
+		svg.selectAll(".outer-wrapper .life-cycle-chart path.line")
+			.data([displayArray])
+			.attr("d", line);
+	}
 
+	return {
+		updateLine: function (index) {
+			updateLine(index);
+		}
+
+	};
+
+
+}
+function populateInfoBox (data, index, format) {
+	var myData = data;
+	var myFormat = format;
+
+
+	function updateText (index) {
+		jQuery(".title").text(myData[index].rank + ". " + myData[index].title);
+		jQuery(".authors").text(myData[index].authors);
+		jQuery(".journal").text(myData[index].journal);
+		jQuery(".pub-year").text(myData[index].pub_year);
+		jQuery(".discipline").text(myData[index].discipline);
+		jQuery(".cites").text(myFormat(myData[index].total));
+		jQuery(".doi").text(myData[index].doi);
+	}
+
+	updateText(index);
+
+	return {
+		updateText: function (index) {
+			updateText(index);
+		}
+
+	};
 }
 function handleChange (dataSet, activeArray, delay, myGraphic) {
 	var startingLength = activeArray.length;
@@ -16665,9 +16620,6 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 
 
 }
-function buildSVG (margin, width, height) {
-
-}
 function buildDataSet (data) {
 
 	var discipline = [];
@@ -16766,7 +16718,7 @@ function buildDataSet (data) {
 
 				createKey(disciplineArray, colour);
 
-				$('button.widget-button').on("click", function () {
+				$('button.widget-button').click(function () {
 					if ($(this).hasClass('lower') && (displayIndex < 99)) {
 						displayIndex++;
 					} else if ($(this).hasClass('higher') && (displayIndex > 0)) {
