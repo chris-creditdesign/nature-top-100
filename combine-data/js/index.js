@@ -5,7 +5,7 @@ for (var i = 0; i < top100.length; i++) {
           
           if (combined[y].year === "Total") {
             top100[i].total = combined[y].cites;
-          } else {
+          } else if (combined[y].year !== "2014" && combined[y].year !== "2015" ) {
           
             var myObject = {};
             myObject.year = combined[y].year;
