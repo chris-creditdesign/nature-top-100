@@ -1,11 +1,27 @@
-function upDateButtons (index) {
-	jQuery('button.widget-button').removeClass("active");
+BuildWidget.prototype.buttonClick = function() {
+	var self = this;
 
-	if ( index < 99 ) {
-		jQuery('button.widget-button.lower').addClass("active");
+	jQuery(this.target + ' button.widget-button').click(function () {
+		if ($(this).hasClass('lower') && (self.displayIndex < 99)) {
+			self.displayIndex++;
+		} else if ($(this).hasClass('higher') && (self.displayIndex > 0)) {
+			self.displayIndex--;	
+		}
+		
+		self.upDateButtons();
+
+		self.pubsub.publish("newIndexChosen", self.displayIndex);
+	});
+};
+
+BuildWidget.prototype.upDateButtons = function () {
+	jQuery(this.target + ' button.widget-button').removeClass("active");
+
+	if ( this.displayIndex < 99 ) {
+		jQuery(this.target + ' button.widget-button.lower').addClass("active");
 	}
 
-	if ( index > 0 ) {
-		jQuery('button.widget-button.higher').addClass("active");
+	if ( this.displayIndex > 0 ) {
+		jQuery(this.target + ' button.widget-button.higher').addClass("active");
 	}
-}
+};
