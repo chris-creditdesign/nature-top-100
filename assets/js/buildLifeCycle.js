@@ -82,7 +82,7 @@ BuildWidget.prototype.updateLifeCycleLine = function () {
 	this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .x")
 		.transition()
 		.duration(150)
-		.call(xAxis);
+		.call(this.xAxisLifeCycle);
 
 
 	this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")

@@ -46,7 +46,6 @@ $colour-5: #EB6B4B;
 
 .outer-wrapper {
 	width: 100%;
-	min-height: 900px;
 	position: relative;
 	border: 1px solid #c8c7cf;
 
@@ -55,7 +54,7 @@ $colour-5: #EB6B4B;
 		margin: 0;
 	}
 
-	.choose-option {
+	.discipline-colour {
 		@media (min-width: 630px) {
 			-webkit-column-count: 3;
 			-moz-column-count: 3;
@@ -94,7 +93,7 @@ $colour-5: #EB6B4B;
 				color: #666;
 				border-radius: 5px;
 				cursor: auto;
-				pointer-events: none;
+				// pointer-events: none;
 			}
 
 			.active {
@@ -172,7 +171,7 @@ $colour-5: #EB6B4B;
 		}
 	} // axis
 
-	.chart rect {
+	.barsGroup rect {
 		cursor: pointer;
 	}
 

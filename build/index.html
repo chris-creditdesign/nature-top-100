@@ -56,7 +56,6 @@
 
 .outer-wrapper {
   width: 100%;
-  min-height: 900px;
   position: relative;
   border: 1px solid #c8c7cf;
 }
@@ -65,7 +64,7 @@
   margin: 0;
 }
 @media (min-width: 630px) {
-  .outer-wrapper .choose-option {
+  .outer-wrapper .discipline-colour {
     -webkit-column-count: 3;
     -moz-column-count: 3;
     column-count: 3;
@@ -97,7 +96,6 @@
   color: #666;
   border-radius: 5px;
   cursor: auto;
-  pointer-events: none;
 }
 .outer-wrapper .info-box .info-box-controls .active {
   background: #ccc;
@@ -158,22 +156,20 @@
   font-size: 13px;
   shape-rendering: crispEdges;
 }
-.outer-wrapper .chart rect {
+.outer-wrapper .barsGroup rect {
   cursor: pointer;
 }
 
 </style>
-<div class="outer-wrapper">
-	<h2>Top 100 cited papers of all time</h2>
+<div class="outer-wrapper" id="tr-graphic">
+	<h2>Thomson Reuters top 100 cited papers</h2>
 	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id nobis exercitationem quam reprehenderit similique nulla aliquam!</p>
 
 	<div class="chart">
-		<div class="tool-tip">
-		</div>
 	</div>
 
 
-	<div class="info-box">
+	<div class="info-box" id="tr-info-box">
 		<div class="info-box-controls">
 			<button class="widget-button lower">&#60;</button>
 			<svg x="0px" y="0px" width="30px" height="40px">
@@ -182,7 +178,7 @@
 			<button class="widget-button higher">&#62;</button>
 		</div>
 		
-		<div class="life-cycle">
+		<div class="life-cycle" id="tr-life-cycle">
 			<h2 class="title">Title</h2>
 			<p class="authors">Authors</p>
 			<p><span class="journal"></span>, <span class="pub-year"></span></p>
@@ -190,18 +186,53 @@
 			<p>DOI: <span class="doi"></span></p>
 		</div>
 		
-		<div class="life-cycle-chart"></div>
+		<div class="life-cycle-chart" id="tr-life-cycle-chart"></div>
 	</div>
 
 
 	<h3>Discipline colour</h3>
 
-	<div class="choose-option"></div>
+	<div class="discipline-colour" id="tr-discipline-colour"></div>
 
 </div>
+
+<!-- <div class="outer-wrapper">
+	<h2>Google top 100 cited papers of all time</h2>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id nobis exercitationem quam reprehenderit similique nulla aliquam!</p>
+
+	<div class="chart" id="go-graphic">
+	</div>
+
+
+	<div class="info-box" id="go-info-box">
+		<div class="info-box-controls">
+			<button class="widget-button lower">&#60;</button>
+			<svg x="0px" y="0px" width="30px" height="40px">
+      			<path d="M15,3 L25,20 15,37 5,20Z" fill="#444"></path>
+			</svg>
+			<button class="widget-button higher">&#62;</button>
+		</div>
+		
+		<div class="life-cycle" id="go-life-cycle">
+			<h2 class="title">Title</h2>
+			<p class="authors">Authors</p>
+			<p><span class="journal"></span>, <span class="pub-year"></span></p>
+			<p><span class="cites"></span> citations</p>
+			<p>DOI: <span class="doi"></span></p>
+		</div>
+		
+		<div class="life-cycle-chart" id="go-life-cycle-chart"></div>
+	</div>
+
+
+	<h3>Discipline colour</h3>
+
+	<div class="discipline-colour" id="go-discipline-colour"></div>
+
+</div> -->
 <!--[if gt IE 8]><!-->
 <script type="text/javascript">
-var data = [
+var thRoData = [
   {
     "lead_author": "Lowry_1951",
     "authors": "Lowry, Oh; Rosebrough, Nj; Farr, Al; Randall, Rj",
@@ -15411,9 +15442,52 @@ var data = [
     "total": 12257
   }
 ];
-var pubsub = {};
+var thRoParams = {};
 
-(function (myObject) {
+thRoParams.colour =  ["#c1272d",
+				"#ed1c24",
+				"#f15a24",
+				"#f7931e",
+				"#fbb03b",
+				"#fcee21",
+				"#d9e021",
+				"#8cc63f",
+				"#39b54a",
+				"#006837",
+				"#00a99d",
+				"#29abe2",
+				"#0071bc",
+				"#2e3192",
+				"#1b1464",
+				"#662d91",
+				"#93278f",
+				"#9e005d",
+				"#c69c6d",
+				"#a67c52",
+				"#8c6239",
+				"#754c24",
+				"#754c24",
+				"#603813",
+				"#42210b"];
+
+/*	Margin, Width and height */
+thRoParams.margin = {top: 40, right: 40, bottom: 40, left: 80, mid: 40};
+thRoParams.lifeCycleMargin = {top: 10, right: 20, bottom: 20, left: 70};
+thRoParams.width = jQuery('.section').width()  - thRoParams.margin.left - thRoParams.margin.right;
+thRoParams.miniHeight = 60;
+thRoParams.lifeCycleHeight = 100;
+thRoParams.lifeCycleWidth = jQuery('.info-box').width() - thRoParams.lifeCycleMargin.left - thRoParams.lifeCycleMargin.right;
+thRoParams.height = 400 - thRoParams.margin.top - thRoParams.margin.mid - thRoParams.miniHeight - thRoParams.margin.bottom;
+thRoParams.handleWidth = 15;
+/*	Global variable to control the length of D3 transitons */
+thRoParams.duration = 450;
+thRoParams.delay = 450;
+thRoParams.activeRecord = {};
+thRoParams.topData = [];
+thRoParams.displayArray = [];
+thRoParams.disciplineArray = [];
+function extendObject (myObject) {
+	/*	Referenced from: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript */
 	
 	/*	Storage for topics that can be broadcast or listened to */
 	var topics = {};
@@ -15442,7 +15516,7 @@ var pubsub = {};
 
 	/*	Subscribe to events of interest with a specific topic name and a 
 		callback function, to be executed with the topic/event is observed */
-	myObject.subscribe = function ( topic, func ) {
+	myObject.subscribe = function ( topic, func, parent ) {
 		
 		if ( !topics[topic] ) {
 			topics[topic] = [];
@@ -15451,199 +15525,150 @@ var pubsub = {};
 		var token = ( ++subUid ).toString();
 		topics[topic].push({
 			token: token,
-			func: func
+			func: func,
+			parent: parent
 		});
 		return token;
 	};
 
-}( pubsub ));
-/*	Referenced from: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript */
-
-var myGraphic;
-var myLifeCycleGraphic;
-var myInfoBox;
-var myButtons;
-var displayIndex = 0;
-
-function indexChosen  ( topic, index ) {
-	displayIndex = index;
-
-	myGraphic.upDatePointer(index);
-	myLifeCycleGraphic.updateLine(index);
-	myInfoBox.updateText(index);
-	upDateButtons(index);
 }
 
-/*	Create subscriptions to the newDataAvailable, scrollingTimeline
-			and timelineClicked topics */
-var dataSubscriber = pubsub.subscribe( "newIndexChosen", indexChosen );
+BuildWidget.prototype.indexChosen = function ( topic, func, parent ) {
+	this.parent.upDatePointer();
+	this.parent.updateLifeCycleLine();
+	this.parent.populateInfoBox();
+};
 
 
-function upDateButtons (index) {
-	jQuery('button.widget-button').removeClass("active");
 
-	if ( index < 99 ) {
-		jQuery('button.widget-button.lower').addClass("active");
+
+BuildWidget.prototype.buttonClick = function() {
+	var self = this;
+
+	jQuery(this.target + ' button.widget-button').click(function () {
+		if ($(this).hasClass('lower') && (self.displayIndex < 99)) {
+			self.displayIndex++;
+		} else if ($(this).hasClass('higher') && (self.displayIndex > 0)) {
+			self.displayIndex--;	
+		}
+		
+		self.upDateButtons();
+
+		self.pubsub.publish("newIndexChosen", self.displayIndex);
+	});
+};
+
+BuildWidget.prototype.upDateButtons = function () {
+	jQuery(this.target + ' button.widget-button').removeClass("active");
+
+	if ( this.displayIndex < 99 ) {
+		jQuery(this.target + ' button.widget-button.lower').addClass("active");
 	}
 
-	if ( index > 0 ) {
-		jQuery('button.widget-button.higher').addClass("active");
+	if ( this.displayIndex > 0 ) {
+		jQuery(this.target + ' button.widget-button.higher').addClass("active");
 	}
-}
-function buildLifeCycle (data, index, margin, width, height, colour) {
-
-	var parseDate = d3.time.format("%Y").parse;
-
-	function prepareData (index) {
-		var lifeCycleData = data[index].lifeCycle;
-
-		for (var i = 0; i < lifeCycleData.length; i++) {
-		  lifeCycleData[i].date = parseDate(lifeCycleData[i].year);
-		}  
-
-		return lifeCycleData.sort(compareYear);
+};
+BuildWidget.prototype.prepareLifeCycelData = function () {
+	for (var i = 0; i < this.data.length; i++) {
+		for (var y = 0; y < this.data[i].lifeCycle.length; y++) {
+			this.data[i].lifeCycle[y].date = this.parseDate(this.data[i].lifeCycle[y].year);
+		}
 	}
+};
 
-	var displayArray = prepareData(index);
-
-	var x = d3.time.scale()
-		.range([0, width])
-		.domain(d3.extent(displayArray, function(d) { return d.date; }));
-
-	var y = d3.scale.linear()
-		.range([height, 0])
-		.domain([0,12000]);
-		// .domain(d3.extent(displayArray, function(d) { return d.cites; }));
-
-	var xAxis = d3.svg.axis()
-		.scale(x)
-		.ticks(5)
-		.orient("bottom");
-
-	var yAxis = d3.svg.axis()
-		.scale(y)
-		.ticks(5)
-		.tickSize(-width, 0)
-		.orient("left");
-
-	var line = d3.svg.line()
-		.x(function(d) { return x(d.date); })
-		.y(function(d) { return y(d.cites); });
-
-	
-	var svg = d3.select(".outer-wrapper .info-box .life-cycle-chart").append("svg")
-	    .attr("width", width + margin.left + margin.right)
-	    .attr("height", height + margin.top + margin.bottom)
+BuildWidget.prototype.buildLifeCycle = function () {
+	this.lifeCycleSvg = d3.select(this.target + " > .info-box > .life-cycle-chart").append("svg")
+		.attr("width", this.params.lifeCycleWidth + this.params.lifeCycleMargin.left + this.params.lifeCycleMargin.right)
+		.attr("height", this.params.lifeCycleHeight + this.params.lifeCycleMargin.top + this.params.lifeCycleMargin.bottom)
 	  .append("g")
-	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+		.attr("transform", "translate(" + this.params.lifeCycleMargin.left + "," + this.params.lifeCycleMargin.top + ")");
 
-	svg.append("g")
+	this.lifeCycleSvg.append("g")
 		.attr("class","white-box")
 	  .append("rect")
 		.attr("x", 0)
 		.attr("y", 0)
-		.attr("width", width)
-		.attr("height", height)
+		.attr("width", this.params.lifeCycleWidth)
+		.attr("height", this.params.lifeCycleHeight)
 		.attr("fill","#FFF");
+};
 
-	svg.append("g")
+BuildWidget.prototype.buildLifeCycleScales = function () {
+	this.xScaleLifeCycle = d3.time.scale()
+		.range([0, this.params.lifeCycleWidth])
+		.domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
+
+	this.yScaleLifeCycle = d3.scale.linear()
+		.range([this.params.lifeCycleHeight, 0])
+		.domain([0,12000]);
+
+};
+
+BuildWidget.prototype.buildLifeCycleAxes = function () {
+	var self = this;
+
+	this.xAxisLifeCycle = d3.svg.axis()
+		.scale(this.xScaleLifeCycle)
+		.ticks(5)
+		.orient("bottom");
+
+	this.yAxisLifeCycle = d3.svg.axis()
+		.scale(this.yScaleLifeCycle)
+		.ticks(5)
+		.tickSize(-this.params.lifeCycleWidth, 0)
+		.orient("left");
+
+	this.line = d3.svg.line()
+		.x(function(d) { return self.xScaleLifeCycle(d.date); })
+		.y(function(d) { return self.yScaleLifeCycle(d.cites); });
+
+	this.lifeCycleSvg.append("g")
 	    .attr("class", "x axis")
-	    .attr("transform", "translate(0," + height + ")")
-	    .call(xAxis);
+	    .attr("transform", "translate(0," + this.params.lifeCycleHeight + ")")
+	    .call(this.xAxisLifeCycle);
 
-	svg.append("g")
+	this.lifeCycleSvg.append("g")
 	    .attr("class", "y axis")
-	    .call(yAxis)
+	    .call(this.yAxisLifeCycle)
 	  .append("text")
-	    .attr("transform", "translate(" + -(margin.left * 0.9) + "," + (height/2) + "), rotate(-90)")
+	    .attr("transform", "translate(" + -(this.params.lifeCycleMargin.left * 0.9) + "," + (this.params.lifeCycleHeight/2) + "), rotate(-90)")
 	    .attr("y", 6)
 	    .attr("dy", ".5em")
 	    .style("text-anchor", "middle")
 	    .text("Citations per year");
 
-	svg.append("path")
-	    .datum(displayArray)
-	    .attr("class", "line")
-	    .attr("d", line);
+	this.lifeCycleSvg.append("path")
+		.datum(this.data[this.displayIndex].lifeCycle)
+		.attr("class", "line")
+		.attr("d", this.line);
+};
 
-	function updateLine(data) {
-	
+// Still needs to be tested!
+BuildWidget.prototype.updateLifeCycleLine = function () {
+	this.xScaleLifeCycle.domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
 
-		var displayArray = prepareData(data);
-
-		x.domain(d3.extent(displayArray, function(d) { return d.date; }));
-		// y.domain(d3.extent(displayArray, function(d) { return d.cites; }));
-
-		/* Call the Y axis to adjust it to the new scale */
-		// svg.select(".outer-wrapper .life-cycle-chart .y")
-		// 	.transition()
-		// 	.duration(150)
-		// 	.call(yAxis);
-
-		svg.select(".outer-wrapper .life-cycle-chart .x")
-			.transition()
-			.duration(150)
-			.call(xAxis);
+	/* Can this work better */
+	// Store a reference to the axis and the line in the  BuildWidget object? Innit? 
+	this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .x")
+		.transition()
+		.duration(150)
+		.call(this.xAxisLifeCycle);
 
 
-		svg.selectAll(".outer-wrapper .life-cycle-chart path.line")
-			.data([displayArray])
-			.attr("d", line);
-	}
+	this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")
+		.data([this.data[this.displayIndex].lifeCycle])
+		.attr("d", this.line);
+};
 
-	return {
-		updateLine: function (index) {
-			updateLine(index);
-		}
-
-	};
-
-
-}
-function populateInfoBox (data, index, format) {
-	var myData = data;
-	var myFormat = format;
-
-
-	function updateText (index) {
-		jQuery(".title").text(myData[index].rank + ". " + myData[index].title);
-		jQuery(".authors").text(myData[index].authors);
-		jQuery(".journal").text(myData[index].journal);
-		jQuery(".pub-year").text(myData[index].pub_year);
-		jQuery(".discipline").text(myData[index].discipline);
-		jQuery(".cites").text(myFormat(myData[index].total));
-		jQuery(".doi").text(myData[index].doi);
-	}
-
-	updateText(index);
-
-	return {
-		updateText: function (index) {
-			updateText(index);
-		}
-
-	};
-}
-function handleChange (dataSet, activeArray, delay, myGraphic) {
-	var startingLength = activeArray.length;
-
-	/* First remove the existing data from the arrays */
-	while (activeArray.length > 0) {
-		activeArray.shift();
-	}
-
-	activeArray = updateArray(dataSet);
-
-	if (startingLength < activeArray.length) {
-		delay = 0;
-	}
-
-	return {
-		activeArray: activeArray,
-		activeDelay: delay
-	};
-
-}
+BuildWidget.prototype.populateInfoBox = function () {
+	jQuery(".life-cycle .title").text(this.data[this.displayIndex].rank + ". " + this.data[this.displayIndex].title);
+	jQuery(".life-cycle .authors").text(this.data[this.displayIndex].authors);
+	jQuery(".life-cycle .journal").text(this.data[this.displayIndex].journal);
+	jQuery(".life-cycle .pub-year").text(this.data[this.displayIndex].pub_year);
+	jQuery(".life-cycle .cites").text(this.format(this.data[this.displayIndex].total));
+	jQuery(".life-cycle .doi").text(this.data[this.displayIndex].doi);
+};
 function updateArray (ary) {
 	selectedArray = [];
 	selections = [];
@@ -15672,30 +15697,30 @@ function updateArray (ary) {
 
 	return selectedArray;
 }
-function createKey (data, colour) {
-	
+BuildWidget.prototype.createKey = function () {
+	var self = this;
 	var sortedData = [];
 
-	for (var i = 0; i < data.length; i++) {
-		sortedData.push(data[i]);
+	for (var i = 0; i < this.disciplines.length; i++) {
+		sortedData.push(this.disciplines[i]);
 	}
 
 	sortedData.sort();
 
 	/* Create checkboxes for each discipline */
-	d3.select(".outer-wrapper .choose-option")
+	d3.select(this.target + " > .discipline-colour")
 		.append("ul")
 		.selectAll('li')
 	  .data(sortedData)
 		.enter()
 		.append("li")
 		.style("border-left",function (d, i) {
-			return "20px solid " + getColour (d, colour, data);
+			return "20px solid " + getColour (d, self.params.colour, self.disciplines);
 		})
 		.html(function(d,i) {			
 			return d;
 		});
-}
+};
 function getColour (x, colour, discipline) {
 	var colourIndex = discipline.indexOf(x);
 
@@ -15718,294 +15743,324 @@ function compareYear(a,b) {
 		return -1;
 	return 0;
 }
-function buildGraphic (topData, discipline, margin, width, height, miniHeight, colour, duration, delay, displayIndex) {
-
-	var selected;
-	var handleWidth = 15;
-	var rankIndex = displayIndex;
-
-	function tenOrOne(num) {
-		if (((num % 10) === 0) || num === 1) {
-			return true;
-		} else {
-			return false;
-		}
+function tenOrOne(num) {
+	if (((num % 10) === 0) || num === 1) {
+		return true;
+	} else {
+		return false;
 	}
+}
 
-	var svg = d3.select(".outer-wrapper .chart").append("svg")
-		.attr("width", width + margin.left + margin.right)
-		.attr("height", height + margin.top + margin.mid + miniHeight + margin.bottom);
+BuildWidget.prototype.buildGraphic = function () {
+	this.svg = d3.select(this.target  + " > .chart").append("svg")
+		.attr("width", this.params.width + this.params.margin.left + this.params.margin.right)
+		.attr("height", this.params.height + this.params.margin.top + this.params.margin.mid + this.params.miniHeight + this.params.margin.bottom);
 
-	var barsGroup = svg.append('g')
+	this.barsGroup = this.svg.append('g')
 						.attr("class","barsGroup")
-						.attr("transform","translate(" + margin.left + "," + margin.top + ")");
+						.attr("transform","translate(" + this.params.margin.left + "," + this.params.margin.top + ")");
 
-	var numbersGroup = svg.append('g')
+	this.numbersGroup = this.svg.append('g')
 						.attr("class","numbersGroup")
-						.attr("transform","translate(" + margin.left + "," + (margin.top + height) + ")");
+						.attr("transform","translate(" + this.params.margin.left + "," + (this.params.margin.top + this.params.height) + ")");
 
-	var miniGroup = svg.append('g')
+	this.miniGroup = this.svg.append('g')
 						.attr("class","miniGroup")
-						.attr("transform","translate(" + margin.left + "," + (margin.top + height + margin.mid) + ")");
+						.attr("transform","translate(" + this.params.margin.left + "," + (this.params.margin.top + this.params.height + this.params.margin.mid) + ")");
 
-	var brushGroup = svg.append('g')
+	this.brushGroup = this.svg.append('g')
 						.attr("class","brushGroup")
-						.attr("transform","translate(" + margin.left + "," + (margin.top + height + margin.mid) + ")");
+						.attr("transform","translate(" + this.params.margin.left + "," + (this.params.margin.top + this.params.height + this.params.margin.mid) + ")");
+};
 
-	/*	Scales */
-	var axisRange = d3.range(topData.length);
+BuildWidget.prototype.buildScales = function () {
+	this.axisRange = d3.range(this.data.length);
 
-	axisRange.shift();
+	this.axisRange.shift();
 
-	axisRange.push((axisRange[axisRange.length - 1] + 1));
+	this.axisRange.push((this.axisRange[this.axisRange.length - 1] + 1));
 
-	var yScale = d3.scale.linear()
-		.range([height, 0])
-		.domain([0, d3.max(topData, function(d) { 
+	this.yScale = d3.scale.linear()
+		.range([this.params.height, 0])
+		.domain([0, d3.max(this.data, function(d) { 
 			return d.total;
 		})]);
 
-	var xScale = d3.scale.ordinal()
-		.rangeBands([width, 0], 0.4, 0)
-		.domain(d3.range(topData.length));
+	this.xScale = d3.scale.ordinal()
+		.rangeBands([this.params.width, 0], 0.4, 0)
+		.domain(d3.range(this.data.length));
 
-	var xScaleBrush = d3.scale.ordinal()
-		.rangeBands([width, 0], 0.4, 0)
-		.domain(d3.range(topData.length));
+	this.xScaleBrush = d3.scale.ordinal()
+		.rangeBands([this.params.width, 0], 0.4, 0)
+		.domain(d3.range(this.data.length));
 
-	var xScaleAxis = d3.scale.ordinal()
-		.rangeBands([width, 0], 0.4, 0)
-		.domain(axisRange);
+	this.xScaleAxis = d3.scale.ordinal()
+		.rangeBands([this.params.width, 0], 0.4, 0)
+		.domain(this.axisRange);
 
-	/*	Define y axis */
-	var yAxis = d3.svg.axis()
-		.scale(yScale)
-		.tickSize(-width, 0)
+};
+
+BuildWidget.prototype.buildAxes = function () {
+	this.yAxis = d3.svg.axis()
+		.scale(this.yScale)
+		.tickSize(-this.params.width, 0)
 		.ticks(4)
 		.orient("left");
 
-	/* Define y axis */
-	var xAxis = d3.svg.axis()
-		.scale(xScaleAxis)
+	this.xAxis = d3.svg.axis()
+		.scale(this.xScaleAxis)
 		.tickSize(3,0)
 		.tickValues([1,10,20,30,40,50,60,70,80,90,100])
 		.orient("bottom");
 
-
 	/*	Prepare the y axis but do not call .call(xAxis) yet */
-	svg.append("g")
+	this.svg.append("g")
 		.attr("class", "y axis")
-		.attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+		.attr("transform", "translate(" + this.params.margin.left + "," + this.params.margin.top + ")")
 	  .append("g")
 		.attr("class", "axisLabel")
 	  .append("text")
-		.attr("transform", "translate(" + -(margin.left * 0.8) + "," + (height/2) + "), rotate(-90)")
+		.attr("transform", "translate(" + -(this.params.margin.left * 0.8) + "," + (this.params.height/2) + "), rotate(-90)")
 		.style("text-anchor", "middle")
 		.text("Total citations");
 
 	/* Prepare the x axis */
-	svg.append("g")
+	this.svg.append("g")
 		.attr("class","x axis")
-		.attr("transform", "translate(" + margin.left + "," + (margin.top + height + margin.mid + miniHeight) + ")" )
-		.call(xAxis)
+		.attr("transform", "translate(" + this.params.margin.left + "," + (this.params.margin.top + this.params.height + this.params.margin.mid + this.params.miniHeight) + ")" )
+		.call(this.xAxis)
 	  .append("g")
 		.attr("class", "axisLabel")
 	  .append("text")
-		.attr("transform", "translate(" + (width/2) + "," + (margin.bottom*0.8) + ")")
+		.attr("transform", "translate(" + (this.params.width/2) + "," + (this.params.margin.bottom*0.8) + ")")
 		.style("text-anchor", "middle") 
 		.text("Ranking");
+};
 
-	/* brush */
+BuildWidget.prototype.buildBrush = function () {
+	var self = this;
+
+	var display = function () {
+		var selected =  self.xScaleBrush.domain()
+								.filter(function(d){
+									return (brush.extent()[0] <= self.xScaleBrush(d)) && (self.xScaleBrush(d) <= brush.extent()[1]);
+								});
+
+
+		var start = selected[0];
+		var end = selected[selected.length - 1] + 1;
+
+		self.updatedData = self.data.slice(start, end);
+
+		self.updateBars();
+	};
+
+	var brushend = function () {
+		if (brush.extent()[0] === brush.extent()[1]) {
+			d3.select(this).call(brush.extent([0, self.params.width]));
+			display();
+		}
+	};
+
 	var brush = d3.svg.brush()
-					.x(xScaleBrush)
-					.extent([0, width])
+					.x(this.xScaleBrush)
+					.extent([0, this.params.width])
 					.on("brush", display)
 					.on("brushend", brushend);
 
-	brushGroup.append("g")
+	this.brushGroup.append("g")
 		.attr("class", "brush")
 		.call(brush)
 		.selectAll("rect")
 		.attr("fill","none")
-		.attr("height", miniHeight );
+		.attr("height", this.params.miniHeight );
 
-	var brushHandleGroup = brushGroup.selectAll(".resize").append("g") 
+	this.brushHandleGroup = this.brushGroup.selectAll(".resize").append("g") 
 		.attr("transform", function(d, i) {
-			return  i ? "translate(" + -(handleWidth) + ",0)" : "translate(0,0)";   
+			return  i ? "translate(" + -(self.params.handleWidth) + ",0)" : "translate(0,0)";   
 		});
 
-	brushHandleGroup.append("rect")
+	this.brushHandleGroup.append("rect")
 		.attr("x", 0)
 		.attr("y", 0)
 		.attr("fill", "#aaa")
-		.attr("width", handleWidth)
-		.attr("height", miniHeight);
+		.attr("width", this.params.handleWidth)
+		.attr("height", this.params.miniHeight);
 
-	brushHandleGroup.append("line")
-		.attr("x1", (handleWidth * 0.65))
-		.attr("y1", (miniHeight * 0.35))
-		.attr("x2", (handleWidth * 0.65))
-		.attr("y2", (miniHeight * 0.65))
+	this.brushHandleGroup.append("line")
+		.attr("x1", (this.params.handleWidth * 0.65))
+		.attr("y1", (this.params.miniHeight * 0.35))
+		.attr("x2", (this.params.handleWidth * 0.65))
+		.attr("y2", (this.params.miniHeight * 0.65))
 		.attr("stroke", "#555")
 		.attr("stroke-width", 2);
 
-	brushHandleGroup.append("line")
-		.attr("x1", (handleWidth * 0.35))
-		.attr("y1", (miniHeight * 0.35))
-		.attr("x2", (handleWidth * 0.35))
-		.attr("y2", (miniHeight * 0.65))
+	this.brushHandleGroup.append("line")
+		.attr("x1", (this.params.handleWidth * 0.35))
+		.attr("y1", (this.params.miniHeight * 0.35))
+		.attr("x2", (this.params.handleWidth * 0.35))
+		.attr("y2", (this.params.miniHeight * 0.65))
 		.attr("stroke", "#555")
 		.attr("stroke-width", 2);
+};
+
+BuildWidget.prototype.updateBars = function () {
+		var self = this;
+
+		this.xScale.domain(d3.range(this.updatedData.length));
+		this.yScale.domain([0, d3.max(this.updatedData, function(d) { return d.total;})]);
+
+		/* Update */
+		// updateBarsGroup(data);
+		this.updateMainBars();
+		this.updateMainPaths();
+		this.updateMiniBars();
+		this.updateNumbers();
+
+		/* Enter… */
+		// enter(this.barsGroup, this.updatedData, true);
+		this.enterMainBars();
+		this.enterMainPaths();
+		this.enterMiniPaths();
+		this.enterNumbers();
+
+		/* Exit */
+		// exitBarsGroup(data);
+		this.exitMainBars();
+		this.exitMainPaths();
+		this.exitMiniBars();
+		this.exitNumbers();
+
+		/* Call the Y axis to adjust it to the new scale */
+		this.svg.select(".outer-wrapper .chart .y")
+			.transition()
+			.duration(10)
+			.call(this.yAxis);
+
+		this.upDatePointer();
+
+		this.barsGroup.selectAll("rect").on("click", function (d,i) {
+			self.displayIndex = d.rank -1;
+
+			self.pubsub.publish("newIndexChosen", self.displayIndex);
+		});
 
 
-	function display () {		
-		selected =  xScaleBrush.domain()
-								.filter(function(d){
-									return (brush.extent()[0] <= xScaleBrush(d)) && (xScaleBrush(d) <= brush.extent()[1]);
-								});
+		// tooltip(width, margin, format);
+};
 
-		var start = selected[0];
-		var	end = selected[selected.length - 1] + 1;
 
-		var updatedData = topData.slice(start, end);
+BuildWidget.prototype.enterMainBars = function() {
+	var self = this;
 
-		updateBars(updatedData);
-
-	}
-
-	function brushend() {
-		if (brush.extent()[0] === brush.extent()[1]) {
-			d3.select(this).call(brush.extent([0,width]));
-			display();
-		}
-	}
-
-	function updateBarsGroup (data) {
-
-		barsGroup.selectAll("rect").data(data, function (d) {
-				return d.title;
-			})
-			.attr("x", function (d, i) {
-				return xScale(i);
-			})
-			.attr("width", function (d) {
-				return xScale.rangeBand();
-			})
-			.attr("y", function (d){
-				return yScale(d.total);
-			})
-			.attr("height", function (d) {
-				return height - yScale(d.total);
-			});
-
-		barsGroup.selectAll("path").data(data, function (d) {
-				return d.title;
-			})
-			.attr("class", function(d) {
-				return "rank" + d.rank;
-			})
-			.attr("fill","#444")
-			.attr("transform", function(d,i) {
-				/* Catch an error if trying to translate 0 paths */
-				var horizTranslate;
-				if (xScale(i) === undefined) {
-					horizTranslate = 0;
-				} else {
-					horizTranslate = (xScale(i) + (xScale.rangeBand()/2));
-				}
-				return "translate(" + horizTranslate + "," + (yScale(d.total) -7) + "), scale(0.9)"; 
-			})
-			.attr("opacity", 0);
-
-	}
-
-	function updateMiniBars(data) {
-		miniGroup.selectAll("rect").data(data, function (d) {
+	this.barsGroup.selectAll("rect")
+		.data(this.updatedData, function (d) {
 			return d.title;
+		})
+		.enter()
+		.append("rect")
+		.attr("x", function (d, i) {
+			return self.xScale(i);
+		})
+		.attr("width", function(d) {
+			return self.xScale.rangeBand();
+		})
+		.attr("y", function (d){
+			return self.yScale(d.total);
+		})
+		.attr("height", function (d) {
+			return self.params.height - self.yScale(d.total);
 		})
 		.attr("fill", function (d, i){
-			return getColour(d.discipline, colour, discipline);
+			return getColour(d.discipline, self.params.colour, self.disciplines);
+		})
+		.attr("opacity", function () {
+			return 1;
 		});
-	}
+};
 
-	function updateNumbers (data) {
-		numbersGroup.selectAll("text").data(data, function (d){
+BuildWidget.prototype.enterMiniBars = function () {
+	var self = this;
+
+	this.miniGroup.selectAll("rect")
+		.data(this.updatedData, function (d) {
 			return d.title;
 		})
-		.attr("x", function (d,i){
-			return xScale(i) + (xScale.rangeBand() / 2);
+		.enter()
+		.append("rect")
+		.attr("x", function (d, i) {
+			return self.xScale(i);
 		})
-		.text(function (d) {
-			return tenOrOne(d.rank) ? d.rank : "";
+		.attr("width", function(d) {
+			return self.xScale.rangeBand();
+		})
+		.attr("y", function (d){
+			return 0;
+		})
+		.attr("height", function (d) {
+			return self.params.miniHeight;
+		})
+		.attr("fill", function (d, i){
+			return getColour(d.discipline, self.params.colour, self.disciplines);
+		})
+		.attr("opacity", function () {
+			return 1;
 		});
+};
 
-		numbersGroup.selectAll("line").data(data,function(d) {
+BuildWidget.prototype.enterMainPaths = function() {
+	var self = this;
+
+	this.barsGroup.selectAll("path")
+		.data(this.updatedData, function (d) {
 			return d.title;
 		})
-		.attr("x1", function (d, i) {
-			return xScale(i) + (xScale.rangeBand() / 2) ;
+		.enter().append("path")
+		.attr("d", d3.svg.symbol().type("diamond"))
+		.attr("class", function(d) {
+			return "rank" + d.rank;
 		})
-		.attr("y1", 0)
-		.attr("x2", function (d, i) {
-			return xScale(i) + (xScale.rangeBand() / 2) ;
+		.attr("fill","#444")
+		.attr("transform", function(d,i) {
+			var verticalTranslate = self.yScale(d.total) -7;
+			var scale = "0.9";
+			return "translate(" + (self.xScale(i) + (self.xScale.rangeBand()/2)) + "," + verticalTranslate + "), scale(" + scale + ")"; 
 		})
-		.attr("y2", function(d) {
-			return tenOrOne(d.rank) ? 3 : 0;
-		});
-	}
+		.attr("opacity", 0);
 
+};
 
-	function enter (grp, data, main) {
-		grp.selectAll("rect").data(data, function (d) {
-				return d.title;
-			})
-			.enter()
-			.append("rect")
-			.attr("x", function (d, i) {
-				return xScale(i);
-			})
-			.attr("width", function(d) {
-				return xScale.rangeBand();
-			})
-			.attr("y", function (d){
-				return main ? yScale(d.total) : 0;
-			})
-			.attr("height", function (d) {
-				return main ? height - yScale(d.total) : miniHeight;
-			})
-			.attr("fill", function (d, i){
-				return getColour(d.discipline, colour, discipline);
-			})
-			.attr("opacity", function () {
-				return 1;
-			});
+BuildWidget.prototype.enterMiniPaths = function () {
+	var self = this;
 
-		grp.selectAll("path")
-			.data(data, function (d) {
-				return d.title;
-			})
-			.enter().append("path")
-			.attr("d", d3.svg.symbol().type("diamond"))
-			.attr("class", function(d) {
-				return "rank" + d.rank;
-			})
-			.attr("fill","#444")
-			.attr("transform", function(d,i) {
-				var verticalTranslate = main ? yScale(d.total) -7 : -7;
-				var scale = main ? "0.9" : "0.8";
-				return "translate(" + (xScale(i) + (xScale.rangeBand()/2)) + "," + verticalTranslate + "), scale(" + scale + ")"; 
-			})
-			.attr("opacity", 0);
-	}
+	this.miniGroup.selectAll("path")
+		.data(this.updatedData, function (d) {
+			return d.title;
+		})
+		.enter().append("path")
+		.attr("d", d3.svg.symbol().type("diamond"))
+		.attr("class", function(d) {
+			return "rank" + d.rank;
+		})
+		.attr("fill","#444")
+		.attr("transform", function(d,i) {
+			var verticalTranslate = -7;
+			var scale = "0.8";
+			return "translate(" + (self.xScale(i) + (self.xScale.rangeBand()/2)) + "," + verticalTranslate + "), scale(" + scale + ")"; 
+		})
+		.attr("opacity", 0);
+};
 
-	function enterNumbers (data) {
-		numbersGroup.selectAll("text").data(data, function (d) {
+BuildWidget.prototype.enterNumbers = function () {
+	var self = this;
+
+	this.numbersGroup.selectAll("text").data(this.updatedData, function (d) {
 			return d.title;
 		})
 		.enter()
 		.append("text")
 		.attr("x", function (d, i) {
-			return xScale(i) + (xScale.rangeBand() / 2) ;
+			return self.xScale(i) + (self.xScale.rangeBand() / 2) ;
 		})
 		.attr("y", 5)
 		.attr("dy", ".8em")
@@ -16014,125 +16069,152 @@ function buildGraphic (topData, discipline, margin, width, height, miniHeight, c
 			return tenOrOne(d.rank) ? d.rank : "";
 		});
 
-		numbersGroup.selectAll("line").data(data,function(d) {
+	this.numbersGroup.selectAll("line").data(this.updatedData, function(d) {
 			return d.title;
 		})
 		.enter()
 		.append("line")
 		.attr("x1", function (d, i) {
-			return xScale(i) + (xScale.rangeBand() / 2) ;
+			return self.xScale(i) + (self.xScale.rangeBand() / 2) ;
 		})
 		.attr("y1", 0)
 		.attr("x2", function (d, i) {
-			return xScale(i) + (xScale.rangeBand() / 2) ;
+			return self.xScale(i) + (self.xScale.rangeBand() / 2) ;
 		})
 		.attr("y2", function(d) {
 			return tenOrOne(d.rank) ? 3 : 0;
 		});
-	}
+};
 
-	function exitBarsGroup (data) {
-		barsGroup.selectAll("rect").data(data, function (d) {
-				return d.title;
-			}).exit()
-			.remove();
+BuildWidget.prototype.exitMainBars = function () {
+	this.barsGroup.selectAll("rect").data(this.updatedData, function (d) {
+			return d.title;
+		}).exit()
+		.remove();
+};
 
-		barsGroup.selectAll("path").data(data, function (d) {
-				return d.title;
-			}).exit()
-			.remove();
-	}
+BuildWidget.prototype.exitMainPaths = function () {
+	this.barsGroup.selectAll("path").data(this.updatedData, function (d) {
+			return d.title;
+		}).exit()
+		.remove();
+};
 
-	function exitMiniBars(data) {
-		miniGroup.selectAll("rect").data(data, function (d) {
+BuildWidget.prototype.exitMiniBars = function () {
+	this.miniGroup.selectAll("rect").data(this.updatedData, function (d) {
 			return d.title;
 		}).exit()
 		.attr("fill", "#ececec");
-	}
+};
 
-
-	function exitNumbers (data) {
-		numbersGroup.selectAll("text").data(data, function (d) {
+BuildWidget.prototype.exitNumbers = function () {
+	this.numbersGroup.selectAll("text").data(this.updatedData, function (d) {
 			return d.title;
 		}).exit()
 		.remove();
 
-		numbersGroup.selectAll("line").data(data, function (d) {
+	this.numbersGroup.selectAll("line").data(this.updatedData, function (d) {
 			return d.title;
 		}).exit()
 		.remove();
-	}
+};
 
-	function upDatePointer (displayIndex) {
+BuildWidget.prototype.updateMainBars = function () {
+	var self = this;
 
-			rankIndex = displayIndex;
+	this.barsGroup.selectAll("rect").data(this.updatedData, function (d) {
+			return d.title;
+		})
+		.attr("x", function (d, i) {
+			return self.xScale(i);
+		})
+		.attr("width", function (d) {
+			return self.xScale.rangeBand();
+		})
+		.attr("y", function (d){
+			return self.yScale(d.total);
+		})
+		.attr("height", function (d) {
+			return self.params.height - self.yScale(d.total);
+		});
+};
 
-			barsGroup.selectAll("path")
-				.attr("opacity", 0);
+BuildWidget.prototype.updateMainPaths = function () {
+	var self = this;
 
-			barsGroup.select("path.rank" + (rankIndex + 1))
-				.attr("opacity", 1);
+	this.barsGroup.selectAll("path").data(this.updatedData, function (d) {
+			return d.title;
+		})
+		.attr("class", function (d) {
+			return "rank" + d.rank;
+		})
+		.attr("fill","#444")
+		.attr("transform", function (d,i) {
+			/* Catch an error if trying to translate 0 paths */
+			var horizTranslate;
+			if (self.xScale(i) === undefined) {
+				horizTranslate = 0;
+			} else {
+				horizTranslate = (self.xScale(i) + (self.xScale.rangeBand()/2));
+			}
+			return "translate(" + horizTranslate + "," + (self.yScale(d.total) -7) + "), scale(0.9)"; 
+		})
+		.attr("opacity", 0);
+};
 
-			miniGroup.selectAll("path")
-				.attr("opacity", 0);
+BuildWidget.prototype.updateMiniBars = function () {
+	var self = this;
 
-			miniGroup.select("path.rank" + (rankIndex + 1))
-				.attr("opacity", 1);
-	}
-	
-	enter(miniGroup, data, false);
+	this.miniGroup.selectAll("rect").data(this.updatedData, function (d) {
+			return d.title;
+		})
+		.attr("fill", function (d, i){
+			return getColour(d.discipline, self.params.colour, self.disciplines);
+		});
+};
 
-	function updateBars (data) {
+BuildWidget.prototype.updateNumbers = function () {
+	var self = this;
 
-		xScale.domain(d3.range(data.length));
-		yScale.domain([0, d3.max(data, function(d) { return d.total;})]);
-
-		/* Update */
-		updateBarsGroup(data);
-		updateMiniBars(data);
-		updateNumbers(data);
-
-		/* Enter… */
-		enter(barsGroup, data, true);
-		enterNumbers(data);
-
-		/* Exit */
-		exitBarsGroup(data);
-		exitMiniBars(data);
-		exitNumbers(data);
-
-		/* Call the Y axis to adjust it to the new scale */
-		svg.select(".outer-wrapper .chart .y")
-			.transition()
-			.duration(10)
-			.call(yAxis);
-
-		upDatePointer(rankIndex);
-
-		barsGroup.selectAll("rect").on("click", function (d,i) {
-			displayIndex = d.rank -1;
-
-			pubsub.publish("newIndexChosen", displayIndex);
+	this.numbersGroup.selectAll("text").data(this.updatedData, function (d){
+			return d.title;
+		})
+		.attr("x", function (d,i){
+			return self.xScale(i) + (self.xScale.rangeBand() / 2);
+		})
+		.text(function (d) {
+			return tenOrOne(d.rank) ? d.rank : "";
 		});
 
+	this.numbersGroup.selectAll("line").data(this.updatedData,function(d) {
+			return d.title;
+		})
+		.attr("x1", function (d, i) {
+			return self.xScale(i) + (self.xScale.rangeBand() / 2) ;
+		})
+		.attr("y1", 0)
+		.attr("x2", function (d, i) {
+			return self.xScale(i) + (self.xScale.rangeBand() / 2) ;
+		})
+		.attr("y2", function (d) {
+			return tenOrOne(d.rank) ? 3 : 0;
+		});
+};
 
-		// tooltip(width, margin, format);
+BuildWidget.prototype.upDatePointer = function () {
 
-	}
+		this.barsGroup.selectAll("path")
+			.attr("opacity", 0);
 
-	return {
-		updateBars: function (data) {
-			updateBars(data);
-		},
+		this.barsGroup.select("path.rank" + (this.displayIndex + 1))
+			.attr("opacity", 1);
 
-		upDatePointer: function (displayIndex) {
-			upDatePointer(displayIndex);
-		}
+		this.miniGroup.selectAll("path")
+			.attr("opacity", 0);
 
-	};
-
-
-}
+		this.miniGroup.select("path.rank" + (this.displayIndex+ 1))
+			.attr("opacity", 1);
+};
 function buildDataSet (data) {
 
 	var discipline = [];
@@ -16149,58 +16231,21 @@ function buildDataSet (data) {
 
 	return discipline;
 }
+function BuildWidget (target, params, data) {
+	this.target = target;
+	this.params = params;
+	this.data = data;
+	this.pubsub = {};
+	this.updatedData = [];
+	this.disciplines = [];
+	this.lifeCycleData = [];
+	this.displayIndex = 0;
+	this.format = d3.format("0,000");
+	this.parseDate = d3.time.format("%Y").parse;
+}
 (function() {
 		var init = function($)
 		{
-
-		/*	==================================================================================== */
-		/*	GLOBAL VARIABLES FOR D3 */
-
-		/*  Colours for the bars */
-		// var colour = ["#1abc9c","#27ae60","#3498db","#5959b7","#EB6B4B"];
-
-		var colour =	["#c1272d",
-						"#ed1c24",
-						"#f15a24",
-						"#f7931e",
-						"#fbb03b",
-						"#fcee21",
-						"#d9e021",
-						"#8cc63f",
-						"#39b54a",
-						"#006837",
-						"#00a99d",
-						"#29abe2",
-						"#0071bc",
-						"#2e3192",
-						"#1b1464",
-						"#662d91",
-						"#93278f",
-						"#9e005d",
-						"#c69c6d",
-						"#a67c52",
-						"#8c6239",
-						"#754c24",
-						"#754c24",
-						"#603813",
-						"#42210b"];
-
-		/*	Margin, Width and height */
-		var margin = {top: 40, right: 40, bottom: 40, left: 80, mid: 40};
-		var lifeCycleMargin = {top: 10, right: 20, bottom: 20, left: 70};
-		var width = $('.section').width()  - margin.left - margin.right;
-		var miniHeight = 60;
-		var lifeCycleHeight = 100;
-		var lifeCycleWidth = $('.info-box').width() - lifeCycleMargin.left - lifeCycleMargin.right;
-		var height = 400 - margin.top - margin.mid - miniHeight - margin.bottom;
-		/*	Global variable to control the length of D3 transitons */
-		var duration = 450;
-		var delay = duration;
-		var activeRecord = {};
-
-		var topData;
-		var displayArray = [];
-		var disciplineArray = [];
 
 		/*	==================================================================================== */
 		/*	jQuery ready */
@@ -16210,37 +16255,44 @@ function buildDataSet (data) {
 			/*	All of the D3/svg code is contained within the call back function */
 			/*	Loading D3 into ie6-8 seems to cause a runtime error */
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
+				
+				var thRoGraphic = new BuildWidget("#tr-graphic", thRoParams, thRoData);
 
-				var format = d3.format("0,000");
+				extendObject(thRoGraphic.pubsub);
 
-				displayArray = data.sort(comparePaper);
+				/*	Create subscription for a new index being chosen */
+				thRoGraphic.pubsub.subscribe( "newIndexChosen", thRoGraphic.indexChosen, thRoGraphic );
+				
+				thRoGraphic.data.sort(comparePaper);
 
-				for (var i = 0; i < displayArray.length; i++) {
-					displayArray[i].rank = (i + 1);
+				for (var i = 0; i < thRoGraphic.data.length; i++) {
+					thRoGraphic.data[i].rank = (i + 1);
 				}
+				thRoGraphic.prepareLifeCycelData();
 
-				disciplineArray = buildDataSet(data);
+				thRoGraphic.updatedData = thRoGraphic.data.slice(0);
+				thRoGraphic.disciplines = buildDataSet(thRoGraphic.data);
+				
+				thRoGraphic.buildGraphic();
+				thRoGraphic.buildScales();
+				thRoGraphic.buildAxes();
+				thRoGraphic.buildBrush();
+				thRoGraphic.enterMiniBars();
+				thRoGraphic.updateBars();
 
-				myGraphic = buildGraphic(displayArray, disciplineArray, margin, width, height, miniHeight, colour, duration, delay, displayIndex);
-				myGraphic.updateBars(displayArray, displayIndex);
+				thRoGraphic.populateInfoBox();
 
-				myInfoBox = populateInfoBox(displayArray, displayIndex, format);
-				myLifeCycleGraphic = buildLifeCycle(displayArray, displayIndex, lifeCycleMargin, lifeCycleWidth, lifeCycleHeight, colour);
+				thRoGraphic.buildLifeCycle();
+				thRoGraphic.buildLifeCycleScales();
+				thRoGraphic.buildLifeCycleAxes();
+				
 
-				upDateButtons(displayIndex);
+				thRoGraphic.buttonClick();
+				thRoGraphic.upDateButtons();
 
-				createKey(disciplineArray, colour);
+				thRoGraphic.createKey();
 
-				$('button.widget-button').click(function () {
-					if ($(this).hasClass('lower') && (displayIndex < 99)) {
-						displayIndex++;
-					} else if ($(this).hasClass('higher') && (displayIndex > 0)) {
-						displayIndex--;	
-					}
-					// upDateButtons(displayIndex);
 
-					pubsub.publish("newIndexChosen", displayIndex);
-				});
 
 
 			}); /* End of d3js getscript call
