@@ -47,9 +47,6 @@
 
 				thRoGraphic.createKey();
 
-
-
-
 			}); /* End of d3js getscript call
 
 		/* End of active code */
