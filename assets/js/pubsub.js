@@ -1,6 +1,5 @@
-var pubsub = {};
-
-(function (myObject) {
+function extendObject (myObject) {
+	/*	Referenced from: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript */
 	
 	/*	Storage for topics that can be broadcast or listened to */
 	var topics = {};
@@ -29,7 +28,7 @@ var pubsub = {};
 
 	/*	Subscribe to events of interest with a specific topic name and a 
 		callback function, to be executed with the topic/event is observed */
-	myObject.subscribe = function ( topic, func ) {
+	myObject.subscribe = function ( topic, func, parent ) {
 		
 		if ( !topics[topic] ) {
 			topics[topic] = [];
@@ -38,10 +37,10 @@ var pubsub = {};
 		var token = ( ++subUid ).toString();
 		topics[topic].push({
 			token: token,
-			func: func
+			func: func,
+			parent: parent
 		});
 		return token;
 	};
 
-}( pubsub ));
-/*	Referenced from: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript */
+}
