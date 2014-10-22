@@ -160,6 +160,8 @@ BuildWidget.prototype.buildBrush = function () {
 };
 
 BuildWidget.prototype.updateBars = function () {
+		var self = this;
+
 		this.xScale.domain(d3.range(this.updatedData.length));
 		this.yScale.domain([0, d3.max(this.updatedData, function(d) { return d.total;})]);
 
@@ -192,11 +194,11 @@ BuildWidget.prototype.updateBars = function () {
 
 		this.upDatePointer();
 
-		// barsGroup.selectAll("rect").on("click", function (d,i) {
-		// 	displayIndex = d.rank -1;
+		this.barsGroup.selectAll("rect").on("click", function (d,i) {
+			self.displayIndex = d.rank -1;
 
-		// 	pubsub.publish("newIndexChosen", displayIndex);
-		// });
+			self.pubsub.publish("newIndexChosen", self.displayIndex);
+		});
 
 
 		// tooltip(width, margin, format);
