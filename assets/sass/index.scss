@@ -49,81 +49,94 @@ $colour-5: #EB6B4B;
 	position: relative;
 	border: 1px solid #c8c7cf;
 
-	h2,h3,p {
+	h2 {
 		padding: 10px 10px 0 10px;
 		margin: 0;
 	}
 
-	.discipline-colour {
-		@media (min-width: 630px) {
-			-webkit-column-count: 3;
-			-moz-column-count: 3;
-			column-count: 3;
-		}
+	h3 {
+		padding: 0 10px;
+		margin: 0;
 	}
 
-	ul {
-			overflow: visible;
-			padding-left: 10px;
-			li {
-				list-style: none;
-				padding: 0 0 0 10px;
-				margin: 4px 0px 8px;
-			}
-		}
+	p {
+		padding: 10px;
+		margin: 0;
+	}
+
+	.head-stand {
+		width: 70%;
+		float: left;
+	}
 
 	.info-box { // Lifecycle chart
 		background-color: #ececec;
-		margin: 0 20px 0 10px; 
+		margin: 0 10px 15px 10px;
+		clear: both;
 		
 		.life-cycle {
-
+			padding: 10px 10px 0;
 		}
-
-		.info-box-controls {
-			padding: 10px 0 0 10px;
-					
-			button {
-				padding: 0.1em 0.3em;
-				background-color: #ececec;
-				border: 1px solid #999;
-				display: inline-block;
-				vertical-align: top;
-				font-size: 2em;
-				color: #666;
-				border-radius: 5px;
-				cursor: auto;
-				// pointer-events: none;
-			}
-
-			.active {
-				background: #ccc;
-				cursor: pointer;
-				pointer-events: auto;
-			}
-
-			.active:hover {
-				background: #aaa;
-			}
-		}
-
 	
 		p {
-			padding: 0 10px;
+			padding: 0;
 
-			.cites {
-				font-weight: bold;
-			}
+		}
+
+		.cites, .rank, .volume {
+			font-weight: bold;
+		}
+
+		.journal {
+			font-style: italic;
 		}
 
 		.life-cycle-chart {
-			margin: 10px 0 10px;
+			margin: 10px 0 0;
+		}
+
+		svg {
+			margin: 0 0 10px 0;
 		}
 
 		.line {
 			fill: none;
 			stroke: #C1272D;
 			stroke-width: 1.5px;
+		}
+	}
+
+	.info-box-controls {
+		padding: 10px 10px 0 10px;
+		width: 20%;
+		float: right;
+		text-align: right;
+				
+		button {
+			padding: 0.1em 0.3em;
+			background-color: #ececec;
+			border: 1px solid #999;
+			display: inline-block;
+			vertical-align: top;
+			font-size: 2em;
+			color: #666;
+			border-radius: 5px;
+			cursor: auto;
+			// pointer-events: none;
+		}
+
+		.active {
+			background: #ccc;
+			cursor: pointer;
+			pointer-events: auto;
+		}
+
+		.active:hover {
+			background: #aaa;
+		}
+
+		.active:active {
+			background: #999;
 		}
 	}
 
@@ -173,6 +186,26 @@ $colour-5: #EB6B4B;
 
 	.barsGroup rect {
 		cursor: pointer;
+	}
+
+	.discipline-colour {
+		@media (min-width: 630px) {
+			-webkit-column-count: 3;
+			-moz-column-count: 3;
+			column-count: 3;
+		}
+
+		margin: 0 0 5px 0;
+	}
+
+	ul {
+		overflow: visible;
+		padding-left: 10px;
+		li {
+			list-style: none;
+			padding: 0 0 0 10px;
+			margin: 4px 0px 8px;
+		}
 	}
 
 } // outer-wrapper

@@ -15,8 +15,6 @@ BuildWidget.prototype.buttonClick = function() {
 BuildWidget.prototype.upDateButtons = function () {
 	jQuery(this.target + ' button.widget-button').removeClass("active");
 
-	console.log(this.displayIndex);
-
 	if ( this.displayIndex < 99 ) {
 		jQuery(this.target + ' button.widget-button.lower').addClass("active");
 	}

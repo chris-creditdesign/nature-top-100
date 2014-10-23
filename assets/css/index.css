@@ -9,34 +9,57 @@
   position: relative;
   border: 1px solid #c8c7cf;
 }
-.outer-wrapper h2, .outer-wrapper h3, .outer-wrapper p {
+.outer-wrapper h2 {
   padding: 10px 10px 0 10px;
   margin: 0;
 }
-@media (min-width: 630px) {
-  .outer-wrapper .discipline-colour {
-    -webkit-column-count: 3;
-    -moz-column-count: 3;
-    column-count: 3;
-  }
+.outer-wrapper h3 {
+  padding: 0 10px;
+  margin: 0;
 }
-.outer-wrapper ul {
-  overflow: visible;
-  padding-left: 10px;
+.outer-wrapper p {
+  padding: 10px;
+  margin: 0;
 }
-.outer-wrapper ul li {
-  list-style: none;
-  padding: 0 0 0 10px;
-  margin: 4px 0px 8px;
+.outer-wrapper .head-stand {
+  width: 70%;
+  float: left;
 }
 .outer-wrapper .info-box {
   background-color: #ececec;
-  margin: 0 20px 0 10px;
+  margin: 0 10px 15px 10px;
+  clear: both;
 }
-.outer-wrapper .info-box .info-box-controls {
-  padding: 10px 0 0 10px;
+.outer-wrapper .info-box .life-cycle {
+  padding: 10px 10px 0;
 }
-.outer-wrapper .info-box .info-box-controls button {
+.outer-wrapper .info-box p {
+  padding: 0;
+}
+.outer-wrapper .info-box .cites, .outer-wrapper .info-box .rank, .outer-wrapper .info-box .volume {
+  font-weight: bold;
+}
+.outer-wrapper .info-box .journal {
+  font-style: italic;
+}
+.outer-wrapper .info-box .life-cycle-chart {
+  margin: 10px 0 0;
+}
+.outer-wrapper .info-box svg {
+  margin: 0 0 10px 0;
+}
+.outer-wrapper .info-box .line {
+  fill: none;
+  stroke: #C1272D;
+  stroke-width: 1.5px;
+}
+.outer-wrapper .info-box-controls {
+  padding: 10px 10px 0 10px;
+  width: 20%;
+  float: right;
+  text-align: right;
+}
+.outer-wrapper .info-box-controls button {
   padding: 0.1em 0.3em;
   background-color: #ececec;
   border: 1px solid #999;
@@ -47,27 +70,16 @@
   border-radius: 5px;
   cursor: auto;
 }
-.outer-wrapper .info-box .info-box-controls .active {
+.outer-wrapper .info-box-controls .active {
   background: #ccc;
   cursor: pointer;
   pointer-events: auto;
 }
-.outer-wrapper .info-box .info-box-controls .active:hover {
+.outer-wrapper .info-box-controls .active:hover {
   background: #aaa;
 }
-.outer-wrapper .info-box p {
-  padding: 0 10px;
-}
-.outer-wrapper .info-box p .cites {
-  font-weight: bold;
-}
-.outer-wrapper .info-box .life-cycle-chart {
-  margin: 10px 0 10px;
-}
-.outer-wrapper .info-box .line {
-  fill: none;
-  stroke: #C1272D;
-  stroke-width: 1.5px;
+.outer-wrapper .info-box-controls .active:active {
+  background: #999;
 }
 .outer-wrapper .tool-tip {
   position: absolute;
@@ -108,4 +120,23 @@
 }
 .outer-wrapper .barsGroup rect {
   cursor: pointer;
+}
+.outer-wrapper .discipline-colour {
+  margin: 0 0 5px 0;
+}
+@media (min-width: 630px) {
+  .outer-wrapper .discipline-colour {
+    -webkit-column-count: 3;
+    -moz-column-count: 3;
+    column-count: 3;
+  }
+}
+.outer-wrapper ul {
+  overflow: visible;
+  padding-left: 10px;
+}
+.outer-wrapper ul li {
+  list-style: none;
+  padding: 0 0 0 10px;
+  margin: 4px 0px 8px;
 }

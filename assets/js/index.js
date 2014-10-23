@@ -28,7 +28,7 @@
 										"#42210b"];
 
 				/*	Margin, Width and height */
-				thRoParams.margin = {top: 40, right: 40, bottom: 40, left: 80, mid: 40};
+				thRoParams.margin = {top: 15, right: 30, bottom: 40, left: 80, mid: 40};
 				thRoParams.lifeCycleMargin = {top: 10, right: 20, bottom: 20, left: 70};
 				thRoParams.width = jQuery('.section').width()  - thRoParams.margin.left - thRoParams.margin.right;
 				thRoParams.miniHeight = 60;

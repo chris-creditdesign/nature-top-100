@@ -75,7 +75,7 @@ BuildWidget.prototype.buildAxes = function () {
 	  .append("g")
 		.attr("class", "axisLabel")
 	  .append("text")
-		.attr("transform", "translate(" + -(this.params.margin.left * 0.8) + "," + (this.params.height/2) + "), rotate(-90)")
+		.attr("transform", "translate(" + -(this.params.margin.left * 0.75) + "," + (this.params.height/2) + "), rotate(-90)")
 		.style("text-anchor", "middle")
 		.text("Total citations");
 
