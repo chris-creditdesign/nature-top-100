@@ -75,17 +75,24 @@ BuildWidget.prototype.buildLifeCycleAxes = function () {
 
 // Still needs to be tested!
 BuildWidget.prototype.updateLifeCycleLine = function () {
-	this.xScaleLifeCycle.domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
 
-	/* Can this work better */
-	// Store a reference to the axis and the line in the  BuildWidget object? Innit? 
-	this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .x")
-		.transition()
-		.duration(150)
-		.call(this.xAxisLifeCycle);
+	if (this.data[this.displayIndex].lifeCycle.length > 0) {
+		this.xScaleLifeCycle.domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
 
+		/* Can this work better */
+		// Store a reference to the axis and the line in the  BuildWidget object? Innit? 
+		this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .x")
+			.transition()
+			.duration(150)
+			.call(this.xAxisLifeCycle);
+			
+		this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")
+			.data([this.data[this.displayIndex].lifeCycle])
+			.attr("d", this.line);	
+	} else {
+		this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")
+			.data([this.data[this.displayIndex].lifeCycle])
+			.attr("d", "M0,0 L0,0");	
+	}
 
-	this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")
-		.data([this.data[this.displayIndex].lifeCycle])
-		.attr("d", this.line);
 };

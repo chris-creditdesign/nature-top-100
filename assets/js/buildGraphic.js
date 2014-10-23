@@ -38,7 +38,7 @@ BuildWidget.prototype.buildScales = function () {
 	this.yScale = d3.scale.linear()
 		.range([this.params.height, 0])
 		.domain([0, d3.max(this.data, function(d) { 
-			return d.total;
+			return d.cites;
 		})]);
 
 	this.xScale = d3.scale.ordinal()
@@ -163,7 +163,7 @@ BuildWidget.prototype.updateBars = function () {
 		var self = this;
 
 		this.xScale.domain(d3.range(this.updatedData.length));
-		this.yScale.domain([0, d3.max(this.updatedData, function(d) { return d.total;})]);
+		this.yScale.domain([0, d3.max(this.updatedData, function(d) { return d.cites;})]);
 
 		/* Update */
 		// updateBarsGroup(data);
@@ -221,10 +221,10 @@ BuildWidget.prototype.enterMainBars = function() {
 			return self.xScale.rangeBand();
 		})
 		.attr("y", function (d){
-			return self.yScale(d.total);
+			return self.yScale(d.cites);
 		})
 		.attr("height", function (d) {
-			return self.params.height - self.yScale(d.total);
+			return self.params.height - self.yScale(d.cites);
 		})
 		.attr("fill", function (d, i){
 			return getColour(d.discipline, self.params.colour, self.disciplines);
@@ -277,7 +277,7 @@ BuildWidget.prototype.enterMainPaths = function() {
 		})
 		.attr("fill","#444")
 		.attr("transform", function(d,i) {
-			var verticalTranslate = self.yScale(d.total) -7;
+			var verticalTranslate = self.yScale(d.cites) -7;
 			var scale = "0.9";
 			return "translate(" + (self.xScale(i) + (self.xScale.rangeBand()/2)) + "," + verticalTranslate + "), scale(" + scale + ")"; 
 		})
@@ -387,10 +387,10 @@ BuildWidget.prototype.updateMainBars = function () {
 			return self.xScale.rangeBand();
 		})
 		.attr("y", function (d){
-			return self.yScale(d.total);
+			return self.yScale(d.cites);
 		})
 		.attr("height", function (d) {
-			return self.params.height - self.yScale(d.total);
+			return self.params.height - self.yScale(d.cites);
 		});
 };
 
@@ -412,7 +412,7 @@ BuildWidget.prototype.updateMainPaths = function () {
 			} else {
 				horizTranslate = (self.xScale(i) + (self.xScale.rangeBand()/2));
 			}
-			return "translate(" + horizTranslate + "," + (self.yScale(d.total) -7) + "), scale(0.9)"; 
+			return "translate(" + horizTranslate + "," + (self.yScale(d.cites) -7) + "), scale(0.9)"; 
 		})
 		.attr("opacity", 0);
 };

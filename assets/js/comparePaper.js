@@ -1,8 +1,8 @@
 /*	Function to sort papers by citation */
 function comparePaper(a,b) {
-	if (a.total < b.total)
+	if (a.cites < b.cites)
 		return 1;
-	if (a.total > b.total)
+	if (a.cites > b.cites)
 		return -1;
 	return 0;
 }
