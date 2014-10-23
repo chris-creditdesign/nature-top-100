@@ -201,7 +201,7 @@ var combined = [
   },
   {
     "lead_author":"Akaike_1974",
-    "year":"Total",
+    "year":"total",
     "cites":14275
   },
   {
@@ -331,7 +331,7 @@ var combined = [
   },
   {
     "lead_author":"Atlschul_1990",
-    "year":"Total",
+    "year":"total",
     "cites":38380
   },
   {
@@ -431,7 +431,7 @@ var combined = [
   },
   {
     "lead_author":"Atlschul_1997",
-    "year":"Total",
+    "year":"total",
     "cites":36410
   },
   {
@@ -581,7 +581,7 @@ var combined = [
   },
   {
     "lead_author":"Baron_1986",
-    "year":"Total",
+    "year":"total",
     "cites":23356
   },
   {
@@ -866,7 +866,7 @@ var combined = [
   },
   {
     "lead_author":"Bartlett_1959",
-    "year":"Total",
+    "year":"total",
     "cites":13523
   },
   {
@@ -1141,7 +1141,7 @@ var combined = [
   },
   {
     "lead_author":"Beck_1961",
-    "year":"Total",
+    "year":"total",
     "cites":16264
   },
   {
@@ -1276,7 +1276,7 @@ var combined = [
   },
   {
     "lead_author":"Becke_1988",
-    "year":"Total",
+    "year":"total",
     "cites":26475
   },
   {
@@ -1396,7 +1396,7 @@ var combined = [
   },
   {
     "lead_author":"Becke_1993",
-    "year":"Total",
+    "year":"total",
     "cites":46145
   },
   {
@@ -1496,7 +1496,7 @@ var combined = [
   },
   {
     "lead_author":"Benjamini_1995",
-    "year":"Total",
+    "year":"total",
     "cites":15898
   },
   {
@@ -1576,7 +1576,7 @@ var combined = [
   },
   {
     "lead_author":"Berman_2000",
-    "year":"Total",
+    "year":"total",
     "cites":12754
   },
   {
@@ -1756,7 +1756,7 @@ var combined = [
   },
   {
     "lead_author":"Birnboim_1979",
-    "year":"Total",
+    "year":"total",
     "cites":12721
   },
   {
@@ -1906,7 +1906,7 @@ var combined = [
   },
   {
     "lead_author":"Bland_1986",
-    "year":"Total",
+    "year":"total",
     "cites":23826
   },
   {
@@ -2191,7 +2191,7 @@ var combined = [
   },
   {
     "lead_author":"Bligh_1959",
-    "year":"Total",
+    "year":"total",
     "cites":32131
   },
   {
@@ -2296,7 +2296,7 @@ var combined = [
   },
   {
     "lead_author":"Blochl_1994",
-    "year":"Total",
+    "year":"total",
     "cites":13330
   },
   {
@@ -2551,7 +2551,7 @@ var combined = [
   },
   {
     "lead_author":"Bondi_1964",
-    "year":"Total",
+    "year":"total",
     "cites":13417
   },
   {
@@ -2786,7 +2786,7 @@ var combined = [
   },
   {
     "lead_author":"Boyum_1968",
-    "year":"Total",
+    "year":"total",
     "cites":14934
   },
   {
@@ -2986,7 +2986,7 @@ var combined = [
   },
   {
     "lead_author":"Bradford_1976",
-    "year":"Total",
+    "year":"total",
     "cites":155530
   },
   {
@@ -3376,7 +3376,7 @@ var combined = [
   },
   {
     "lead_author":"Brunauer_1938",
-    "year":"Total",
+    "year":"total",
     "cites":12252
   },
   {
@@ -3466,7 +3466,7 @@ var combined = [
   },
   {
     "lead_author":"Brunger_1998",
-    "year":"Total",
+    "year":"total",
     "cites":14898
   },
   {
@@ -3761,7 +3761,7 @@ var combined = [
   },
   {
     "lead_author":"Burton_1956",
-    "year":"Total",
+    "year":"total",
     "cites":17067
   },
   {
@@ -3941,7 +3941,7 @@ var combined = [
   },
   {
     "lead_author":"Chirgwin_1979",
-    "year":"Total",
+    "year":"total",
     "cites":23435
   },
   {
@@ -4086,7 +4086,7 @@ var combined = [
   },
   {
     "lead_author":"Chomczynski_1987",
-    "year":"Total",
+    "year":"total",
     "cites":60397
   },
   {
@@ -4306,7 +4306,7 @@ var combined = [
   },
   {
     "lead_author":"Cox_1972",
-    "year":"Total",
+    "year":"total",
     "cites":28439
   },
   {
@@ -4561,7 +4561,7 @@ var combined = [
   },
   {
     "lead_author":"Davis_1964",
-    "year":"Total",
+    "year":"total",
     "cites":22074
   },
   {
@@ -4761,7 +4761,7 @@ var combined = [
   },
   {
     "lead_author":"Dempster_1977",
-    "year":"Total",
+    "year":"total",
     "cites":15993
   },
   {
@@ -4921,7 +4921,7 @@ var combined = [
   },
   {
     "lead_author":"Devereux_1984",
-    "year":"Total",
+    "year":"total",
     "cites":14226
   },
   {
@@ -5076,7 +5076,7 @@ var combined = [
   },
   {
     "lead_author":"Dewar_1985",
-    "year":"Total",
+    "year":"total",
     "cites":13718
   },
   {
@@ -5381,7 +5381,7 @@ var combined = [
   },
   {
     "lead_author":"Dubois_1956",
-    "year":"Total",
+    "year":"total",
     "cites":25735
   },
   {
@@ -5686,7 +5686,7 @@ var combined = [
   },
   {
     "lead_author":"Duncan_1955",
-    "year":"Total",
+    "year":"total",
     "cites":15047
   },
   {
@@ -5821,7 +5821,7 @@ var combined = [
   },
   {
     "lead_author":"Dunning_1989",
-    "year":"Total",
+    "year":"total",
     "cites":14617
   },
   {
@@ -6101,7 +6101,7 @@ var combined = [
   },
   {
     "lead_author":"Ellman_1959",
-    "year":"Total",
+    "year":"total",
     "cites":15019
   },
   {
@@ -6376,7 +6376,7 @@ var combined = [
   },
   {
     "lead_author":"Ellman_1961",
-    "year":"Total",
+    "year":"total",
     "cites":13332
   },
   {
@@ -6536,7 +6536,7 @@ var combined = [
   },
   {
     "lead_author":"Feinberg_1983",
-    "year":"Total",
+    "year":"total",
     "cites":21446
   },
   {
@@ -6686,7 +6686,7 @@ var combined = [
   },
   {
     "lead_author":"Felsenstein_1985",
-    "year":"Total",
+    "year":"total",
     "cites":21373
   },
   {
@@ -7136,7 +7136,7 @@ var combined = [
   },
   {
     "lead_author":"Fiske_1925",
-    "year":"Total",
+    "year":"total",
     "cites":22690
   },
   {
@@ -7431,7 +7431,7 @@ var combined = [
   },
   {
     "lead_author":"Folch_1957",
-    "year":"Total",
+    "year":"total",
     "cites":45131
   },
   {
@@ -7646,7 +7646,7 @@ var combined = [
   },
   {
     "lead_author":"Friedewa_1972",
-    "year":"Total",
+    "year":"total",
     "cites":15469
   },
   {
@@ -7841,7 +7841,7 @@ var combined = [
   },
   {
     "lead_author":"Fulstein_1975",
-    "year":"Total",
+    "year":"total",
     "cites":34532
   },
   {
@@ -8176,7 +8176,7 @@ var combined = [
   },
   {
     "lead_author":"Gornall_1949",
-    "year":"Total",
+    "year":"total",
     "cites":16009
   },
   {
@@ -8331,7 +8331,7 @@ var combined = [
   },
   {
     "lead_author":"Grynkiewicz_1985",
-    "year":"Total",
+    "year":"total",
     "cites":19561
   },
   {
@@ -8506,7 +8506,7 @@ var combined = [
   },
   {
     "lead_author":"Hamill_1981",
-    "year":"Total",
+    "year":"total",
     "cites":17025
   },
   {
@@ -8781,7 +8781,7 @@ var combined = [
   },
   {
     "lead_author":"Hamilton_1960",
-    "year":"Total",
+    "year":"total",
     "cites":16734
   },
   {
@@ -9036,7 +9036,7 @@ var combined = [
   },
   {
     "lead_author":"Hohenberg_1964",
-    "year":"Total",
+    "year":"total",
     "cites":21931
   },
   {
@@ -9211,7 +9211,7 @@ var combined = [
   },
   {
     "lead_author":"Hsu_1981",
-    "year":"Total",
+    "year":"total",
     "cites":13881
   },
   {
@@ -9336,7 +9336,7 @@ var combined = [
   },
   {
     "lead_author":"Iijima_1991",
-    "year":"Total",
+    "year":"total",
     "cites":22899
   },
   {
@@ -9461,7 +9461,7 @@ var combined = [
   },
   {
     "lead_author":"Jones_1991",
-    "year":"Total",
+    "year":"total",
     "cites":12649
   },
   {
@@ -9626,7 +9626,7 @@ var combined = [
   },
   {
     "lead_author":"Jorgensen_1983",
-    "year":"Total",
+    "year":"total",
     "cites":13774
   },
   {
@@ -9906,7 +9906,7 @@ var combined = [
   },
   {
     "lead_author":"Kaplan_Meier_1958",
-    "year":"Total",
+    "year":"total",
     "cites":38600
   },
   {
@@ -10071,7 +10071,7 @@ var combined = [
   },
   {
     "lead_author":"Kirkpatrick_1983",
-    "year":"Total",
+    "year":"total",
     "cites":13293
   },
   {
@@ -10271,7 +10271,7 @@ var combined = [
   },
   {
     "lead_author":"Kohler_1975",
-    "year":"Total",
+    "year":"total",
     "cites":12391
   },
   {
@@ -10521,7 +10521,7 @@ var combined = [
   },
   {
     "lead_author":"Kohn_1965",
-    "year":"Total",
+    "year":"total",
     "cites":23059
   },
   {
@@ -10646,7 +10646,7 @@ var combined = [
   },
   {
     "lead_author":"Kraulis_1991",
-    "year":"Total",
+    "year":"total",
     "cites":13496
   },
   {
@@ -10741,7 +10741,7 @@ var combined = [
   },
   {
     "lead_author":"Kresse_1996",
-    "year":"Total",
+    "year":"total",
     "cites":18856
   },
   {
@@ -10836,7 +10836,7 @@ var combined = [
   },
   {
     "lead_author":"Kresse_1996_2",
-    "year":"Total",
+    "year":"total",
     "cites":13084
   },
   {
@@ -10921,7 +10921,7 @@ var combined = [
   },
   {
     "lead_author":"Kresse_1999",
-    "year":"Total",
+    "year":"total",
     "cites":14049
   },
   {
@@ -11091,7 +11091,7 @@ var combined = [
   },
   {
     "lead_author":"Kyte_1982",
-    "year":"Total",
+    "year":"total",
     "cites":16059
   },
   {
@@ -11326,7 +11326,7 @@ var combined = [
   },
   {
     "lead_author":"Laemmli_1970",
-    "year":"Total",
+    "year":"total",
     "cites":213005
   },
   {
@@ -11526,7 +11526,7 @@ var combined = [
   },
   {
     "lead_author":"Landis_1977",
-    "year":"Total",
+    "year":"total",
     "cites":14903
   },
   {
@@ -11641,7 +11641,7 @@ var combined = [
   },
   {
     "lead_author":"Laskowski_1993",
-    "year":"Total",
+    "year":"total",
     "cites":14462
   },
   {
@@ -11786,7 +11786,7 @@ var combined = [
   },
   {
     "lead_author":"Lee_1988",
-    "year":"Total",
+    "year":"total",
     "cites":46702
   },
   {
@@ -11866,7 +11866,7 @@ var combined = [
   },
   {
     "lead_author":"Livak_2001",
-    "year":"Total",
+    "year":"total",
     "cites":28870
   },
   {
@@ -12191,7 +12191,7 @@ var combined = [
   },
   {
     "lead_author":"Lowry_1951",
-    "year":"Total",
+    "year":"total",
     "cites":305148
   },
   {
@@ -12451,7 +12451,7 @@ var combined = [
   },
   {
     "lead_author":"Marquardt_1963",
-    "year":"Total",
+    "year":"total",
     "cites":13258
   },
   {
@@ -12601,7 +12601,7 @@ var combined = [
   },
   {
     "lead_author":"Matthews_1985",
-    "year":"Total",
+    "year":"total",
     "cites":12209
   },
   {
@@ -12761,7 +12761,7 @@ var combined = [
   },
   {
     "lead_author":"Mckhann_1984",
-    "year":"Total",
+    "year":"total",
     "cites":17220
   },
   {
@@ -13066,7 +13066,7 @@ var combined = [
   },
   {
     "lead_author":"Metropolis_1953",
-    "year":"Total",
+    "year":"total",
     "cites":15902
   },
   {
@@ -13191,7 +13191,7 @@ var combined = [
   },
   {
     "lead_author":"Moncada_1991",
-    "year":"Total",
+    "year":"total",
     "cites":13267
   },
   {
@@ -13391,7 +13391,7 @@ var combined = [
   },
   {
     "lead_author":"Monkhorst_1976",
-    "year":"Total",
+    "year":"total",
     "cites":17087
   },
   {
@@ -13551,7 +13551,7 @@ var combined = [
   },
   {
     "lead_author":"Mosmann_1983",
-    "year":"Total",
+    "year":"total",
     "cites":23011
   },
   {
@@ -13816,7 +13816,7 @@ var combined = [
   },
   {
     "lead_author":"Murashige_1962",
-    "year":"Total",
+    "year":"total",
     "cites":36132
   },
   {
@@ -13876,7 +13876,7 @@ var combined = [
   },
   {
     "lead_author":"Novoselov_2004",
-    "year":"Total",
+    "year":"total",
     "cites":15022
   },
   {
@@ -14081,7 +14081,7 @@ var combined = [
   },
   {
     "lead_author":"OFarrell_1975",
-    "year":"Total",
+    "year":"total",
     "cites":18489
   },
   {
@@ -14301,7 +14301,7 @@ var combined = [
   },
   {
     "lead_author":"Oldfield_1971",
-    "year":"Total",
+    "year":"total",
     "cites":15517
   },
   {
@@ -14426,7 +14426,7 @@ var combined = [
   },
   {
     "lead_author":"Oregan_1991",
-    "year":"Total",
+    "year":"total",
     "cites":12873
   },
   {
@@ -14521,7 +14521,7 @@ var combined = [
   },
   {
     "lead_author":"Otwinowski_1997",
-    "year":"Total",
+    "year":"total",
     "cites":28647
   },
   {
@@ -14641,7 +14641,7 @@ var combined = [
   },
   {
     "lead_author":"Perdew_1992",
-    "year":"Total",
+    "year":"total",
     "cites":12748
   },
   {
@@ -14741,7 +14741,7 @@ var combined = [
   },
   {
     "lead_author":"Perdew_1996",
-    "year":"Total",
+    "year":"total",
     "cites":35405
   },
   {
@@ -14826,7 +14826,7 @@ var combined = [
   },
   {
     "lead_author":"Posada_1998",
-    "year":"Total",
+    "year":"total",
     "cites":14099
   },
   {
@@ -15091,7 +15091,7 @@ var combined = [
   },
   {
     "lead_author":"Reynolds_1963",
-    "year":"Total",
+    "year":"total",
     "cites":24449
   },
   {
@@ -15156,7 +15156,7 @@ var combined = [
   },
   {
     "lead_author":"Ronquist_2003",
-    "year":"Total",
+    "year":"total",
     "cites":12257
   },
   {
@@ -15241,7 +15241,7 @@ var combined = [
   },
   {
     "lead_author":"Ross_1999",
-    "year":"Total",
+    "year":"total",
     "cites":12119
   },
   {
@@ -15381,7 +15381,7 @@ var combined = [
   },
   {
     "lead_author":"Saiki_1988",
-    "year":"Total",
+    "year":"total",
     "cites":15160
   },
   {
@@ -15526,7 +15526,7 @@ var combined = [
   },
   {
     "lead_author":"Saitou_1987",
-    "year":"Total",
+    "year":"total",
     "cites":39176
   },
   {
@@ -15716,7 +15716,7 @@ var combined = [
   },
   {
     "lead_author":"Sanger_1977",
-    "year":"Total",
+    "year":"total",
     "cites":65335
   },
   {
@@ -16046,7 +16046,7 @@ var combined = [
   },
   {
     "lead_author":"Scratchard_1949",
-    "year":"Total",
+    "year":"total",
     "cites":23421
   },
   {
@@ -16241,7 +16241,7 @@ var combined = [
   },
   {
     "lead_author":"Shannon_1976",
-    "year":"Total",
+    "year":"total",
     "cites":28658
   },
   {
@@ -16371,7 +16371,7 @@ var combined = [
   },
   {
     "lead_author":"Sheldrick_1990",
-    "year":"Total",
+    "year":"total",
     "cites":17728
   },
   {
@@ -16416,7 +16416,7 @@ var combined = [
   },
   {
     "lead_author":"Sheldrick_2008",
-    "year":"Total",
+    "year":"total",
     "cites":37978
   },
   {
@@ -16571,7 +16571,7 @@ var combined = [
   },
   {
     "lead_author":"Smith_1985",
-    "year":"Total",
+    "year":"total",
     "cites":15802
   },
   {
@@ -16776,7 +16776,7 @@ var combined = [
   },
   {
     "lead_author":"Southern_1975",
-    "year":"Total",
+    "year":"total",
     "cites":31904
   },
   {
@@ -17011,7 +17011,7 @@ var combined = [
   },
   {
     "lead_author":"Spurr_1969",
-    "year":"Total",
+    "year":"total",
     "cites":12807
   },
   {
@@ -17061,7 +17061,7 @@ var combined = [
   },
   {
     "lead_author":"Tamura_2007",
-    "year":"Total",
+    "year":"total",
     "cites":18286
   },
   {
@@ -17166,7 +17166,7 @@ var combined = [
   },
   {
     "lead_author":"Thompson_1994",
-    "year":"Total",
+    "year":"total",
     "cites":40289
   },
   {
@@ -17256,7 +17256,7 @@ var combined = [
   },
   {
     "lead_author":"Thompson_1997",
-    "year":"Total",
+    "year":"total",
     "cites":24098
   },
   {
@@ -17436,7 +17436,7 @@ var combined = [
   },
   {
     "lead_author":"Towbin_1979",
-    "year":"Total",
+    "year":"total",
     "cites":53349
   },
   {
@@ -17611,7 +17611,7 @@ var combined = [
   },
   {
     "lead_author":"Vosko_1980",
-    "year":"Total",
+    "year":"total",
     "cites":12583
   },
   {
@@ -17731,7 +17731,7 @@ var combined = [
   },
   {
     "lead_author":"Ware_1992",
-    "year":"Total",
+    "year":"total",
     "cites":14332
   },
   {
@@ -17966,7 +17966,7 @@ var combined = [
   },
   {
     "lead_author":"Weber_1969",
-    "year":"Total",
+    "year":"total",
     "cites":23642
   },
   {
@@ -18121,7 +18121,7 @@ var combined = [
   },
   {
     "lead_author":"Yanischperron_1985",
-    "year":"Total",
+    "year":"total",
     "cites":14232
   },
   {
@@ -18366,7 +18366,7 @@ var combined = [
   },
   {
     "lead_author":"Zadeh_1965",
-    "year":"Total",
+    "year":"total",
     "cites":18203
   }
 ];

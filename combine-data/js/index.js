@@ -3,7 +3,7 @@ for (var i = 0; i < top100.length; i++) {
     for (var y = 0; y < combined.length; y++) {
         if ( top100[i].lead_author === combined[y].lead_author ){
           
-          if (combined[y].year === "Total") {
+          if (combined[y].year === "total") {
             top100[i].total = combined[y].cites;
           } else if (combined[y].year !== "2014" && combined[y].year !== "2015" ) {
           
@@ -20,3 +20,4 @@ for (var i = 0; i < top100.length; i++) {
 
 // In order to print the final array of objects to the console.
 console.table(JSON.stringify(top100));
+
