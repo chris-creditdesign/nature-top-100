@@ -150,11 +150,11 @@
 	</div>
 
 	<div class="info-box-controls">
-		<button class="widget-button lower">&#60;</button>
+		<button class="widget-button higher">&#60;</button>
 		<svg x="0px" y="0px" width="30px" height="40px">
 			<path d="M15,3 L25,20 15,37 5,20Z" fill="#444"></path>
 		</svg>
-		<button class="widget-button higher">&#62;</button>
+		<button class="widget-button lower">&#62;</button>
 	</div>
 
 	<div class="info-box" id="tr-info-box">
@@ -15852,15 +15852,15 @@ BuildWidget.prototype.buildScales = function () {
 		})]);
 
 	this.xScale = d3.scale.ordinal()
-		.rangeBands([this.params.width, 0], 0.4, 0)
+		.rangeBands([0, this.params.width], 0.4, 0)
 		.domain(d3.range(this.data.length));
 
 	this.xScaleBrush = d3.scale.ordinal()
-		.rangeBands([this.params.width, 0], 0.4, 0)
+		.rangeBands([0, this.params.width], 0.4, 0)
 		.domain(d3.range(this.data.length));
 
 	this.xScaleAxis = d3.scale.ordinal()
-		.rangeBands([this.params.width, 0], 0.4, 0)
+		.rangeBands([0, this.params.width], 0.4, 0)
 		.domain(this.axisRange);
 
 };

@@ -42,15 +42,15 @@ BuildWidget.prototype.buildScales = function () {
 		})]);
 
 	this.xScale = d3.scale.ordinal()
-		.rangeBands([this.params.width, 0], 0.4, 0)
+		.rangeBands([0, this.params.width], 0.4, 0)
 		.domain(d3.range(this.data.length));
 
 	this.xScaleBrush = d3.scale.ordinal()
-		.rangeBands([this.params.width, 0], 0.4, 0)
+		.rangeBands([0, this.params.width], 0.4, 0)
 		.domain(d3.range(this.data.length));
 
 	this.xScaleAxis = d3.scale.ordinal()
-		.rangeBands([this.params.width, 0], 0.4, 0)
+		.rangeBands([0, this.params.width], 0.4, 0)
 		.domain(this.axisRange);
 
 };
