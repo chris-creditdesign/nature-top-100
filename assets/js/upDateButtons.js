@@ -2,9 +2,9 @@ BuildWidget.prototype.buttonClick = function() {
 	var self = this;
 
 	jQuery(this.target + ' button.widget-button').click(function () {
-		if ($(this).hasClass('lower') && (self.displayIndex < 99)) {
+		if (jQuery(this).hasClass('lower') && (self.displayIndex < 99)) {
 			self.displayIndex++;
-		} else if ($(this).hasClass('higher') && (self.displayIndex > 0)) {
+		} else if (jQuery(this).hasClass('higher') && (self.displayIndex > 0)) {
 			self.displayIndex--;	
 		}
 		
