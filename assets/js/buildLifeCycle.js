@@ -30,7 +30,7 @@ BuildWidget.prototype.buildLifeCycleScales = function () {
 
 	this.yScaleLifeCycle = d3.scale.linear()
 		.range([this.params.lifeCycleHeight, 0])
-		.domain([0,12000]);
+		.domain([0, (d3.max(this.data[this.displayIndex].lifeCycle, function(d) { return d.cites; }) * 1.1) ]);
 
 };
 
@@ -78,6 +78,7 @@ BuildWidget.prototype.updateLifeCycleLine = function () {
 
 	if (this.data[this.displayIndex].lifeCycle.length > 0) {
 		this.xScaleLifeCycle.domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
+		this.yScaleLifeCycle.domain([0, (d3.max(this.data[this.displayIndex].lifeCycle, function(d) { return d.cites; }) * 1.1) ]);
 
 		/* Can this work better */
 		// Store a reference to the axis and the line in the  BuildWidget object? Innit? 
@@ -85,10 +86,16 @@ BuildWidget.prototype.updateLifeCycleLine = function () {
 			.transition()
 			.duration(150)
 			.call(this.xAxisLifeCycle);
+
+		this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .y")
+			.transition()
+			.duration(150)
+			.call(this.yAxisLifeCycle);
 			
 		this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")
 			.data([this.data[this.displayIndex].lifeCycle])
-			.attr("d", this.line);	
+			.attr("d", this.line);
+
 	} else {
 		this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")
 			.data([this.data[this.displayIndex].lifeCycle])
