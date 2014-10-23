@@ -26,7 +26,8 @@ BuildWidget.prototype.buildLifeCycle = function () {
 BuildWidget.prototype.buildLifeCycleScales = function () {
 	this.xScaleLifeCycle = d3.time.scale()
 		.range([0, this.params.lifeCycleWidth])
-		.domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
+		// .domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
+		.domain([this.parseDate("1925"), this.parseDate("2013")]);
 
 	this.yScaleLifeCycle = d3.scale.linear()
 		.range([this.params.lifeCycleHeight, 0])
@@ -77,15 +78,15 @@ BuildWidget.prototype.buildLifeCycleAxes = function () {
 BuildWidget.prototype.updateLifeCycleLine = function () {
 
 	if (this.data[this.displayIndex].lifeCycle.length > 0) {
-		this.xScaleLifeCycle.domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
+		// this.xScaleLifeCycle.domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
 		this.yScaleLifeCycle.domain([0, (d3.max(this.data[this.displayIndex].lifeCycle, function(d) { return d.cites; }) * 1.1) ]);
 
 		/* Can this work better */
 		// Store a reference to the axis and the line in the  BuildWidget object? Innit? 
-		this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .x")
-			.transition()
-			.duration(150)
-			.call(this.xAxisLifeCycle);
+		// this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .x")
+		// 	.transition()
+		// 	.duration(150)
+		// 	.call(this.xAxisLifeCycle);
 
 		this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .y")
 			.transition()
