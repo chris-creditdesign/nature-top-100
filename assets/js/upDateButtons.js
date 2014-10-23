@@ -8,14 +8,14 @@ BuildWidget.prototype.buttonClick = function() {
 			self.displayIndex--;	
 		}
 		
-		self.upDateButtons();
-
 		self.pubsub.publish("newIndexChosen", self.displayIndex);
 	});
 };
 
 BuildWidget.prototype.upDateButtons = function () {
 	jQuery(this.target + ' button.widget-button').removeClass("active");
+
+	console.log(this.displayIndex);
 
 	if ( this.displayIndex < 99 ) {
 		jQuery(this.target + ' button.widget-button.lower').addClass("active");
