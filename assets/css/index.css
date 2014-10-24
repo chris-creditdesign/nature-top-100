@@ -56,7 +56,7 @@
 }
 @media (min-width: 716px) and (max-width: 769px) {
   .outer-wrapper .head-stand {
-    width: 80%;
+    width: 65%;
   }
 }
 .outer-wrapper .info-box-controls {
@@ -78,10 +78,10 @@
 }
 @media (min-width: 716px) and (max-width: 769px) {
   .outer-wrapper .info-box-controls {
-    width: 9%;
+    width: 30%;
   }
   .outer-wrapper .info-box-controls svg {
-    margin: 10px 0 0 0;
+    margin: 0;
   }
 }
 .outer-wrapper .info-box-controls button {

@@ -11,7 +11,7 @@
 	@if $awk-point == vert-buttons {
 		@media (max-width: 901px) { @content; }
 	}
-	@else if $awk-point == vert-buttons-again {
+	@else if $awk-point == horiz-buttons {
 		@media (min-width: 716px) and (max-width: 769px) { @content; }
 	}
 }
@@ -82,8 +82,8 @@
 			width: 80%;
 		}
 
-		@include awkward-breakpoint(vert-buttons-again) {
-			width: 80%;
+		@include awkward-breakpoint(horiz-buttons) {
+			width: 65%;
 		}
 	}
 
@@ -103,10 +103,10 @@
 			}	
 		}
 
-		@include awkward-breakpoint(vert-buttons-again) {
-			width: 9%;
+		@include awkward-breakpoint(horiz-buttons) {
+			width: 30%;
 			svg {
-				margin: 10px 0 0 0;
+				margin: 0;
 			}	
 		}
 
