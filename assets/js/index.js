@@ -7,10 +7,12 @@
 
 			/*	==================================================================================== */
 			/*	Load D3 */
-			/*	All of the D3/svg code is contained within the call back function */
-			/*	Loading D3 into ie6-8 seems to cause a runtime error */
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
 				
+				/*	Both jQuery and D3 are available so hide the status message and show the graphic */
+				$(".status-message").css("display","none");
+				$(".outer-wrapper").css("display","block");
+
 				var thRoParams = {};
 
 				thRoParams.colour =  ["#c1272d",
@@ -81,11 +83,9 @@
 
 				thRoGraphic.createKey();
 
-			}); /* End of d3js getscript call
+			}); /* End of d3js getscript call */
 
-		/* End of active code */
-		};
-
+		}; /* End of active code */
 
 	setTimeout(function()
 	{

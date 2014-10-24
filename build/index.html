@@ -58,6 +58,7 @@
   width: 100%;
   position: relative;
   border: 1px solid #c8c7cf;
+  display: none;
 }
 .outer-wrapper h2 {
   padding: 10px 10px 0 10px;
@@ -192,10 +193,15 @@
 }
 
 </style>
+<div class="status-message">
+	<p>This interactive graphic requires a modern browser (e.g. Chrome, Safari, Firefox or Internet Explorer 9+) with javascript enabled.</p>
+	<p>The Thomson Reuters top 100 cited papers can be downloaded here: <a href="##">tktktkk</a></p>
+</div>
+
 <div class="outer-wrapper" id="tr-graphic">
 	<div class="head-stand">
-		<h2>Thomson Reuters top 100 cited papers</h2>
-		<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Id nobis exercitationem quam reprehenderit similique nulla aliquam!</p>
+		<h2>The top 100 papers</h2>
+		<p>Click through to explore the Web of Science's all-time top-cited papers. (Data provided by Thomson Reuters, extracted on 7 October 2014).</p>
 	</div>
 
 	<div class="info-box-controls">
@@ -209,13 +215,13 @@
 	<div class="info-box" id="tr-info-box">
 		
 		<div class="life-cycle" id="tr-life-cycle">
-			<p>Rank: <span class="rank">1</span> Citations: <span class="cites">305148</span></p>
+			<p>Rank: <span class="rank"></span> Citations: <span class="cites"></span></p>
 
-			<p><span class="title"> Lowry, O. H., Rosebrough, N. J., Farr, A. L. & Randall, R. J.</span></p>
+			<p><span class="title"></span></p>
 
-			<p><span class="authors">Protein measurement with the folin phenol reagent. </span><p>
+			<p><span class="authors"></span><p>
 
-			<a href="" class="paper-link" target="_blank"><span class="journal">J. Biol. Chem.</span> <span class="volume">193</span>, <span class="page">265–275</span> (<span class="pub-year"> 1951 </span>).</a>
+			<a href="" class="paper-link" target="_blank"><span class="journal"></span><span class="volume"></span>, <span class="page"></span> (<span class="pub-year"></span>).</a>
 		</div>
 		
 		<div class="life-cycle-chart" id="tr-life-cycle-chart"></div>
@@ -227,7 +233,6 @@
 	<h3>Discipline colour</h3>	
 	<div class="discipline-colour" id="tr-discipline-colour">
 	</div>
-
 </div>
 <!--[if gt IE 8]><!-->
 <script type="text/javascript">
@@ -15769,8 +15774,8 @@ BuildWidget.prototype.updateLifeCycleLine = function () {
 };
 
 BuildWidget.prototype.populateInfoBox = function () {
-	jQuery(".life-cycle .cites").text(this.format(this.data[this.displayIndex].cites));
 	jQuery(".life-cycle .rank").text(this.data[this.displayIndex].rank);
+	jQuery(".life-cycle .cites").text(this.format(this.data[this.displayIndex].cites));
 
 	jQuery(".life-cycle .title").html(this.data[this.displayIndex].title);
 	jQuery(".life-cycle .authors").html(this.data[this.displayIndex].authors);
@@ -16366,10 +16371,12 @@ function BuildWidget (target, params, data) {
 
 			/*	==================================================================================== */
 			/*	Load D3 */
-			/*	All of the D3/svg code is contained within the call back function */
-			/*	Loading D3 into ie6-8 seems to cause a runtime error */
 			$.getScript("http://www.nature.com/polopoly_static/js/d3.v3.min.js", function() {
 				
+				/*	Both jQuery and D3 are available so hide the status message and show the graphic */
+				$(".status-message").css("display","none");
+				$(".outer-wrapper").css("display","block");
+
 				var thRoParams = {};
 
 				thRoParams.colour =  ["#c1272d",
@@ -16440,11 +16447,9 @@ function BuildWidget (target, params, data) {
 
 				thRoGraphic.createKey();
 
-			}); /* End of d3js getscript call
+			}); /* End of d3js getscript call */
 
-		/* End of active code */
-		};
-
+		}; /* End of active code */
 
 	setTimeout(function()
 	{

@@ -8,6 +8,7 @@
   width: 100%;
   position: relative;
   border: 1px solid #c8c7cf;
+  display: none;
 }
 .outer-wrapper h2 {
   padding: 10px 10px 0 10px;

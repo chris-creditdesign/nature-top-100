@@ -1,6 +1,6 @@
 BuildWidget.prototype.populateInfoBox = function () {
-	jQuery(".life-cycle .cites").text(this.format(this.data[this.displayIndex].cites));
 	jQuery(".life-cycle .rank").text(this.data[this.displayIndex].rank);
+	jQuery(".life-cycle .cites").text(this.format(this.data[this.displayIndex].cites));
 
 	jQuery(".life-cycle .title").html(this.data[this.displayIndex].title);
 	jQuery(".life-cycle .authors").html(this.data[this.displayIndex].authors);
