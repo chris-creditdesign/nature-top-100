@@ -13,6 +13,13 @@
 				$(".status-message").css("display","none");
 				$(".outer-wrapper").css("display","block");
 
+				var height = 400;
+
+				/*	Reduce height of main graphic for smaller screens */
+				if (jQuery('.section').width() < 480 ) {
+					height = 300;
+				}
+
 				var thRoParams = {};
 
 				thRoParams.colour =  ["#c1272d",   /* Biology lab technique */
@@ -27,6 +34,8 @@
 										"#8c6239"  /* Medicine */
 									];
 
+				console.log(jQuery('.section').width());
+
 				/*	Margin, Width and height */
 				thRoParams.margin = {top: 15, right: 30, bottom: 40, left: 80, mid: 40};
 				thRoParams.lifeCycleMargin = {top: 10, right: 10, bottom: 20, left: 70};
@@ -34,7 +43,7 @@
 				thRoParams.miniHeight = 60;
 				thRoParams.lifeCycleHeight = 100;
 				thRoParams.lifeCycleWidth = jQuery('.info-box').width() - thRoParams.lifeCycleMargin.left - thRoParams.lifeCycleMargin.right;
-				thRoParams.height = 400 - thRoParams.margin.top - thRoParams.margin.mid - thRoParams.miniHeight - thRoParams.margin.bottom;
+				thRoParams.height = height - thRoParams.margin.top - thRoParams.margin.mid - thRoParams.miniHeight - thRoParams.margin.bottom;
 				thRoParams.handleWidth = 15;
 				/*	Global variable to control the length of D3 transitons */
 				thRoParams.duration = 450;
