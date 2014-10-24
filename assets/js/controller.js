@@ -4,6 +4,3 @@ BuildWidget.prototype.indexChosen = function ( topic, func, parent ) {
 	this.parent.populateInfoBox();
 	this.parent.upDateButtons();
 };
-
-
-

@@ -15541,6 +15541,7 @@ var thRoData = [
     "total": 12257
   }
 ];
+
 function extendObject (myObject) {
 	/*	Referenced from: http://addyosmani.com/resources/essentialjsdesignpatterns/book/#observerpatternjavascript */
 	
@@ -15588,223 +15589,37 @@ function extendObject (myObject) {
 
 }
 
-BuildWidget.prototype.indexChosen = function ( topic, func, parent ) {
-	this.parent.upDatePointer();
-	this.parent.updateLifeCycleLine();
-	this.parent.populateInfoBox();
-	this.parent.upDateButtons();
-};
-
-
-
-
-BuildWidget.prototype.buttonClick = function() {
-	var self = this;
-
-	jQuery(this.target + ' button.widget-button').click(function () {
-		if (jQuery(this).hasClass('lower') && (self.displayIndex < 99)) {
-			self.displayIndex++;
-		} else if (jQuery(this).hasClass('higher') && (self.displayIndex > 0)) {
-			self.displayIndex--;	
-		}
-		
-		self.pubsub.publish("newIndexChosen", self.displayIndex);
-	});
-};
-
-BuildWidget.prototype.upDateButtons = function () {
-	jQuery(this.target + ' button.widget-button').removeClass("active");
-
-	if ( this.displayIndex < 99 ) {
-		jQuery(this.target + ' button.widget-button.lower').addClass("active");
-	}
-
-	if ( this.displayIndex > 0 ) {
-		jQuery(this.target + ' button.widget-button.higher').addClass("active");
-	}
-};
-BuildWidget.prototype.prepareLifeCycelData = function () {
-	for (var i = 0; i < this.data.length; i++) {
-		for (var y = 0; y < this.data[i].lifeCycle.length; y++) {
-			this.data[i].lifeCycle[y].date = this.parseDate(this.data[i].lifeCycle[y].year);
-		}
-	}
-};
-
-BuildWidget.prototype.buildLifeCycle = function () {
-	this.lifeCycleSvg = d3.select(this.target + " > .info-box > .life-cycle-chart").append("svg")
-		.attr("width", this.params.lifeCycleWidth + this.params.lifeCycleMargin.left + this.params.lifeCycleMargin.right)
-		.attr("height", this.params.lifeCycleHeight + this.params.lifeCycleMargin.top + this.params.lifeCycleMargin.bottom)
-	  .append("g")
-		.attr("transform", "translate(" + this.params.lifeCycleMargin.left + "," + this.params.lifeCycleMargin.top + ")");
-
-	this.lifeCycleSvg.append("g")
-		.attr("class","white-box")
-	  .append("rect")
-		.attr("x", 0)
-		.attr("y", 0)
-		.attr("width", this.params.lifeCycleWidth)
-		.attr("height", this.params.lifeCycleHeight)
-		.attr("fill","#FFF");
-};
-
-BuildWidget.prototype.buildLifeCycleScales = function () {
-	this.xScaleLifeCycle = d3.time.scale()
-		.range([0, this.params.lifeCycleWidth])
-		// .domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
-		.domain([this.parseDate("1925"), this.parseDate("2013")]);
-
-	this.yScaleLifeCycle = d3.scale.linear()
-		.range([this.params.lifeCycleHeight, 0])
-		.domain([0, (d3.max(this.data[this.displayIndex].lifeCycle, function(d) { return d.cites; }) * 1.1) ]);
-
-};
-
-BuildWidget.prototype.buildLifeCycleAxes = function () {
-	var self = this;
-
-	this.xAxisLifeCycle = d3.svg.axis()
-		.scale(this.xScaleLifeCycle)
-		.ticks(5)
-		.orient("bottom");
-
-	this.yAxisLifeCycle = d3.svg.axis()
-		.scale(this.yScaleLifeCycle)
-		.ticks(5)
-		.tickSize(-this.params.lifeCycleWidth, 0)
-		.orient("left");
-
-	this.line = d3.svg.line()
-		.x(function(d) { return self.xScaleLifeCycle(d.date); })
-		.y(function(d) { return self.yScaleLifeCycle(d.cites); });
-
-	this.lifeCycleSvg.append("g")
-	    .attr("class", "x axis")
-	    .attr("transform", "translate(0," + this.params.lifeCycleHeight + ")")
-	    .call(this.xAxisLifeCycle);
-
-	this.lifeCycleSvg.append("g")
-	    .attr("class", "y axis")
-	    .call(this.yAxisLifeCycle)
-	  .append("text")
-	    .attr("transform", "translate(" + -(this.params.lifeCycleMargin.left * 0.9) + "," + (this.params.lifeCycleHeight/2) + "), rotate(-90)")
-	    .attr("y", 6)
-	    .attr("dy", ".5em")
-	    .style("text-anchor", "middle")
-	    .text("Citations per year");
-
-	this.lifeCycleSvg.append("path")
-		.datum(this.data[this.displayIndex].lifeCycle)
-		.attr("class","line")
-		.attr("fill", "none")
-		.attr("stroke", "#cf5568")
-		.attr("stroke-width", "3px")
-		.attr("d", this.line);
-};
-
-// Still needs to be tested!
-BuildWidget.prototype.updateLifeCycleLine = function () {
-
-	if (this.data[this.displayIndex].lifeCycle.length > 0) {
-		// this.xScaleLifeCycle.domain(d3.extent(this.data[this.displayIndex].lifeCycle, function(d) { return d.date; }));
-		this.yScaleLifeCycle.domain([0, (d3.max(this.data[this.displayIndex].lifeCycle, function(d) { return d.cites; }) * 1.1) ]);
-
-		/* Can this work better */
-		// Store a reference to the axis and the line in the  BuildWidget object? Innit? 
-		// this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .x")
-		// 	.transition()
-		// 	.duration(150)
-		// 	.call(this.xAxisLifeCycle);
-
-		this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .y")
-			.transition()
-			.duration(150)
-			.call(this.yAxisLifeCycle);
-			
-		this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")
-			.data([this.data[this.displayIndex].lifeCycle])
-			.attr("d", this.line);
-
+function tenOrOne(num) {
+	if (((num % 10) === 0) || num === 1) {
+		return true;
 	} else {
-		this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")
-			.data([this.data[this.displayIndex].lifeCycle])
-			.attr("d", "M0,0 L0,0");	
+		return false;
 	}
-
-};
-
-BuildWidget.prototype.populateInfoBox = function () {
-	jQuery(".life-cycle .rank").text(this.data[this.displayIndex].rank);
-	jQuery(".life-cycle .cites").text(this.format(this.data[this.displayIndex].cites));
-
-	jQuery(".life-cycle .title").html(this.data[this.displayIndex].title);
-	jQuery(".life-cycle .authors").html(this.data[this.displayIndex].authors);
-
-	jQuery(".life-cycle a.paper-link").prop("href", this.data[this.displayIndex].hyperlink);
-	
-	jQuery(".life-cycle .journal").text(this.data[this.displayIndex].journal);
-	jQuery(".life-cycle .volume").text(this.data[this.displayIndex].volume);
-	jQuery(".life-cycle .page").html(this.data[this.displayIndex].page);
-	jQuery(".life-cycle .pub-year").text(this.data[this.displayIndex]["pub-year"]);
-
-};
-function updateArray (ary) {
-	selectedArray = [];
-	selections = [];
-
-	var checkboxes = jQuery('.outer-wrapper form.choose-option input:checked');
-	stackingOrder = jQuery('.outer-wrapper form.choose-order select').val();
-
-	for (var v = 0; v < checkboxes.length; v++) {
-		selections.push(checkboxes.eq(v).parent().text());
-	}
-
-	for (var i = 0; i < ary.length; i++) {
-		var thisDiscipline = ary[i].discipline;
-		
-		if (selections.indexOf(thisDiscipline) !== -1) {
-			selectedArray.push(ary[i]);
-		}
-	}
-
-	if (stackingOrder === "cites") {
-		selectedArray.sort(comparePaper);
-	} else if (stackingOrder === "year") {
-		selectedArray.sort(compareYear);
-	}
-
-
-	return selectedArray;
 }
-BuildWidget.prototype.createKey = function () {
-	var self = this;
-	var sortedData = [];
 
-	for (var i = 0; i < this.disciplines.length; i++) {
-		sortedData.push(this.disciplines[i]);
-	}
-
-	sortedData.sort();
-
-	/* Create checkboxes for each discipline */
-	d3.select(this.target + " > .discipline-colour")
-		.append("ul")
-		.selectAll('li')
-	  .data(sortedData)
-		.enter()
-		.append("li")
-		.style("border-left",function (d, i) {
-			return "20px solid " + getColour (d, self.params.colour, self.disciplines);
-		})
-		.html(function(d,i) {			
-			return d;
-		});
-};
 function getColour (x, colour, discipline) {
 	var colourIndex = discipline.indexOf(x);
 
 	return colour[colourIndex];
 }
+
+function buildDataSet (data) {
+
+	var discipline = [];
+
+	for (var i = 0; i < data.length; i++) {
+
+		var my_discipline = data[i].discipline;
+
+		if (discipline.indexOf(my_discipline) === -1 ) {
+			discipline.push(my_discipline);
+		}
+		
+	}
+
+	return discipline;
+}
+
 /*	Function to sort papers by citation */
 function comparePaper(a,b) {
 	if (a.cites < b.cites)
@@ -15814,20 +15629,17 @@ function comparePaper(a,b) {
 	return 0;
 }
 
-/*	Function to sort citations by year */
-function compareYear(a,b) {
-	if (a.date < b.date)
-		return 1;
-	if (a.date > b.date)
-		return -1;
-	return 0;
-}
-function tenOrOne(num) {
-	if (((num % 10) === 0) || num === 1) {
-		return true;
-	} else {
-		return false;
-	}
+function BuildWidget (target, params, data) {
+	this.target = target;
+	this.params = params;
+	this.data = data;
+	this.pubsub = {};
+	this.updatedData = [];
+	this.disciplines = [];
+	this.lifeCycleData = [];
+	this.displayIndex = 0;
+	this.format = d3.format("0,000");
+	this.parseDate = d3.time.format("%Y").parse;
 }
 
 BuildWidget.prototype.buildGraphic = function () {
@@ -15876,7 +15688,6 @@ BuildWidget.prototype.buildScales = function () {
 	this.xScaleAxis = d3.scale.ordinal()
 		.rangeBands([0, this.params.width], 0.4, 0)
 		.domain(this.axisRange);
-
 };
 
 BuildWidget.prototype.buildAxes = function () {
@@ -15924,7 +15735,6 @@ BuildWidget.prototype.buildBrush = function () {
 								.filter(function(d){
 									return (brush.extent()[0] <= self.xScaleBrush(d)) && (self.xScaleBrush(d) <= brush.extent()[1]);
 								});
-
 
 		var start = selected[0];
 		var end = selected[selected.length - 1] + 1;
@@ -15990,21 +15800,18 @@ BuildWidget.prototype.updateBars = function () {
 		this.yScale.domain([0, d3.max(this.updatedData, function(d) { return d.cites;})]);
 
 		/* Update */
-		// updateBarsGroup(data);
 		this.updateMainBars();
 		this.updateMainPaths();
 		this.updateMiniBars();
 		this.updateNumbers();
 
 		/* Enter… */
-		// enter(this.barsGroup, this.updatedData, true);
 		this.enterMainBars();
 		this.enterMainPaths();
 		this.enterMiniPaths();
 		this.enterNumbers();
 
 		/* Exit */
-		// exitBarsGroup(data);
 		this.exitMainBars();
 		this.exitMainPaths();
 		this.exitMiniBars();
@@ -16023,11 +15830,7 @@ BuildWidget.prototype.updateBars = function () {
 
 			self.pubsub.publish("newIndexChosen", self.displayIndex);
 		});
-
-
-		// tooltip(width, margin, format);
 };
-
 
 BuildWidget.prototype.enterMainBars = function() {
 	var self = this;
@@ -16056,6 +15859,33 @@ BuildWidget.prototype.enterMainBars = function() {
 		.attr("opacity", function () {
 			return 1;
 		});
+};
+
+BuildWidget.prototype.updateMainBars = function () {
+	var self = this;
+
+	this.barsGroup.selectAll("rect").data(this.updatedData, function (d) {
+			return d.title;
+		})
+		.attr("x", function (d, i) {
+			return self.xScale(i);
+		})
+		.attr("width", function (d) {
+			return self.xScale.rangeBand();
+		})
+		.attr("y", function (d){
+			return self.yScale(d.cites);
+		})
+		.attr("height", function (d) {
+			return self.params.height - self.yScale(d.cites);
+		});
+};
+
+BuildWidget.prototype.exitMainBars = function () {
+	this.barsGroup.selectAll("rect").data(this.updatedData, function (d) {
+			return d.title;
+		}).exit()
+		.remove();
 };
 
 BuildWidget.prototype.enterMiniBars = function () {
@@ -16087,6 +15917,24 @@ BuildWidget.prototype.enterMiniBars = function () {
 		});
 };
 
+BuildWidget.prototype.updateMiniBars = function () {
+	var self = this;
+
+	this.miniGroup.selectAll("rect").data(this.updatedData, function (d) {
+			return d.title;
+		})
+		.attr("fill", function (d, i){
+			return getColour(d.discipline, self.params.colour, self.disciplines);
+		});
+};
+
+BuildWidget.prototype.exitMiniBars = function () {
+	this.miniGroup.selectAll("rect").data(this.updatedData, function (d) {
+			return d.title;
+		}).exit()
+		.attr("fill", "#ececec");
+};
+
 BuildWidget.prototype.enterMainPaths = function() {
 	var self = this;
 
@@ -16106,7 +15954,36 @@ BuildWidget.prototype.enterMainPaths = function() {
 			return "translate(" + (self.xScale(i) + (self.xScale.rangeBand()/2)) + "," + verticalTranslate + "), scale(" + scale + ")"; 
 		})
 		.attr("opacity", 0);
+};
 
+BuildWidget.prototype.updateMainPaths = function () {
+	var self = this;
+
+	this.barsGroup.selectAll("path").data(this.updatedData, function (d) {
+			return d.title;
+		})
+		.attr("class", function (d) {
+			return "rank" + d.rank;
+		})
+		.attr("fill","#444")
+		.attr("transform", function (d,i) {
+			/* Catch an error if trying to translate 0 paths */
+			var horizTranslate;
+			if (self.xScale(i) === undefined) {
+				horizTranslate = 0;
+			} else {
+				horizTranslate = (self.xScale(i) + (self.xScale.rangeBand()/2));
+			}
+			return "translate(" + horizTranslate + "," + (self.yScale(d.cites) -7) + "), scale(0.9)"; 
+		})
+		.attr("opacity", 0);
+};
+
+BuildWidget.prototype.exitMainPaths = function () {
+	this.barsGroup.selectAll("path").data(this.updatedData, function (d) {
+			return d.title;
+		}).exit()
+		.remove();
 };
 
 BuildWidget.prototype.enterMiniPaths = function () {
@@ -16165,93 +16042,6 @@ BuildWidget.prototype.enterNumbers = function () {
 		});
 };
 
-BuildWidget.prototype.exitMainBars = function () {
-	this.barsGroup.selectAll("rect").data(this.updatedData, function (d) {
-			return d.title;
-		}).exit()
-		.remove();
-};
-
-BuildWidget.prototype.exitMainPaths = function () {
-	this.barsGroup.selectAll("path").data(this.updatedData, function (d) {
-			return d.title;
-		}).exit()
-		.remove();
-};
-
-BuildWidget.prototype.exitMiniBars = function () {
-	this.miniGroup.selectAll("rect").data(this.updatedData, function (d) {
-			return d.title;
-		}).exit()
-		.attr("fill", "#ececec");
-};
-
-BuildWidget.prototype.exitNumbers = function () {
-	this.numbersGroup.selectAll("text").data(this.updatedData, function (d) {
-			return d.title;
-		}).exit()
-		.remove();
-
-	this.numbersGroup.selectAll("line").data(this.updatedData, function (d) {
-			return d.title;
-		}).exit()
-		.remove();
-};
-
-BuildWidget.prototype.updateMainBars = function () {
-	var self = this;
-
-	this.barsGroup.selectAll("rect").data(this.updatedData, function (d) {
-			return d.title;
-		})
-		.attr("x", function (d, i) {
-			return self.xScale(i);
-		})
-		.attr("width", function (d) {
-			return self.xScale.rangeBand();
-		})
-		.attr("y", function (d){
-			return self.yScale(d.cites);
-		})
-		.attr("height", function (d) {
-			return self.params.height - self.yScale(d.cites);
-		});
-};
-
-BuildWidget.prototype.updateMainPaths = function () {
-	var self = this;
-
-	this.barsGroup.selectAll("path").data(this.updatedData, function (d) {
-			return d.title;
-		})
-		.attr("class", function (d) {
-			return "rank" + d.rank;
-		})
-		.attr("fill","#444")
-		.attr("transform", function (d,i) {
-			/* Catch an error if trying to translate 0 paths */
-			var horizTranslate;
-			if (self.xScale(i) === undefined) {
-				horizTranslate = 0;
-			} else {
-				horizTranslate = (self.xScale(i) + (self.xScale.rangeBand()/2));
-			}
-			return "translate(" + horizTranslate + "," + (self.yScale(d.cites) -7) + "), scale(0.9)"; 
-		})
-		.attr("opacity", 0);
-};
-
-BuildWidget.prototype.updateMiniBars = function () {
-	var self = this;
-
-	this.miniGroup.selectAll("rect").data(this.updatedData, function (d) {
-			return d.title;
-		})
-		.attr("fill", function (d, i){
-			return getColour(d.discipline, self.params.colour, self.disciplines);
-		});
-};
-
 BuildWidget.prototype.updateNumbers = function () {
 	var self = this;
 
@@ -16280,6 +16070,18 @@ BuildWidget.prototype.updateNumbers = function () {
 		});
 };
 
+BuildWidget.prototype.exitNumbers = function () {
+	this.numbersGroup.selectAll("text").data(this.updatedData, function (d) {
+			return d.title;
+		}).exit()
+		.remove();
+
+	this.numbersGroup.selectAll("line").data(this.updatedData, function (d) {
+			return d.title;
+		}).exit()
+		.remove();
+};
+
 BuildWidget.prototype.upDatePointer = function () {
 
 		this.barsGroup.selectAll("path")
@@ -16294,34 +16096,180 @@ BuildWidget.prototype.upDatePointer = function () {
 		this.miniGroup.select("path.rank" + (this.displayIndex+ 1))
 			.attr("opacity", 1);
 };
-function buildDataSet (data) {
 
-	var discipline = [];
+BuildWidget.prototype.indexChosen = function ( topic, func, parent ) {
+	this.parent.upDatePointer();
+	this.parent.updateLifeCycleLine();
+	this.parent.populateInfoBox();
+	this.parent.upDateButtons();
+};
 
-	for (var i = 0; i < data.length; i++) {
+BuildWidget.prototype.buttonClick = function() {
+	var self = this;
 
-		var my_discipline = data[i].discipline;
-
-		if (discipline.indexOf(my_discipline) === -1 ) {
-			discipline.push(my_discipline);
+	jQuery(this.target + ' button.widget-button').click(function () {
+		if (jQuery(this).hasClass('lower') && (self.displayIndex < 99)) {
+			self.displayIndex++;
+		} else if (jQuery(this).hasClass('higher') && (self.displayIndex > 0)) {
+			self.displayIndex--;	
 		}
 		
+		self.pubsub.publish("newIndexChosen", self.displayIndex);
+	});
+};
+
+BuildWidget.prototype.upDateButtons = function () {
+	jQuery(this.target + ' button.widget-button').removeClass("active");
+
+	if ( this.displayIndex < 99 ) {
+		jQuery(this.target + ' button.widget-button.lower').addClass("active");
 	}
 
-	return discipline;
-}
-function BuildWidget (target, params, data) {
-	this.target = target;
-	this.params = params;
-	this.data = data;
-	this.pubsub = {};
-	this.updatedData = [];
-	this.disciplines = [];
-	this.lifeCycleData = [];
-	this.displayIndex = 0;
-	this.format = d3.format("0,000");
-	this.parseDate = d3.time.format("%Y").parse;
-}
+	if ( this.displayIndex > 0 ) {
+		jQuery(this.target + ' button.widget-button.higher').addClass("active");
+	}
+};
+
+BuildWidget.prototype.prepareLifeCycelData = function () {
+	for (var i = 0; i < this.data.length; i++) {
+		for (var y = 0; y < this.data[i].lifeCycle.length; y++) {
+			this.data[i].lifeCycle[y].date = this.parseDate(this.data[i].lifeCycle[y].year);
+		}
+	}
+};
+
+BuildWidget.prototype.buildLifeCycle = function () {
+	this.lifeCycleSvg = d3.select(this.target + " > .info-box > .life-cycle-chart").append("svg")
+		.attr("width", this.params.lifeCycleWidth + this.params.lifeCycleMargin.left + this.params.lifeCycleMargin.right)
+		.attr("height", this.params.lifeCycleHeight + this.params.lifeCycleMargin.top + this.params.lifeCycleMargin.bottom)
+	  .append("g")
+		.attr("transform", "translate(" + this.params.lifeCycleMargin.left + "," + this.params.lifeCycleMargin.top + ")");
+
+	this.lifeCycleSvg.append("g")
+		.attr("class","white-box")
+	  .append("rect")
+		.attr("x", 0)
+		.attr("y", 0)
+		.attr("width", this.params.lifeCycleWidth)
+		.attr("height", this.params.lifeCycleHeight)
+		.attr("fill","#FFF");
+};
+
+BuildWidget.prototype.buildLifeCycleScales = function () {
+	this.xScaleLifeCycle = d3.time.scale()
+		.range([0, this.params.lifeCycleWidth])
+		.domain([this.parseDate("1925"), this.parseDate("2013")]);
+
+	this.yScaleLifeCycle = d3.scale.linear()
+		.range([this.params.lifeCycleHeight, 0])
+		.domain([0, (d3.max(this.data[this.displayIndex].lifeCycle, function(d) { return d.cites; }) * 1.1) ]);
+};
+
+BuildWidget.prototype.buildLifeCycleAxes = function () {
+	var self = this;
+
+	this.xAxisLifeCycle = d3.svg.axis()
+		.scale(this.xScaleLifeCycle)
+		.ticks(5)
+		.orient("bottom");
+
+	this.yAxisLifeCycle = d3.svg.axis()
+		.scale(this.yScaleLifeCycle)
+		.ticks(5)
+		.tickSize(-this.params.lifeCycleWidth, 0)
+		.orient("left");
+
+	this.line = d3.svg.line()
+		.x(function(d) { return self.xScaleLifeCycle(d.date); })
+		.y(function(d) { return self.yScaleLifeCycle(d.cites); });
+
+	this.lifeCycleSvg.append("g")
+	    .attr("class", "x axis")
+	    .attr("transform", "translate(0," + this.params.lifeCycleHeight + ")")
+	    .call(this.xAxisLifeCycle);
+
+	this.lifeCycleSvg.append("g")
+	    .attr("class", "y axis")
+	    .call(this.yAxisLifeCycle)
+	  .append("text")
+	    .attr("transform", "translate(" + -(this.params.lifeCycleMargin.left * 0.9) + "," + (this.params.lifeCycleHeight/2) + "), rotate(-90)")
+	    .attr("y", 6)
+	    .attr("dy", ".5em")
+	    .style("text-anchor", "middle")
+	    .text("Citations per year");
+
+	this.lifeCycleSvg.append("path")
+		.datum(this.data[this.displayIndex].lifeCycle)
+		.attr("class","line")
+		.attr("fill", "none")
+		.attr("stroke", "#cf5568")
+		.attr("stroke-width", "3px")
+		.attr("d", this.line);
+};
+
+BuildWidget.prototype.updateLifeCycleLine = function () {
+
+	if (this.data[this.displayIndex].lifeCycle.length > 0) {
+	
+		this.yScaleLifeCycle.domain([0, (d3.max(this.data[this.displayIndex].lifeCycle, function(d) { return d.cites; }) * 1.1) ]);
+
+		this.lifeCycleSvg.select(".outer-wrapper .life-cycle-chart .y")
+			.transition()
+			.duration(150)
+			.call(this.yAxisLifeCycle);
+			
+		this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")
+			.data([this.data[this.displayIndex].lifeCycle])
+			.attr("d", this.line);
+
+	} else {
+		this.lifeCycleSvg.selectAll(".outer-wrapper .life-cycle-chart path.line")
+			.data([this.data[this.displayIndex].lifeCycle])
+			.attr("d", "M0,0 L0,0");	
+	}
+};
+
+BuildWidget.prototype.populateInfoBox = function () {
+	jQuery(".life-cycle .rank").text(this.data[this.displayIndex].rank);
+	jQuery(".life-cycle .cites").text(this.format(this.data[this.displayIndex].cites));
+
+	jQuery(".life-cycle .title").html(this.data[this.displayIndex].title);
+	jQuery(".life-cycle .authors").html(this.data[this.displayIndex].authors);
+
+	jQuery(".life-cycle a.paper-link").prop("href", this.data[this.displayIndex].hyperlink);
+	
+	jQuery(".life-cycle .journal").text(this.data[this.displayIndex].journal);
+	jQuery(".life-cycle .volume").text(this.data[this.displayIndex].volume);
+	jQuery(".life-cycle .page").html(this.data[this.displayIndex].page);
+	jQuery(".life-cycle .pub-year").text(this.data[this.displayIndex]["pub-year"]);
+
+};
+
+BuildWidget.prototype.createKey = function () {
+	var self = this;
+	var sortedData = [];
+
+	for (var i = 0; i < this.disciplines.length; i++) {
+		sortedData.push(this.disciplines[i]);
+	}
+
+	sortedData.sort();
+
+	/* Create checkboxes for each discipline */
+	d3.select(this.target + " > .discipline-colour")
+		.append("ul")
+		.selectAll('li')
+	  .data(sortedData)
+		.enter()
+		.append("li")
+		.style("border-left",function (d, i) {
+			return "20px solid " + getColour (d, self.params.colour, self.disciplines);
+		})
+		.html(function(d,i) {			
+			return d;
+		});
+};
+
 (function() {
 		var init = function($)
 		{
@@ -16358,8 +16306,6 @@ function BuildWidget (target, params, data) {
 										"#8c6239"  /* Medicine */
 									];
 
-				console.log(jQuery('.section').width());
-
 				/*	Margin, Width and height */
 				thRoParams.margin = {top: 15, right: 30, bottom: 40, left: 80, mid: 40};
 				thRoParams.lifeCycleMargin = {top: 10, right: 10, bottom: 20, left: 70};
@@ -16376,7 +16322,6 @@ function BuildWidget (target, params, data) {
 				thRoParams.topData = [];
 				thRoParams.displayArray = [];
 				thRoParams.disciplineArray = [];
-				
 				
 				var thRoGraphic = new BuildWidget("#tr-graphic", thRoParams, thRoData);
 

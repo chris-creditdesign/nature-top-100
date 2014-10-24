@@ -34,8 +34,6 @@
 										"#8c6239"  /* Medicine */
 									];
 
-				console.log(jQuery('.section').width());
-
 				/*	Margin, Width and height */
 				thRoParams.margin = {top: 15, right: 30, bottom: 40, left: 80, mid: 40};
 				thRoParams.lifeCycleMargin = {top: 10, right: 10, bottom: 20, left: 70};
@@ -52,7 +50,6 @@
 				thRoParams.topData = [];
 				thRoParams.displayArray = [];
 				thRoParams.disciplineArray = [];
-				
 				
 				var thRoGraphic = new BuildWidget("#tr-graphic", thRoParams, thRoData);
 
