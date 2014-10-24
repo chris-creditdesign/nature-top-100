@@ -5,11 +5,15 @@
 Infographic for @naturenews
 
 
-Extra entry!!!
+========================
 
-Radloff, L. S.
+To do:
 
-Rank 52
+Get lifecylce data for Radloff, L. S., Rank 52
+Responsive buttons 
+Remove link and add DOI if necessary?
+Clean up code, add and remove comments
+Add data link for status message
 
 ========================
 
