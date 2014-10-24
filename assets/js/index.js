@@ -15,19 +15,17 @@
 
 				var thRoParams = {};
 
-				thRoParams.colour =  ["#c1272d",
-										"#f15a24",
-										"#fbb03b",
-										"#d9e021",
-										"#39b54a",
-										"#00a99d",
-										"#0071bc",
-										"#1b1464",
-										"#93278f",
-										"#c69c6d",
-										"#8c6239",
-										"#754c24",
-										"#42210b"];
+				thRoParams.colour =  ["#c1272d",   /* Biology lab technique */
+										"#2a6755", /* Physical chemistry */
+										"#fbb03b", /* Bioinformatics */
+										"#d9e021", /* Statistics */
+										"#39b54a", /* Crystallography */
+										"#00a99d", /* Psychology */
+										"#0071bc", /* Phylogenetics */
+										"#1b1464", /* Physics */
+										"#93278f", /* Mathematics */
+										"#8c6239"  /* Medicine */
+									];
 
 				/*	Margin, Width and height */
 				thRoParams.margin = {top: 15, right: 30, bottom: 40, left: 80, mid: 40};

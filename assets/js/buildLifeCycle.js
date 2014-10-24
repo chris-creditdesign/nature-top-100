@@ -70,7 +70,10 @@ BuildWidget.prototype.buildLifeCycleAxes = function () {
 
 	this.lifeCycleSvg.append("path")
 		.datum(this.data[this.displayIndex].lifeCycle)
-		.attr("class", "line")
+		.attr("class","line")
+		.attr("fill", "none")
+		.attr("stroke", "#cf5568")
+		.attr("stroke-width", "3px")
 		.attr("d", this.line);
 };
 

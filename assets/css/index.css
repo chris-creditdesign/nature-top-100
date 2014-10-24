@@ -49,11 +49,6 @@
 .outer-wrapper .info-box svg {
   margin: 0 0 10px 0;
 }
-.outer-wrapper .info-box .line {
-  fill: none;
-  stroke: #C1272D;
-  stroke-width: 1.5px;
-}
 .outer-wrapper .info-box-controls {
   padding: 10px 10px 0 10px;
   width: 20%;
