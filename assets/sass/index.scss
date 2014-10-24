@@ -1,3 +1,5 @@
+// Allows number of columns to altered based on screen width
+// ===============================================
 @mixin breakpoint($point) {
 	@if $point == large-screen {
 		@media (min-width: 630px) { @content; }
@@ -7,6 +9,8 @@
 	}
 }
 
+// Handle the side bar disappearing and the content becoming wider 
+// ===============================================
 @mixin awkward-breakpoint($awk-point) {
 	@if $awk-point == vert-buttons {
 		@media (max-width: 901px) { @content; }
@@ -16,12 +20,16 @@
 	}
 }
 
+// Warning to be displayed for old IE and no-js 
+// ===============================================
 .status-message {
 	border: 1px solid #c00;
 	background: #fac7c7;
 	padding: 10px;
 }
 
+// Everything is contianed within the outer wrapper 
+// ===============================================
 .outer-wrapper {
 	width: 100%;
 	position: relative;
@@ -43,30 +51,15 @@
 		margin: 0;
 	}
 
-	.info-box { // Lifecycle chart
+	// Life cycle info box
+	// ===============================================
+	.info-box { 
 		background-color: #ececec;
 		margin: 0 10px 15px 10px;
 		clear: both;
 		
-		.life-cycle {
-			padding: 10px 10px 0;
-		}
-	
 		p {
 			padding: 0;
-
-		}
-
-		.cites, .rank, .volume {
-			font-weight: bold;
-		}
-
-		.journal {
-			font-style: italic;
-		}
-
-		.life-cycle-chart {
-			margin: 10px 0 0;
 		}
 
 		svg {
@@ -74,6 +67,26 @@
 		}
 	}
 
+	// Life cycle info text
+	// ===============================================
+	.life-cycle {
+		padding: 10px 10px 0;
+	}
+
+	// Styling for citation info
+	// ===============================================
+	.cites, .rank, .volume {
+		font-weight: bold;
+	}
+	.journal {
+		font-style: italic;
+	}
+	.life-cycle-chart {
+		margin: 10px 0 0;
+	}
+
+	// Headline and standfirst  
+	// ===============================================
 	.head-stand {
 		float: left;
 		width: 70%;
@@ -87,6 +100,8 @@
 		}
 	}
 
+	// Button container 
+	// ===============================================
 	.info-box-controls {
 		padding: 10px;
 		float: right;
@@ -109,65 +124,37 @@
 				margin: 0;
 			}	
 		}
-
-		button {
-			padding: 0.1em 0.3em;
-			background-color: #ececec;
-			border: 1px solid #999;
-			display: inline-block;
-			vertical-align: top;
-			font-size: 2em;
-			color: #666;
-			border-radius: 5px;
-			cursor: auto;
-			pointer-events: none;
-		}
-
-		.active {
-			background: #ccc;
-			cursor: pointer;
-			pointer-events: auto;
-		}
-
-		.active:hover {
-			background: #aaa;
-		}
-
-		.active:active {
-			background: #999;
-		}
 	}
-
-	.tool-tip { // tool-tip
-		position: absolute;
-		padding: 10px;
-		background-color: #333;
+	
+	// Buttons 
+	// ===============================================
+	button {
+		padding: 0.1em 0.3em;
+		background-color: #ececec;
+		border: 1px solid #999;
+		display: inline-block;
+		vertical-align: top;
+		font-size: 2em;
+		color: #666;
+		border-radius: 5px;
+		cursor: auto;
 		pointer-events: none;
-		opacity: 0;
-		z-index: 100;
-		p {
-			margin: 0;
-			padding: 0;
-			color: #ECF0F1;
-		} 
-	} // infobox
-
-	.tool-tip:before {
-		content: "";
-		position:absolute;
-		top: -10px;
-		left: 48%;
-		border-right: 0;
-		border-top: 0;
-		border-bottom: 10px solid #333;
-		border-left: 10px solid transparent;
+	}
+	.active {
+		background: #ccc;
+		cursor: pointer;
+		pointer-events: auto;
+	}
+	.active:hover {
+		background: #aaa;
+	}
+	.active:active {
+		background: #999;
 	}
 
-	.tool-tip.hidden {
-		display: none;
-	}
-
-	.axis, .numbersGroup { // SVG axes
+	// Special cases for SVG styling
+	// ===============================================
+	.axis, .numbersGroup {
 		path, line {
 			fill: none;
 			stroke: #666;
@@ -180,12 +167,13 @@
 			font-size: 13px;
 			shape-rendering: crispEdges;
 		}
-	} // axis
-
+	}
 	.barsGroup rect {
 		cursor: pointer;
 	}
 
+	// Discipline colours 
+	// ===============================================
 	.discipline-colour {
 		@include breakpoint(large-screen) { 
 			-webkit-column-count: 3;
@@ -201,15 +189,14 @@
 
 		margin: 0 0 5px 0;
 	}
-
 	ul {
 		overflow: visible;
 		padding-left: 10px;
-		li {
-			list-style: none;
-			padding: 0 0 0 10px;
-			margin: 4px 0px 8px;
-		}
+	}
+	li {
+		list-style: none;
+		padding: 0 0 0 10px;
+		margin: 4px 0px 8px;
 	}
 
 } // outer-wrapper

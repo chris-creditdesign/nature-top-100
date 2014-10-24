@@ -28,23 +28,23 @@
   margin: 0 10px 15px 10px;
   clear: both;
 }
-.outer-wrapper .info-box .life-cycle {
-  padding: 10px 10px 0;
-}
 .outer-wrapper .info-box p {
   padding: 0;
 }
-.outer-wrapper .info-box .cites, .outer-wrapper .info-box .rank, .outer-wrapper .info-box .volume {
-  font-weight: bold;
-}
-.outer-wrapper .info-box .journal {
-  font-style: italic;
-}
-.outer-wrapper .info-box .life-cycle-chart {
-  margin: 10px 0 0;
-}
 .outer-wrapper .info-box svg {
   margin: 0 0 10px 0;
+}
+.outer-wrapper .life-cycle {
+  padding: 10px 10px 0;
+}
+.outer-wrapper .cites, .outer-wrapper .rank, .outer-wrapper .volume {
+  font-weight: bold;
+}
+.outer-wrapper .journal {
+  font-style: italic;
+}
+.outer-wrapper .life-cycle-chart {
+  margin: 10px 0 0;
 }
 .outer-wrapper .head-stand {
   float: left;
@@ -85,7 +85,7 @@
     margin: 0;
   }
 }
-.outer-wrapper .info-box-controls button {
+.outer-wrapper button {
   padding: 0.1em 0.3em;
   background-color: #ececec;
   border: 1px solid #999;
@@ -97,42 +97,16 @@
   cursor: auto;
   pointer-events: none;
 }
-.outer-wrapper .info-box-controls .active {
+.outer-wrapper .active {
   background: #ccc;
   cursor: pointer;
   pointer-events: auto;
 }
-.outer-wrapper .info-box-controls .active:hover {
+.outer-wrapper .active:hover {
   background: #aaa;
 }
-.outer-wrapper .info-box-controls .active:active {
+.outer-wrapper .active:active {
   background: #999;
-}
-.outer-wrapper .tool-tip {
-  position: absolute;
-  padding: 10px;
-  background-color: #333;
-  pointer-events: none;
-  opacity: 0;
-  z-index: 100;
-}
-.outer-wrapper .tool-tip p {
-  margin: 0;
-  padding: 0;
-  color: #ECF0F1;
-}
-.outer-wrapper .tool-tip:before {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 48%;
-  border-right: 0;
-  border-top: 0;
-  border-bottom: 10px solid #333;
-  border-left: 10px solid transparent;
-}
-.outer-wrapper .tool-tip.hidden {
-  display: none;
 }
 .outer-wrapper .axis path, .outer-wrapper .axis line, .outer-wrapper .numbersGroup path, .outer-wrapper .numbersGroup line {
   fill: none;
@@ -169,7 +143,7 @@
   overflow: visible;
   padding-left: 10px;
 }
-.outer-wrapper ul li {
+.outer-wrapper li {
   list-style: none;
   padding: 0 0 0 10px;
   margin: 4px 0px 8px;
