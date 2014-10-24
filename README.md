@@ -4,18 +4,12 @@
 
 Infographic for @naturenews
 
+### To do:
 
-========================
-
-To do:
-
-Get lifecylce data for Radloff, L. S., Rank 52
-Responsive buttons 
-Remove link and add DOI if necessary?
-Clean up code, add and remove comments
-Add data link for status message
-
-========================
+- Get lifecylce data for Radloff, L. S., Rank 52
+- Remove link and add DOI if necessary?
+- Add comments to javascript comments
+- Add data link for status message
 
 ## Working process for coverting Google doc to array of objects.
 
@@ -39,46 +33,71 @@ In the first column, lead_author, combine the lead authors first name with the p
 
 The world is not a perfect place so you'll have to amend some by hand.
 
-Replace all em dashes with <pre>&mdash;</pre> and en dashes <pre>&ndash;</pre>
-Replace minus signs in page ranges with en dashes <pre>&ndash;</pre>
+Replace all em dashes with `&mdash;` and en dashes `&ndash;`
 
-Replace quotation marks
+Replace minus signs in page ranges with en dashes `&ndash;`
+
+**Replace quotation marks:**
+
 "Mini-mental state": A practical method for grading cognitive state of patients for clinician.
-&quot;Mini-mental state&quot;: A practical method for grading cognitive state of patients for clinician.
 
-ö with &ouml;
-’ with &#8217;
-ä with &auml;
-ü with &uuml;
+`&quot;`Mini-mental state`&quot;`: A practical method for grading cognitive state of patients for clinician.
 
-=> "Sheldrick_1990" needs a comma
-=> "Lee_1988" needs a comma
-=> "Sanger_1977" needs a comma
-=> "Kirkpatrick_1983" needs a comma.
+&ouml; with `&ouml;`
 
+&#8217; with `&#8217;`
 
-=> Radloff, L. S. remove hidden character
+&auml; with `&auml;`
 
-Köhler_1975 = Kohler_1975
-O’Regan_1991 = Oregan_1991
+&uuml; with `&uuml;`
+
+**Add commas:**
+
+"Sheldrick_1990" needs a comma
+
+"Lee_1988" needs a comma
+
+"Sanger_1977" needs a comma
+
+"Kirkpatrick_1983" needs a comma.
+
+** Remove hidden characters ** 
+
+Radloff, L. S. remove hidden character
+
+**Amend**
+
+K&ouml;hler_1975 = Kohler_1975
+
+O&#8217;Regan_1991 = Oregan_1991
+
 Yanisch-Perron_1985 = Yanischperron_1985
-Brünger_1998 = Brunger_1998
-Böyum_1968 = Boyum_1968
+
+Br&uuml;nger_1998 = Brunger_1998
+
+B&ouml;yum_1968 = Boyum_1968
+
 O’Farrell_1975  = OFarrell_1975
+
 Altschul_1997 = Atlschul_1997
+
 Altschul_1990 = Atlschul_1990
+
 Scatchard_1949 = Scratchard_1949
+
 Folstein_1975 = Fulstein_1975
+
 Kaplan_1958 = Kaplan_Meier_1958
-Blöchl_1994 = Blochl_1994
+
+Bl&ouml;chl_1994 = Blochl_1994
+
 Bimboim_1979 = Birnboim_1979
-riedewald_1972 = Friedewa_1972
+
+Friedewald_1972 = Friedewa_1972
 
 The lower of the two Kresse_1996 = Kresse_1996_2
 
-Save out as a csv file.
-
-========================
+*Finally save out as a csv file.*
 
 ## Convert a large amount of Excel .xls files to .csv
 
@@ -139,18 +158,11 @@ Add a header row of 'lead_author, year, cites' to this new file
 Find and replace all instances of "Total": to "total".
 and "total:" to "total".
 
-========================
 
-### Convert CSV to JSON
+## Convert CSV to JSON
 
 Use this tool to [www.convertcsv.com/csv-to-json.htm](http://www.convertcsv.com/csv-to-json.htm) convert your excel files to arrays of javascript objects.
 
-========================
-
-No lifecycel
-
-Radloff_1977
-Friedewald_1972
 
 ### Excel formulas to clean up entries
 
@@ -166,8 +178,7 @@ Capitalise the first letter the title
 
 	=UPPER(LEFT(Sheet1!B2,1))&LOWER(RIGHT(Sheet1!B2,LEN(Sheet1!B2)-1))
 
-
-### Convert CSV to JSON
+## Convert CSV to JSON
 
 [www.convertcsv.com/csv-to-json.htm](http://www.convertcsv.com/csv-to-json.htm)
 
