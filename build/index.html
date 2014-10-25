@@ -95,6 +95,12 @@
 .outer-wrapper .life-cycle-chart {
   margin: 10px 0 0;
 }
+.outer-wrapper .dead-link {
+  color: #333;
+  text-decoration: none;
+  font-style: normal;
+  pointer-events: none;
+}
 .outer-wrapper .head-stand {
   float: left;
   width: 70%;
@@ -192,7 +198,7 @@
   overflow: visible;
   padding-left: 10px;
 }
-.outer-wrapper li {
+.outer-wrapper ul li {
   list-style: none;
   padding: 0 0 0 10px;
   margin: 4px 0px 8px;
@@ -227,7 +233,7 @@
 
 			<p><span class="authors"></span><p>
 
-			<a href="" class="paper-link" target="_blank"><span class="journal"></span><span class="volume"></span>, <span class="page"></span> (<span class="pub-year"></span>).</a>
+			<a href="" class="paper-link" target="_blank"><span class="journal"></span> <span class="volume"></span>, <span class="page"></span> (<span class="pub-year"></span>).</a>
 		</div>
 		
 		<div class="life-cycle-chart" id="tr-life-cycle-chart"></div>
@@ -16285,7 +16291,17 @@ BuildWidget.prototype.populateInfoBox = function () {
 	jQuery(".life-cycle .title").html(this.data[this.displayIndex].title);
 	jQuery(".life-cycle .authors").html(this.data[this.displayIndex].authors);
 
-	jQuery(".life-cycle a.paper-link").prop("href", this.data[this.displayIndex].hyperlink);
+	if (this.data[this.displayIndex].hyperlink !== "0") {
+		if (jQuery(".life-cycle a.paper-link").hasClass('dead-link')) {
+			jQuery(".life-cycle a.paper-link").removeClass('dead-link');
+		}
+		jQuery(".life-cycle a.paper-link").prop("href", this.data[this.displayIndex].hyperlink);
+	} else {
+	if (!jQuery(".life-cycle a.paper-link").hasClass('dead-link')) {
+			jQuery(".life-cycle a.paper-link").addClass('dead-link');
+		}
+		jQuery(".life-cycle a.paper-link").prop("href", "#");
+	}
 	
 	jQuery(".life-cycle .journal").text(this.data[this.displayIndex].journal);
 	jQuery(".life-cycle .volume").text(this.data[this.displayIndex].volume);

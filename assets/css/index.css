@@ -45,6 +45,12 @@
 .outer-wrapper .life-cycle-chart {
   margin: 10px 0 0;
 }
+.outer-wrapper .dead-link {
+  color: #333;
+  text-decoration: none;
+  font-style: normal;
+  pointer-events: none;
+}
 .outer-wrapper .head-stand {
   float: left;
   width: 70%;
@@ -142,7 +148,7 @@
   overflow: visible;
   padding-left: 10px;
 }
-.outer-wrapper li {
+.outer-wrapper ul li {
   list-style: none;
   padding: 0 0 0 10px;
   margin: 4px 0px 8px;

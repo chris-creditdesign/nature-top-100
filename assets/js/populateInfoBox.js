@@ -5,7 +5,17 @@ BuildWidget.prototype.populateInfoBox = function () {
 	jQuery(".life-cycle .title").html(this.data[this.displayIndex].title);
 	jQuery(".life-cycle .authors").html(this.data[this.displayIndex].authors);
 
-	jQuery(".life-cycle a.paper-link").prop("href", this.data[this.displayIndex].hyperlink);
+	if (this.data[this.displayIndex].hyperlink !== "0") {
+		if (jQuery(".life-cycle a.paper-link").hasClass('dead-link')) {
+			jQuery(".life-cycle a.paper-link").removeClass('dead-link');
+		}
+		jQuery(".life-cycle a.paper-link").prop("href", this.data[this.displayIndex].hyperlink);
+	} else {
+	if (!jQuery(".life-cycle a.paper-link").hasClass('dead-link')) {
+			jQuery(".life-cycle a.paper-link").addClass('dead-link');
+		}
+		jQuery(".life-cycle a.paper-link").prop("href", "#");
+	}
 	
 	jQuery(".life-cycle .journal").text(this.data[this.displayIndex].journal);
 	jQuery(".life-cycle .volume").text(this.data[this.displayIndex].volume);

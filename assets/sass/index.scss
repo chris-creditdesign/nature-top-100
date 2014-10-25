@@ -85,6 +85,14 @@
 		margin: 10px 0 0;
 	}
 
+	// If the paper has no URL
+	.dead-link {
+		color: #333;
+		text-decoration: none;
+		font-style: normal;
+		pointer-events: none;
+	}
+
 	// Headline and standfirst  
 	// ===============================================
 	.head-stand {
@@ -200,21 +208,3 @@
 	}
 
 } // outer-wrapper
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
