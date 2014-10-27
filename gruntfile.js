@@ -113,6 +113,49 @@ module.exports = function(grunt){
 						'assets/concat/script-close.txt',
 						],
 				dest: 'dist/index.html'
+			},
+			iFrameIndex: {
+				src: [	
+						'assets/concat/iframe-header.html',
+						'assets/concat/style-open.txt',
+						'assets/css/index.css',
+						'assets/concat/style-close.txt',
+						'assets/widget.html',
+						'assets/concat/script-open.txt',
+						
+						'assets/js/thRoData.min.js',
+
+						'assets/js/pubsub.js',
+						'assets/js/tenOrOne.js',
+						'assets/js/getColour.js',
+						'assets/js/buildDataSet.js',
+						'assets/js/comparePaper.js',
+
+						'assets/js/BuildWidget.js',
+
+						'assets/js/buildGraphic.js',
+						'assets/js/buildScales.js',
+						'assets/js/buildAxes.js',
+						'assets/js/buildBrush.js',
+						'assets/js/updateBars.js',
+						'assets/js/mainBars.js',
+						'assets/js/miniBars.js',
+						'assets/js/mainPaths.js',
+						'assets/js/miniPaths.js',
+						'assets/js/numbers.js',
+						'assets/js/updatePointer.js',
+
+						'assets/js/controller.js',
+						'assets/js/upDateButtons.js',
+						'assets/js/buildLifeCycle.js',
+						'assets/js/populateInfoBox.js',
+						'assets/js/createKey.js',
+						
+						'assets/js/index.js',
+						'assets/concat/script-close.txt',
+						'assets/concat/iframe-footer.html'
+						],
+				dest: 'iframe/index.html'
 			}
 		},
 

@@ -1,0 +1,173 @@
+html{
+	height: 100%;
+}
+body {
+	min-height: 100%;
+	background: #cbcbcb url(body-bg.png) 50% 0 repeat-x;
+	line-height: 1.538em;
+}
+#article,
+.popup {
+	font-size: 111.5%;
+	line-height: 1.65em;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+ul,
+ol,
+dl {
+	margin: 0 0 1.65em;
+}
+.content h2,
+.content h3,
+.content h4,
+.content h5 {
+	margin: 0;
+}
+
+#extranav p, 
+#extranav h1,
+#extranav h2, 
+#extranav h3, 
+#extranav h4,
+#extranav h5, 
+#extranav ul, 
+#extranav ol, 
+#extranav dl, 
+#extranav .box, 
+#extranav .ad {
+	margin: 0 0 18px;
+}
+#extranav .box {
+	padding: 9px 9px 6px;
+}
+#extranav .box h1,
+#extranav .box h2,
+#extranav .box p,
+#extranav .box ul,
+#extranav .box ol {
+	margin-bottom: 3px;
+}
+
+
+.ad img,
+.ad embed,
+.ad object,
+.ad iframe {
+	display: block;
+	margin: 0 auto;
+}
+
+.hidden {
+	position: absolute;
+	left: -9999em;
+}
+
+
+#constrain {
+	margin: 0 auto;
+/*	min-width: 468px;*/
+	max-width: 980px;
+}
+#constrain-header,
+#constrain-content,
+#constrain-footer {
+	clear: both;
+}
+#constrain-content {
+	padding: 18px 330px 20px 6px;
+	background: #fff;
+}
+#constrain-content.single-column {
+	padding-right: 6px;
+}
+#constrain-footer {
+	padding: 0 6px;
+	background: #fff;
+}
+#header {
+	border-bottom: 2px solid #fff;
+}
+#main {
+	padding: 6px;
+	background: #fff;
+	-webkit-box-shadow: 1px -3px 4px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px -3px 4px rgba(0,0,0,0.3);
+	box-shadow: 1px -3px 4px rgba(0,0,0,0.3);
+}
+#leaderboard {
+	padding: 6px;
+	-webkit-box-shadow: 1px 0 4px rgba(0,0,0,0.3);
+	-moz-box-shadow: 1px 0 4px rgba(0,0,0,0.3);
+	box-shadow: 1px 0 4px rgba(0,0,0,0.3);
+}
+#content {
+	width: 100%;
+	min-width: 300px;
+}
+.ie6 #constrain,
+.ie7 #constrain {
+	width: 980px;
+}
+
+#extranav {
+	width: 300px;
+	margin: 0 -324px 0 0;
+	padding: 0 0 0 24px;
+	font-size: 92.3%;
+	line-height: 1.489em;
+}
+.col {
+	float: left;
+	position: relative;
+}
+.ie6 #content,
+.ie6 #extranav {
+	overflow: hidden;
+}
+
+.section {
+	clear: both;
+	margin: 0 0 15px;
+}
+
+
+.cols {
+	width: 100%;
+}
+.cols .col {
+	width: 50%;
+	float: left;
+}
+.cols .left .col-section {
+	padding: 0 10px 0 0;
+}
+.cols .right .col-section {
+	padding: 0 0 0 10px;
+}
+
+/* clearing */
+.cleared:after {
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: ' ';
+	clear: both;
+	height: 0;
+}
+.cleared {
+	display: inline-block;
+}
+/* start commented backslash hack \*/
+.ie6 .cleared {
+	height: 1%;
+}
+.cleared {
+	display: block;
+}
+/* close commented backslash hack */

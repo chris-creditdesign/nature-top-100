@@ -1,0 +1,27 @@
+
+.feed {
+	padding: 4px 0;
+}
+.feed li {
+	padding: 4px 0;
+}
+.feed .time {
+	font-style: italic;
+}
+.feed .timestamp {
+	margin: 0;
+}
+#extranav .twitter-feed {
+	border: 1px solid #c7e6e0;
+	padding: 5px 9px 5px 69px;
+	background: #def7f4 url(/polopoly_static/img/nature/news/bg-twitter.jpg) no-repeat 0 0;
+}
+.twitter-feed .feed {
+	padding: 0;
+}
+.twitter-feed blockquote:before {
+	content: '\201C';
+}
+.twitter-feed blockquote:after {
+	content: '\201D';
+}
