@@ -140,7 +140,7 @@ var top100 = [
     "cites":38600,
     "doi":"10.1080/01621459.1958.10501452",
     "hyperlink":"http://dx.doi.org/10.1080/01621459.1958.10501452",
-    "discipline":"Statistics"
+    "discipline":"Medical statistics"
   },
   {
     "lead_author":"Atlschul_1990",
@@ -218,7 +218,7 @@ var top100 = [
     "cites":34532,
     "doi":"10.1016/0022-3956(75)90026-6",
     "hyperlink":"http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=1202204&dopt=Abstract",
-    "discipline":"Psychology"
+    "discipline":"Psychology/psychiatry"
   },
   {
     "lead_author":"Bligh_1959",
@@ -309,7 +309,7 @@ var top100 = [
     "cites":28439,
     "doi":"0",
     "hyperlink":"0",
-    "discipline":"Statistics"
+    "discipline":"Medical statistics"
   },
   {
     "lead_author":"Becke_1988",
@@ -374,7 +374,7 @@ var top100 = [
     "cites":23826,
     "doi":"10.1016/S0140-6736(86)90837-8",
     "hyperlink":"http://dx.doi.org/10.1016/S0140-6736(86)90837-8",
-    "discipline":"Statistics"
+    "discipline":"Medical statistics"
   },
   {
     "lead_author":"Weber_1969",
@@ -426,7 +426,7 @@ var top100 = [
     "cites":23356,
     "doi":"10.1037/0022-3514.51.6.1173",
     "hyperlink":"0",
-    "discipline":"Psychology"
+    "discipline":"Psychology/psychiatry"
   },
   {
     "lead_author":"Kohn_1965",
@@ -483,7 +483,7 @@ var top100 = [
   {
     "lead_author":"Davis_1964",
     "authors":"Davis, B. J.",
-    "title":"Disc electrophoresis  &mdash; II. Method and application to human serum proteins.",
+    "title":"Disc electrophoresis &mdash; II. Method and application to human serum proteins.",
     "journal":"Ann. New York Acad. Sci.",
     "volume":121,
     "page":"404&ndash;427",
@@ -595,7 +595,7 @@ var top100 = [
     "cites":18203,
     "doi":"10.1016/S0019-9958(65)90241-X",
     "hyperlink":"http://dx.doi.org/10.1016/S0019-9958(65)90241-X",
-    "discipline":"Mathematics"
+    "discipline":"Mathematics/statistics"
   },
   {
     "lead_author":"Sheldrick_1990",
@@ -642,7 +642,7 @@ var top100 = [
     "title":"Study of the conditions and mechanism of the diphenylamine reaction for the colorimetric estimation of deoxyribonucleic acid.",
     "journal":"Biochem. J.",
     "volume":62,
-    "page":"315&ndash;323",
+    "page":"315-323",
     "pub-year":1956,
     "cites":17067,
     "doi":"0",
@@ -660,7 +660,7 @@ var top100 = [
     "cites":17055,
     "doi":"10.1177/014662167700100306",
     "hyperlink":"http://dx.doi.org/10.1177/014662167700100306",
-    "discipline":"Psychology"
+    "discipline":"Psychology/psychiatry"
   },
   {
     "lead_author":"Hamill_1981",
@@ -686,7 +686,7 @@ var top100 = [
     "cites":16734,
     "doi":"10.1136/jnnp.23.1.56",
     "hyperlink":"http://dx.doi.org/10.1136/jnnp.23.1.56",
-    "discipline":"Biology lab technique"
+    "discipline":"Psychology/psychiatry"
   },
   {
     "lead_author":"Beck_1961",
@@ -699,7 +699,7 @@ var top100 = [
     "cites":16264,
     "doi":"10.1001/archpsyc.1961.01710120031004",
     "hyperlink":"http://dx.doi.org/10.1001/archpsyc.1961.01710120031004",
-    "discipline":"Psychology"
+    "discipline":"Psychology/psychiatry"
   },
   {
     "lead_author":"Kyte_1982",
@@ -738,7 +738,7 @@ var top100 = [
     "cites":15993,
     "doi":"0",
     "hyperlink":"0",
-    "discipline":"Statistics"
+    "discipline":"Mathematics/statistics"
   },
   {
     "lead_author":"Metropolis_1953",
@@ -751,7 +751,7 @@ var top100 = [
     "cites":15902,
     "doi":"10.1063/1.1699114",
     "hyperlink":"http://dx.doi.org/10.1063/1.1699114",
-    "discipline":"Mathematics"
+    "discipline":"Mathematics/statistics"
   },
   {
     "lead_author":"Benjamini_1995",
@@ -764,7 +764,7 @@ var top100 = [
     "cites":15898,
     "doi":"0",
     "hyperlink":"0",
-    "discipline":"Statistics"
+    "discipline":"Mathematics/statistics"
   },
   {
     "lead_author":"Smith_1985",
@@ -790,7 +790,7 @@ var top100 = [
     "cites":15517,
     "doi":"10.1016/0028-3932(71)90067-4",
     "hyperlink":"http://dx.doi.org/10.1016/0028-3932(71)90067-4",
-    "discipline":"Psychology"
+    "discipline":"Psychology/psychiatry"
   },
   {
     "lead_author":"Friedewa_1972",
@@ -829,7 +829,7 @@ var top100 = [
     "cites":15047,
     "doi":"10.2307/3001478",
     "hyperlink":"0",
-    "discipline":"Statistics"
+    "discipline":"Mathematics/statistics"
   },
   {
     "lead_author":"Novoselov_2004",
@@ -881,7 +881,7 @@ var top100 = [
     "cites":14903,
     "doi":"10.2307/2529310",
     "hyperlink":"http://dx.doi.org/10.2307/2529310",
-    "discipline":"Statistics"
+    "discipline":"Mathematics/statistics"
   },
   {
     "lead_author":"Brunger_1998",
@@ -907,7 +907,7 @@ var top100 = [
     "cites":14617,
     "doi":"10.1063/1.456153",
     "hyperlink":"http://dx.doi.org/10.1063/1.456153",
-    "discipline":"Mathematics"
+    "discipline":"Mathematics/statistics"
   },
   {
     "lead_author":"Laskowski_1993",
@@ -946,7 +946,7 @@ var top100 = [
     "cites":14275,
     "doi":"10.1109/TAC.1974.1100705",
     "hyperlink":"http://dx.doi.org/10.1109/TAC.1974.1100705",
-    "discipline":"Statistics"
+    "discipline":"Mathematics/statistics"
   },
   {
     "lead_author":"Yanischperron_1985",
@@ -1141,7 +1141,7 @@ var top100 = [
     "cites":13258,
     "doi":"10.1137/0111030",
     "hyperlink":"http://dx.doi.org/10.1137/0111030",
-    "discipline":"Mathematics"
+    "discipline":"Mathematics/statistics"
   },
   {
     "lead_author":"Kresse_1996_2",
@@ -1266,7 +1266,7 @@ var top100 = [
     "title":"Homeostasis model assessment: insulin resistance and beta-cell function from fasting plasma glucose and insulin concentrations in man.",
     "journal":"Diabetologia",
     "volume":28,
-    "page":"412&ndash;419",
+    "page":"412-419",
     "pub-year":1985,
     "cites":12257,
     "doi":"0",
@@ -1292,24 +1292,11 @@ var top100 = [
     "title":"MrBayes 3: Bayesian phylogenetic inference under mixed models",
     "journal":"Bioinformatics",
     "volume":19,
-    "page":"1572&ndash;1574",
+    "page":"1572-1574",
     "pub-year":2003,
     "cites":12209,
     "doi":"10.1093/bioinformatics/btg180",
     "hyperlink":"http://dx.doi.org/10.1093/bioinformatics/btg180",
     "discipline":"Phylogenetics"
-  },
-  {
-    "lead_author":"Ross_1999",
-    "authors":"Ross, R.",
-    "title":"Atherosclerosis &mdash; an inflammatory disease.",
-    "journal":"N. Engl. J. Med.",
-    "volume":340,
-    "page":"115&ndash;126",
-    "pub-year":1999,
-    "cites":12119,
-    "doi":"10.1056/NEJM199901143400207",
-    "hyperlink":"http://dx.doi.org/10.1056/NEJM199901143400207",
-    "discipline":"Medicine"
   }
 ];

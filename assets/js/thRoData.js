@@ -1622,7 +1622,7 @@ var thRoData = [
     "cites": 38600,
     "doi": "10.1080/01621459.1958.10501452",
     "hyperlink": "http://dx.doi.org/10.1080/01621459.1958.10501452",
-    "discipline": "Statistics",
+    "discipline": "Medical statistics",
     "lifeCycle": [
       {
         "year": "1959",
@@ -2394,7 +2394,7 @@ var thRoData = [
     "cites": 34532,
     "doi": "10.1016/0022-3956(75)90026-6",
     "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=1202204&dopt=Abstract",
-    "discipline": "Psychology",
+    "discipline": "Psychology/psychiatry",
     "lifeCycle": [
       {
         "year": "1977",
@@ -3402,7 +3402,7 @@ var thRoData = [
     "cites": 28439,
     "doi": "0",
     "hyperlink": "0",
-    "discipline": "Statistics",
+    "discipline": "Medical statistics",
     "lifeCycle": [
       {
         "year": "1973",
@@ -4242,7 +4242,7 @@ var thRoData = [
     "cites": 23826,
     "doi": "10.1016/S0140-6736(86)90837-8",
     "hyperlink": "http://dx.doi.org/10.1016/S0140-6736(86)90837-8",
-    "discipline": "Statistics",
+    "discipline": "Medical statistics",
     "lifeCycle": [
       {
         "year": "1986",
@@ -4990,7 +4990,7 @@ var thRoData = [
     "cites": 23356,
     "doi": "10.1037/0022-3514.51.6.1173",
     "hyperlink": "0",
-    "discipline": "Psychology",
+    "discipline": "Psychology/psychiatry",
     "lifeCycle": [
       {
         "year": "1987",
@@ -5922,7 +5922,7 @@ var thRoData = [
   {
     "lead_author": "Davis_1964",
     "authors": "Davis, B. J.",
-    "title": "Disc electrophoresis  &mdash; II. Method and application to human serum proteins.",
+    "title": "Disc electrophoresis &mdash; II. Method and application to human serum proteins.",
     "journal": "Ann. New York Acad. Sci.",
     "volume": 121,
     "page": "404&ndash;427",
@@ -7050,7 +7050,7 @@ var thRoData = [
     "cites": 18203,
     "doi": "10.1016/S0019-9958(65)90241-X",
     "hyperlink": "http://dx.doi.org/10.1016/S0019-9958(65)90241-X",
-    "discipline": "Mathematics",
+    "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
         "year": "1967",
@@ -7661,7 +7661,7 @@ var thRoData = [
     "title": "Study of the conditions and mechanism of the diphenylamine reaction for the colorimetric estimation of deoxyribonucleic acid.",
     "journal": "Biochem. J.",
     "volume": 62,
-    "page": "315&ndash;323",
+    "page": "315-323",
     "pub-year": 1956,
     "cites": 17067,
     "doi": "0",
@@ -7910,8 +7910,158 @@ var thRoData = [
     "cites": 17055,
     "doi": "10.1177/014662167700100306",
     "hyperlink": "http://dx.doi.org/10.1177/014662167700100306",
-    "discipline": "Psychology",
-    "lifeCycle": []
+    "discipline": "Psychology/psychiatry",
+    "lifeCycle": [
+        { 
+          "year": "1977",
+          "cites": 0
+        },
+        { 
+          "year": "1978",
+          "cites": 1
+        },
+        { 
+          "year": "1979",
+          "cites": 1
+        },
+        { 
+          "year": "1980",
+          "cites": 8
+        },
+        { 
+          "year": "1981",
+          "cites": 19
+        },
+        { 
+          "year": "1982",
+          "cites": 31
+        },
+        { 
+          "year": "1983",
+          "cites": 25
+        },
+        { 
+          "year": "1984",
+          "cites": 29
+        },
+        { 
+          "year": "1985",
+          "cites": 67
+        },
+        { 
+          "year": "1986",
+          "cites": 74
+        },
+        { 
+          "year": "1987",
+          "cites": 76
+        },
+        { 
+          "year": "1988",
+          "cites": 98
+        },
+        { 
+          "year": "1989",
+          "cites": 129
+        },
+        { 
+          "year": "1990",
+          "cites": 159
+        },
+        { 
+          "year": "1991",
+          "cites": 154
+        },
+        { 
+          "year": "1992",
+          "cites": 207
+        },
+        { 
+          "year": "1993",
+          "cites": 216
+        },
+        { 
+          "year": "1994",
+          "cites": 230
+        },
+        { 
+          "year": "1995",
+          "cites": 328
+        },
+        { 
+          "year": "1996",
+          "cites": 323
+        },
+        { 
+          "year": "1997",
+          "cites": 399
+        },
+        { 
+          "year": "1998",
+          "cites": 431
+        },
+        { 
+          "year": "1999",
+          "cites": 443
+        },
+        { 
+          "year": "2000",
+          "cites": 486
+        },
+        { 
+          "year": "2001",
+          "cites": 527
+        },
+        { 
+          "year": "2002",
+          "cites": 580
+        },
+        { 
+          "year": "2003",
+          "cites": 659
+        },
+        { 
+          "year": "2004",
+          "cites": 629
+        },
+        { 
+          "year": "2005",
+          "cites": 217
+        },
+        { 
+          "year": "2006",
+          "cites": 260
+        },
+        { 
+          "year": "2007",
+          "cites": 826
+        },
+        { 
+          "year": "2008",
+          "cites": 1117
+        },
+        { 
+          "year": "2009",
+          "cites": 1356
+        },
+        { 
+          "year": "2010",
+          "cites": 1223
+        },
+        { 
+          "year": "2011",
+          "cites": 1440
+        },
+        { 
+          "year": "2012",
+          "cites": 1543
+        },
+        { 
+          "year": "2013",
+          "cites": 1671
+        }
+    ],
+    "total": 17202
   },
   {
     "lead_author": "Hamill_1981",
@@ -8072,7 +8222,7 @@ var thRoData = [
     "cites": 16734,
     "doi": "10.1136/jnnp.23.1.56",
     "hyperlink": "http://dx.doi.org/10.1136/jnnp.23.1.56",
-    "discipline": "Biology lab technique",
+    "discipline": "Psychology/psychiatry",
     "lifeCycle": [
       {
         "year": "1961",
@@ -8300,7 +8450,7 @@ var thRoData = [
     "cites": 16264,
     "doi": "10.1001/archpsyc.1961.01710120031004",
     "hyperlink": "http://dx.doi.org/10.1001/archpsyc.1961.01710120031004",
-    "discipline": "Psychology",
+    "discipline": "Psychology/psychiatry",
     "lifeCycle": [
       {
         "year": "1961",
@@ -8948,7 +9098,7 @@ var thRoData = [
     "cites": 15993,
     "doi": "0",
     "hyperlink": "0",
-    "discipline": "Statistics",
+    "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
         "year": "1977",
@@ -9112,7 +9262,7 @@ var thRoData = [
     "cites": 15902,
     "doi": "10.1063/1.1699114",
     "hyperlink": "http://dx.doi.org/10.1063/1.1699114",
-    "discipline": "Mathematics",
+    "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
         "year": "1954",
@@ -9360,7 +9510,7 @@ var thRoData = [
     "cites": 15898,
     "doi": "0",
     "hyperlink": "0",
-    "discipline": "Statistics",
+    "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
         "year": "1996",
@@ -9576,7 +9726,7 @@ var thRoData = [
     "cites": 15517,
     "doi": "10.1016/0028-3932(71)90067-4",
     "hyperlink": "http://dx.doi.org/10.1016/0028-3932(71)90067-4",
-    "discipline": "Psychology",
+    "discipline": "Psychology/psychiatry",
     "lifeCycle": [
       {
         "year": "1972",
@@ -10060,7 +10210,7 @@ var thRoData = [
     "cites": 15047,
     "doi": "10.2307/3001478",
     "hyperlink": "0",
-    "discipline": "Statistics",
+    "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
         "year": "1955",
@@ -10792,7 +10942,7 @@ var thRoData = [
     "cites": 14903,
     "doi": "10.2307/2529310",
     "hyperlink": "http://dx.doi.org/10.2307/2529310",
-    "discipline": "Statistics",
+    "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
         "year": "1977",
@@ -11036,7 +11186,7 @@ var thRoData = [
     "cites": 14617,
     "doi": "10.1063/1.456153",
     "hyperlink": "http://dx.doi.org/10.1063/1.456153",
-    "discipline": "Mathematics",
+    "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
         "year": "1989",
@@ -11356,7 +11506,7 @@ var thRoData = [
     "cites": 14275,
     "doi": "10.1109/TAC.1974.1100705",
     "hyperlink": "http://dx.doi.org/10.1109/TAC.1974.1100705",
-    "discipline": "Statistics",
+    "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
         "year": "1975",
@@ -13492,7 +13642,7 @@ var thRoData = [
     "cites": 13258,
     "doi": "10.1137/0111030",
     "hyperlink": "http://dx.doi.org/10.1137/0111030",
-    "discipline": "Mathematics",
+    "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
         "year": "1964",
@@ -14843,7 +14993,7 @@ var thRoData = [
     "title": "Homeostasis model assessment: insulin resistance and beta-cell function from fasting plasma glucose and insulin concentrations in man.",
     "journal": "Diabetologia",
     "volume": 28,
-    "page": "412&ndash;419",
+    "page": "412-419",
     "pub-year": 1985,
     "cites": 12257,
     "doi": "0",
@@ -15291,7 +15441,7 @@ var thRoData = [
     "title": "MrBayes 3: Bayesian phylogenetic inference under mixed models",
     "journal": "Bioinformatics",
     "volume": 19,
-    "page": "1572&ndash;1574",
+    "page": "1572-1574",
     "pub-year": 2003,
     "cites": 12209,
     "doi": "10.1093/bioinformatics/btg180",
