@@ -22,6 +22,13 @@ module.exports = function(grunt){
 				src : 'assets/js/*.js'
 			},
 		},
+	  	uglify: {
+			my_target: {
+				files: {
+				'assets/js/thRoData.min.js': ['assets/js/thRoData.js']
+				}
+			}
+		},
 		concat: {
 			buildIndex: {
 				src: [	
@@ -32,7 +39,7 @@ module.exports = function(grunt){
 						'assets/widget.html',
 						'assets/concat/script-open.txt',
 						
-						'assets/js/thRoData.js',
+						'assets/js/thRoData.min.js',
 
 						'assets/js/pubsub.js',
 						'assets/js/tenOrOne.js',
@@ -74,7 +81,7 @@ module.exports = function(grunt){
 						'assets/widget.html',
 						'assets/concat/script-open.txt',
 						
-						'assets/js/thRoData.js',
+						'assets/js/thRoData.min.js',
 
 						'assets/js/pubsub.js',
 						'assets/js/tenOrOne.js',
