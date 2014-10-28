@@ -39,7 +39,7 @@ module.exports = function(grunt){
 						'assets/widget.html',
 						'assets/concat/script-open.txt',
 						
-						'assets/js/thRoData.min.js',
+						// 'assets/js/thRoData.min.js',
 
 						'assets/js/pubsub.js',
 						'assets/js/tenOrOne.js',
@@ -81,7 +81,7 @@ module.exports = function(grunt){
 						'assets/widget.html',
 						'assets/concat/script-open.txt',
 						
-						'assets/js/thRoData.min.js',
+						// 'assets/js/thRoData.min.js',
 
 						'assets/js/pubsub.js',
 						'assets/js/tenOrOne.js',
@@ -123,7 +123,7 @@ module.exports = function(grunt){
 						'assets/widget.html',
 						'assets/concat/script-open.txt',
 						
-						'assets/js/thRoData.min.js',
+						// 'assets/js/thRoData.min.js',
 
 						'assets/js/pubsub.js',
 						'assets/js/tenOrOne.js',
