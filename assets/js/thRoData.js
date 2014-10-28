@@ -9,7 +9,7 @@ var thRoData = [
     "pub-year": 1951,
     "cites": 305148,
     "doi": "0",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=14907713&dopt=Abstract",
+    "hyperlink": "http://www.jbc.org/content/193/1/265.long",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -266,7 +266,7 @@ var thRoData = [
   {
     "lead_author": "Laemmli_1970",
     "authors": "Laemmli, U. K.",
-    "title": "Cleavage of structural proteins during assembly of head of bacteriophage-T4.",
+    "title": "Cleavage of structural proteins during the assembly of the head of bacteriophage T4.",
     "journal": "Nature",
     "volume": 227,
     "page": "680&ndash;685",
@@ -458,7 +458,7 @@ var thRoData = [
   {
     "lead_author": "Bradford_1976",
     "authors": "Bradford, M. M.",
-    "title": "Rapid and sensitive method for quantitation of microgram quantities of protein utilizing principle of protein-dye binding.",
+    "title": "A rapid and sensitive method for the quantitation of microgram quantities of protein utilizing the principle of protein-dye binding.",
     "journal": "Anal. Biochem.",
     "volume": 72,
     "page": "248&ndash;254",
@@ -628,8 +628,8 @@ var thRoData = [
     "page": "5463&ndash;5467",
     "pub-year": 1977,
     "cites": 65335,
-    "doi": "10.1073/Pnas.74.12.5463",
-    "hyperlink": "0",
+    "doi": "10.1073/Pnas.74.12.5463 http://dx.doi.org/10.1073/Pnas.74.12.5463",
+    "hyperlink": "http://dx.doi.org/10.1073/Pnas.74.12.5463",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -782,14 +782,14 @@ var thRoData = [
   {
     "lead_author": "Chomczynski_1987",
     "authors": "Chomczynski, P. & Sacchi, N.",
-    "title": "Single-step method of RNA isolation by acid guanidinium thiocyanate phenol chloroform extraction.",
+    "title": "Single-step method of RNA isolation by acid guanidinium thiocyanate-phenol-chloroform extraction.",
     "journal": "Anal. Biochem.",
     "volume": 162,
     "page": "156&ndash;159",
     "pub-year": 1987,
     "cites": 60397,
-    "doi": "10.1006/Abio.1987.9999",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=2440339&dopt=Abstract",
+    "doi": "10.1016/0003-2697(87)90021-2",
+    "hyperlink": "http://dx.doi.org/10.1016/0003-2697(87)90021-2",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -906,7 +906,7 @@ var thRoData = [
   {
     "lead_author": "Towbin_1979",
     "authors": "Towbin, H., Staehelin, T. & Gordon, J.",
-    "title": "Electrophoretic transfer of proteins from polyacrylamide gels to nitrocellulose sheets &mdash; procedure and some applications.",
+    "title": "Electrophoretic transfer of proteins from polyacrylamide gels to nitrocellulose sheets: procedure and some applications.",
     "journal": "Proc. Natl Acad. Sci. USA",
     "volume": 76,
     "page": "4350&ndash;4354",
@@ -1285,7 +1285,7 @@ var thRoData = [
     "pub-year": 1957,
     "cites": 45131,
     "doi": "0",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=13428781&dopt=Abstract",
+    "hyperlink": "http://www.jbc.org/content/226/1/497.long",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -2393,7 +2393,7 @@ var thRoData = [
     "pub-year": 1975,
     "cites": 34532,
     "doi": "10.1016/0022-3956(75)90026-6",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=1202204&dopt=Abstract",
+    "hyperlink": "http://dx.doi.org/10.1016/0022-3956(75)90026-6",
     "discipline": "Psychology/psychiatry",
     "lifeCycle": [
       {
@@ -2961,7 +2961,7 @@ var thRoData = [
     "pub-year": 1987,
     "cites": 30176,
     "doi": "0",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=3447015&dopt=Abstract",
+    "hyperlink": "http://mbe.oxfordjournals.org/content/4/4/406.long",
     "discipline": "Phylogenetics",
     "lifeCycle": [
       {
@@ -3317,7 +3317,7 @@ var thRoData = [
     "pub-year": 1997,
     "cites": 28647,
     "doi": "10.1016/S0076-6879(97)76066-X",
-    "hyperlink": "0",
+    "hyperlink": "http://dx.doi.org/10.1016/S0076-6879(97)76066-X",
     "discipline": "Crystallography",
     "lifeCycle": [
       {
@@ -3401,7 +3401,7 @@ var thRoData = [
     "pub-year": 1972,
     "cites": 28439,
     "doi": "0",
-    "hyperlink": "0",
+    "hyperlink": "http://www.jstor.org/discover/10.2307/2985181?uid=3739256&uid=2&uid=4&sid=21104904748827",
     "discipline": "Medical statistics",
     "lifeCycle": [
       {
@@ -4369,7 +4369,7 @@ var thRoData = [
     "pub-year": 1969,
     "cites": 23642,
     "doi": "0",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=5806584&dopt=Abstract",
+    "hyperlink": "http://www.jbc.org/content/244/16/4406",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -4713,11 +4713,11 @@ var thRoData = [
     "title": "The attractions of proteins for small molecules and ions.",
     "journal": "Ann. New York Acad. Sci.",
     "volume": 51,
-    "page": "660-672",
+    "page": "660&ndash;672",
     "pub-year": 1949,
     "cites": 23421,
     "doi": "10.1111/J.1749-6632.1949.Tb27297.X",
-    "hyperlink": "0",
+    "hyperlink": "http://dx.doi.org/10.1111/J.1749-6632.1949.Tb27297.X",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -4989,7 +4989,7 @@ var thRoData = [
     "pub-year": 1986,
     "cites": 23356,
     "doi": "10.1037/0022-3514.51.6.1173",
-    "hyperlink": "0",
+    "hyperlink": "http://dx.doi.org/10.1037/0022-3514.51.6.1173",
     "discipline": "Psychology/psychiatry",
     "lifeCycle": [
       {
@@ -5561,7 +5561,7 @@ var thRoData = [
     "pub-year": 1925,
     "cites": 22690,
     "doi": "0",
-    "hyperlink": "0",
+    "hyperlink": "http://www.jbc.org/content/66/2/375.citation",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -5929,7 +5929,7 @@ var thRoData = [
     "pub-year": 1964,
     "cites": 22074,
     "doi": "10.1111/J.1749-6632.1964.Tb14213.X",
-    "hyperlink": "0",
+    "hyperlink": "http://dx.doi.org/10.1111/J.1749-6632.1964.Tb14213.X",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -6489,7 +6489,7 @@ var thRoData = [
     "pub-year": 1985,
     "cites": 21373,
     "doi": "10.2307/2408678",
-    "hyperlink": "0",
+    "hyperlink": "http://dx.doi.org/10.2307/2408678",
     "discipline": "Phylogenetics",
     "lifeCycle": [
       {
@@ -6617,7 +6617,7 @@ var thRoData = [
     "pub-year": 1985,
     "cites": 19561,
     "doi": "0",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=3838314&dopt=Abstract",
+    "hyperlink": "http://www.jbc.org/content/260/6/3440.long",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -6833,7 +6833,7 @@ var thRoData = [
     "pub-year": 1975,
     "cites": 18489,
     "doi": "0",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=236308&dopt=Abstract",
+    "hyperlink": "http://www.jbc.org/content/250/10/4007.long",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -7665,7 +7665,7 @@ var thRoData = [
     "pub-year": 1956,
     "cites": 17067,
     "doi": "0",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=13293190&dopt=Abstract",
+    "hyperlink": "http://www.ncbi.nlm.nih.gov/pmc/articles/PMC1215910/",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -7912,154 +7912,154 @@ var thRoData = [
     "hyperlink": "http://dx.doi.org/10.1177/014662167700100306",
     "discipline": "Psychology/psychiatry",
     "lifeCycle": [
-        { 
-          "year": "1977",
-          "cites": 0
-        },
-        { 
-          "year": "1978",
-          "cites": 1
-        },
-        { 
-          "year": "1979",
-          "cites": 1
-        },
-        { 
-          "year": "1980",
-          "cites": 8
-        },
-        { 
-          "year": "1981",
-          "cites": 19
-        },
-        { 
-          "year": "1982",
-          "cites": 31
-        },
-        { 
-          "year": "1983",
-          "cites": 25
-        },
-        { 
-          "year": "1984",
-          "cites": 29
-        },
-        { 
-          "year": "1985",
-          "cites": 67
-        },
-        { 
-          "year": "1986",
-          "cites": 74
-        },
-        { 
-          "year": "1987",
-          "cites": 76
-        },
-        { 
-          "year": "1988",
-          "cites": 98
-        },
-        { 
-          "year": "1989",
-          "cites": 129
-        },
-        { 
-          "year": "1990",
-          "cites": 159
-        },
-        { 
-          "year": "1991",
-          "cites": 154
-        },
-        { 
-          "year": "1992",
-          "cites": 207
-        },
-        { 
-          "year": "1993",
-          "cites": 216
-        },
-        { 
-          "year": "1994",
-          "cites": 230
-        },
-        { 
-          "year": "1995",
-          "cites": 328
-        },
-        { 
-          "year": "1996",
-          "cites": 323
-        },
-        { 
-          "year": "1997",
-          "cites": 399
-        },
-        { 
-          "year": "1998",
-          "cites": 431
-        },
-        { 
-          "year": "1999",
-          "cites": 443
-        },
-        { 
-          "year": "2000",
-          "cites": 486
-        },
-        { 
-          "year": "2001",
-          "cites": 527
-        },
-        { 
-          "year": "2002",
-          "cites": 580
-        },
-        { 
-          "year": "2003",
-          "cites": 659
-        },
-        { 
-          "year": "2004",
-          "cites": 629
-        },
-        { 
-          "year": "2005",
-          "cites": 217
-        },
-        { 
-          "year": "2006",
-          "cites": 260
-        },
-        { 
-          "year": "2007",
-          "cites": 826
-        },
-        { 
-          "year": "2008",
-          "cites": 1117
-        },
-        { 
-          "year": "2009",
-          "cites": 1356
-        },
-        { 
-          "year": "2010",
-          "cites": 1223
-        },
-        { 
-          "year": "2011",
-          "cites": 1440
-        },
-        { 
-          "year": "2012",
-          "cites": 1543
-        },
-        { 
-          "year": "2013",
-          "cites": 1671
-        }
+      {
+        "year": "1977",
+        "cites": 0
+      },
+      {
+        "year": "1978",
+        "cites": 1
+      },
+      {
+        "year": "1979",
+        "cites": 1
+      },
+      {
+        "year": "1980",
+        "cites": 8
+      },
+      {
+        "year": "1981",
+        "cites": 19
+      },
+      {
+        "year": "1982",
+        "cites": 31
+      },
+      {
+        "year": "1983",
+        "cites": 25
+      },
+      {
+        "year": "1984",
+        "cites": 29
+      },
+      {
+        "year": "1985",
+        "cites": 67
+      },
+      {
+        "year": "1986",
+        "cites": 74
+      },
+      {
+        "year": "1987",
+        "cites": 76
+      },
+      {
+        "year": "1988",
+        "cites": 98
+      },
+      {
+        "year": "1989",
+        "cites": 129
+      },
+      {
+        "year": "1990",
+        "cites": 159
+      },
+      {
+        "year": "1991",
+        "cites": 154
+      },
+      {
+        "year": "1992",
+        "cites": 207
+      },
+      {
+        "year": "1993",
+        "cites": 216
+      },
+      {
+        "year": "1994",
+        "cites": 230
+      },
+      {
+        "year": "1995",
+        "cites": 328
+      },
+      {
+        "year": "1996",
+        "cites": 323
+      },
+      {
+        "year": "1997",
+        "cites": 399
+      },
+      {
+        "year": "1998",
+        "cites": 431
+      },
+      {
+        "year": "1999",
+        "cites": 443
+      },
+      {
+        "year": "2000",
+        "cites": 486
+      },
+      {
+        "year": "2001",
+        "cites": 527
+      },
+      {
+        "year": "2002",
+        "cites": 580
+      },
+      {
+        "year": "2003",
+        "cites": 659
+      },
+      {
+        "year": "2004",
+        "cites": 629
+      },
+      {
+        "year": "2005",
+        "cites": 217
+      },
+      {
+        "year": "2006",
+        "cites": 260
+      },
+      {
+        "year": "2007",
+        "cites": 826
+      },
+      {
+        "year": "2008",
+        "cites": 1117
+      },
+      {
+        "year": "2009",
+        "cites": 1356
+      },
+      {
+        "year": "2010",
+        "cites": 1223
+      },
+      {
+        "year": "2011",
+        "cites": 1440
+      },
+      {
+        "year": "2012",
+        "cites": 1543
+      },
+      {
+        "year": "2013",
+        "cites": 1671
+      }
     ],
     "total": 17202
   },
@@ -8073,7 +8073,7 @@ var thRoData = [
     "pub-year": 1981,
     "cites": 17025,
     "doi": "10.1007/BF00656997",
-    "hyperlink": "0",
+    "hyperlink": "http://dx.doi.org/10.1007/BF00656997",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -8821,7 +8821,7 @@ var thRoData = [
     "pub-year": 1949,
     "cites": 16009,
     "doi": "0",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=18110453&dopt=Abstract",
+    "hyperlink": "http://www.jbc.org/content/177/2/751.citation",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -9097,7 +9097,7 @@ var thRoData = [
     "pub-year": 1977,
     "cites": 15993,
     "doi": "0",
-    "hyperlink": "0",
+    "hyperlink": "http://www.jstor.org/discover/10.2307/2984875?uid=3739256&uid=2&uid=4&sid=21104904748827",
     "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
@@ -9509,7 +9509,7 @@ var thRoData = [
     "pub-year": 1995,
     "cites": 15898,
     "doi": "0",
-    "hyperlink": "0",
+    "hyperlink": "http://www.jstor.org/discover/10.2307/2346101?uid=3739256&uid=2129&uid=2&uid=70&uid=4&sid=21104904748827",
     "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
@@ -9901,7 +9901,7 @@ var thRoData = [
   },
   {
     "lead_author": "Friedewa_1972",
-    "authors": "Friedewald, W. T., Fredrick, D. S. & Levy, R. I.",
+    "authors": "Friedewald, W. T., Levy, R. I. & Fredrickson, D. S.",
     "title": "Estimation of concentration of low-density lipoprotein cholesterol in plasma, without use of preparative ultracentrifuge.",
     "journal": "Clin. Chem.",
     "volume": 18,
@@ -9909,7 +9909,7 @@ var thRoData = [
     "pub-year": 1972,
     "cites": 15469,
     "doi": "0",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=4337382&dopt=Abstract",
+    "hyperlink": "http://www.clinchem.org/content/18/6/499.long",
     "discipline": "Medicine",
     "lifeCycle": [
       {
@@ -10209,7 +10209,7 @@ var thRoData = [
     "pub-year": 1955,
     "cites": 15047,
     "doi": "10.2307/3001478",
-    "hyperlink": "0",
+    "hyperlink": "http://dx.doi.org/10.2307/3001478",
     "discipline": "Mathematics/statistics",
     "lifeCycle": [
       {
@@ -10745,7 +10745,7 @@ var thRoData = [
     "pub-year": 1968,
     "cites": 14934,
     "doi": "0",
-    "hyperlink": "0",
+    "hyperlink": "http://www.ncbi.nlm.nih.gov/pubmed/4179068",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -12517,7 +12517,7 @@ var thRoData = [
     "pub-year": 1959,
     "cites": 13523,
     "doi": "0",
-    "hyperlink": "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?cmd=Retrieve&db=PubMed&list_uids=13641241&dopt=Abstract",
+    "hyperlink": "http://www.jbc.org/content/234/3/466.long",
     "discipline": "Biology lab technique",
     "lifeCycle": [
       {
@@ -14993,11 +14993,11 @@ var thRoData = [
     "title": "Homeostasis model assessment: insulin resistance and beta-cell function from fasting plasma glucose and insulin concentrations in man.",
     "journal": "Diabetologia",
     "volume": 28,
-    "page": "412-419",
+    "page": "412&ndash;419",
     "pub-year": 1985,
     "cites": 12257,
     "doi": "0",
-    "hyperlink": "0",
+    "hyperlink": "http://link.springer.com/article/10.1007%2FBF00280883#page-1",
     "discipline": "Medicine",
     "lifeCycle": [
       {
@@ -15441,7 +15441,7 @@ var thRoData = [
     "title": "MrBayes 3: Bayesian phylogenetic inference under mixed models",
     "journal": "Bioinformatics",
     "volume": 19,
-    "page": "1572-1574",
+    "page": "1572&ndash;1574",
     "pub-year": 2003,
     "cites": 12209,
     "doi": "10.1093/bioinformatics/btg180",
