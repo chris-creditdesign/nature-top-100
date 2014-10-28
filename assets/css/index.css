@@ -4,6 +4,10 @@
   padding: 10px;
 }
 
+.js-enabled .status-message, .gt-ie8 .status-message {
+  display: none;
+}
+
 .outer-wrapper {
   width: 100%;
   position: relative;

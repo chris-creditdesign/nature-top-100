@@ -26,6 +26,11 @@
 	border: 1px solid #c00;
 	background: #fac7c7;
 	padding: 10px;
+
+}
+
+.js-enabled .status-message, .gt-ie8 .status-message {
+	display: none;
 }
 
 // Everything is contianed within the outer wrapper 
