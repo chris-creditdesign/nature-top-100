@@ -5,7 +5,7 @@
 		/*	==================================================================================== */
 		/*	jQuery ready */
 
-		$.getScript("http://localhost:8888/build/data/thRoData.min.js", function() {
+		$.getScript("http://www.nature.com/widget_assets_polopoly/thRoData.min.js", function() {
 
 				/*	==================================================================================== */
 				/*	Load D3 */
