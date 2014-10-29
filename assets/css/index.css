@@ -5,7 +5,7 @@
   display: none;
 }
 
-.ie6 .status-message, .ie7 .status-message, .ie8 .status-message {
+.js-disabled .status-message, .ie6 .status-message, .ie7 .status-message, .ie8 .status-message {
   display: block;
 }
 
