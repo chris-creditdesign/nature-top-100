@@ -2,7 +2,8 @@
 
 # Top 100 cited papers
 
-Infographic for @naturenews
+Infographic for [@naturenews](https://twitter.com/naturenews)
+Published at: [http://www.nature.com/news/the-top-100-papers-1.16224#/interactive](http://www.nature.com/news/the-top-100-papers-1.16224#/interactive)
 
 ### To do:
 
